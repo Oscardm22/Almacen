@@ -1,0 +1,124 @@
+package com.example.tiococo.ui.sales
+
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tiococo.R
+import com.example.tiococo.databinding.ActivitySalesBinding
+import com.example.tiococo.viewmodel.ProductViewModel
+import com.example.tiococo.adapter.ProductAdapter
+import com.example.tiococo.adapter.SaleProductsAdapter
+
+class SalesActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySalesBinding
+    private val viewModel: ProductViewModel by viewModels()
+    private lateinit var availableProductsAdapter: ProductAdapter
+    private lateinit var saleProductsAdapter: SaleProductsAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySalesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setupAdapters()
+        setupObservers()
+        setupUI()
+        setupSearchWithEditText()
+    }
+
+    private fun setupAdapters() {
+        availableProductsAdapter = ProductAdapter { product ->
+            // Añade producto con cantidad 0
+            viewModel.addToSale(product.copy(quantity = 0))
+        }
+
+        saleProductsAdapter = SaleProductsAdapter(
+            onRemoveClick = { product ->
+                viewModel.removeFromSale(product)
+            },
+            onQuantityChange = { product, newQuantity ->
+                if (newQuantity > 0) {
+                    viewModel.updateSaleProductQuantity(product, newQuantity)
+                } else {
+                    // Elimina si la cantidad es 0 o negativa
+                    viewModel.removeFromSale(product)
+                }
+            }
+        )
+
+        with(binding) {
+            rvAvailableProducts.apply {
+                layoutManager = LinearLayoutManager(this@SalesActivity)
+                adapter = availableProductsAdapter
+            }
+
+            rvSaleProducts.apply {
+                layoutManager = LinearLayoutManager(this@SalesActivity)
+                adapter = saleProductsAdapter
+            }
+        }
+    }
+
+    private fun setupObservers() {
+        viewModel.products.observe(this) { products ->
+            availableProductsAdapter.submitList(products)
+        }
+
+        viewModel.saleProducts.observe(this) { saleProducts ->
+            saleProductsAdapter.submitList(saleProducts)
+            // Lista vacía se manejará visualmente por el adaptador
+        }
+
+        viewModel.totalAmount.observe(this) { total ->
+            binding.tvTotal.text = getString(R.string.total_format, total)
+        }
+    }
+
+    private fun setupUI() {
+        binding.btnCompleteSale.setOnClickListener {
+            if (viewModel.saleProducts.value?.isNotEmpty() == true) {
+                viewModel.registerSale()
+                Toast.makeText(this, R.string.sale_registered, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, R.string.add_products_first, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnClearSale.setOnClickListener {
+            viewModel.clearSale()
+        }
+    }
+
+    private fun setupSearchWithEditText() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            private var lastSearchTime = 0L
+            private val SEARCH_DELAY = 300L
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                if (System.currentTimeMillis() - lastSearchTime > SEARCH_DELAY) {
+                    viewModel.searchProducts(s.toString())
+                    lastSearchTime = System.currentTimeMillis()
+                }
+            }
+        })
+
+        binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.searchProducts(binding.etSearch.text.toString())
+                true
+            } else {
+                false
+            }
+        }
+    }
+}

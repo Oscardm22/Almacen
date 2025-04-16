@@ -1,0 +1,112 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">TioCoco</string>
+    <string name="product_name_hint">Nombre del Producto</string>
+    <string name="quantity_hint">Cantidad: </string>
+    <string name="price_usd_hint">Precio $: </string>
+    <string name="price_ves_text">Precio (Bs):</string>
+    <string name="add_product_button">Agregar Producto</string>
+    <string name="login_button">Iniciar sesión</string>
+    <string name="username_hint">Nombre de usuario</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="logo_description">Logo de la app</string>
+    <string name="recuperar_contraseña">Recuperar contraseña</string>
+    <string name="return_login">Volver al login</string>
+    <string name="home_page">Bienvenido</string>
+    <string name="Tasa">Tasa del dia:</string>
+    <string name="Search_product" tools:ignore="TypographyEllipsis">Buscar producto...</string>
+    <string name="Register_Sale">Registrar Venta</string>
+    <string name="products_list_description">Lista de productos</string>
+    <string name="AddProduct">+</string>
+    <string name="btnOption1">Producto</string>
+    <string name="btnOption2">Venta</string>
+    <string name="name_product">Nombre del producto</string>
+    <string name="edit_product">Editar</string>
+    <string name="delete_product">Eliminar</string>
+    <string name="edit_description">Editar producto</string>
+    <string name="delete_description">Eliminar producto</string>
+    <string name="quantity_label">Cantidad: %d</string>
+    <string name="price_dollars_label">Precio: $%.2f</string>
+    <string name="price_bolivares_label">Precio: Bs. %.2f</string>
+    <string name="delete_button">Eliminar</string>
+    <string name="cancel_button">Cancelar</string>
+    <string name="stock_hint">Cantidad</string>
+    <string name="price_dollars_hint">Precio en dólares</string>
+    <string name="product_stock">Stock: %d</string>
+    <string name="price_bolivares">Precio (Bs): %.2f</string>
+    <string name="delete_confirmation_title">Eliminar Producto</string>
+    <string name="delete_confirmation_message">¿Estás seguro?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="stock_label">Stock: %d</string>
+    <string name="product_name">Nombre del Producto</string>
+    <string name="quantity">Cantidad</string>
+    <string name="price_dollars">Precio ($)</string>
+    <string name="save">Guardar Producto</string>
+    <string name="save_desc">save_desc</string>
+    <string name="seleccionar_productos">Seleccionar Productos</string>
+    <string name="registrar_venta">Registrar Venta</string>
+    <string name="add">Agregar</string>
+    <string name="search">Buscar</string>
+    <string name="Productos_en_venta">Productos en venta: </string>
+    <string name="search_field_description">search_field_description</string>
+    <string name="available_products_description">available_products_description</string>
+    <string name="current_sale_title">current_sale_title</string>
+    <string name="sale_products_description">sale_products_description</string>
+    <string name="complete_sale">complete_sale</string>
+    <string name="available_product">Productos disponibles:</string>
+    <string name="remove_product">remove_product</string>
+    <string name="subtotal_format">$%1$.2f</string>
+    <string name="limpiar_carrito">limpiar carrito</string>
+    <string name="total_default">Total (Bs): </string>
+    <string name="total_format">Total: $%1$.2f</string>
+    <string name="sale_registered">Venta registrada</string>
+    <string name="add_products_first">Añade productos a la venta</string>
+    <string name="Buscar_por_fecha" tools:ignore="TypographyEllipsis">Buscar por fecha...</string>
+    <string name="Exportar_historial">Exportar historial</string>
+    <string name="sales_history_list">sales_history_list</string>
+    <string name="Eliminar_venta">Eliminar venta</string>
+    <string name="clear_all_sales">clear_all_sales</string>
+    <string name="sale_total_format">Total: %1$.2f</string>
+    <string name="products_count">%1$d productos</string>
+    <string name="historial_de_ventas">historial</string>
+    <string name="cantidad_por_defecto">0</string>
+    <string name="update_rate">Actualizar tasa</string>
+    <string name="exchange_rate_format">Tasa actual: %s</string>
+
+
+    <!-- Product Detail -->
+    <string name="product_quantity">Cantidad: %d</string>
+    <string name="product_price_dollars">Precio: $%.2f</string>
+    <string name="product_price_bolivares">Precio: Bs. %.2f</string>
+    <string name="error_product_load">No se pudo cargar el producto</string>
+
+    <!-- Delete Dialog -->
+    <string name="dialog_delete_title">Confirmar eliminación</string>
+    <string name="dialog_delete_message">¿Estás seguro de eliminar \'%s\'?</string>
+    <string name="dialog_delete_confirm">Eliminar</string>
+    <string name="dialog_delete_cancel">Cancelar</string>
+
+    <!-- Etiquetas -->
+    <string name="label_name">Nombre del producto</string>
+    <string name="label_quantity">Cantidad en stock</string>
+    <string name="label_price_dollars">Precio en dólares</string>
+    <string name="label_price_bolivares">Precio en bolívares</string>
+
+    <!-- Hints -->
+    <string name="hint_name">Ingrese nombre del producto</string>
+    <string name="hint_quantity">Ingrese cantidad</string>
+    <string name="hint_price_dollars">0.00</string>
+    <string name="hint_price_bolivares">0.00</string>
+
+    <!-- Descripciones de accesibilidad -->
+    <string name="desc_product_name">Campo para editar el nombre del producto</string>
+    <string name="desc_quantity">Campo para editar la cantidad en stock</string>
+    <string name="desc_price_dollars">Campo para editar el precio en dólares</string>
+    <string name="desc_price_bolivares">Campo para editar el precio en bolívares</string>
+    <string name="desc_save_button">Botón para guardar los cambios del producto</string>
+
+    <!-- Botón -->
+    <string name="save_changes">Guardar cambios</string>
+    <string name="desc_save_action">Guardar los cambios realizados al producto</string>
+</resources>

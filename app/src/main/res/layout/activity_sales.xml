@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/Beige">
+
+    <!-- Campo de búsqueda mejorado -->
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:autofillHints="productSearch"
+        android:background="@drawable/edittext_rounded_bg"
+        android:hint="@string/Search_product"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/Brunswick_green"
+        android:textColorHint="@color/Brunswick_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.9"/>
+
+    <!-- Lista de productos disponibles -->
+    <TextView
+        android:id="@+id/tvAvailableLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/available_product"
+        android:textColor="@color/Brunswick_green"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        app:layout_constraintWidth_percent="0.9"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAvailableProducts"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:clipToPadding="false"
+        android:contentDescription="@string/available_products_description"
+        android:paddingVertical="4dp"
+        app:layout_constraintBottom_toTopOf="@id/tvCurrentSale"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAvailableLabel"
+        app:layout_constraintWidth_percent="0.9"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <!-- Lista de productos en venta -->
+    <TextView
+        android:id="@+id/tvCurrentSale"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/Productos_en_venta"
+        android:textColor="@color/Brunswick_green"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvAvailableProducts"
+        app:layout_constraintWidth_percent="0.9"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSaleProducts"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:clipToPadding="false"
+        android:contentDescription="@string/sale_products_description"
+        android:paddingVertical="4dp"
+        app:layout_constraintBottom_toTopOf="@id/tvTotal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCurrentSale"
+        app:layout_constraintWidth_percent="0.9"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <!-- Total de la venta -->
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/total_default"
+        android:textColor="@color/Brunswick_green"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvSaleProducts"/>
+
+    <!-- Botón Limpiar (izquierda) -->
+    <Button
+        android:id="@+id/btnClearSale"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button"
+        android:minHeight="48dp"
+        android:text="@string/limpiar_carrito"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCompleteSale"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTotal"
+        app:layout_constraintWidth_percent="0.45"/>
+
+    <!-- Botón Finalizar (derecha) -->
+    <Button
+        android:id="@+id/btnCompleteSale"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button"
+        android:minHeight="48dp"
+        android:text="@string/registrar_venta"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnClearSale"
+        app:layout_constraintTop_toBottomOf="@id/tvTotal"
+        app:layout_constraintWidth_percent="0.45"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

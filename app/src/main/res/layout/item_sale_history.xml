@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:padding="8dp"
+    android:background="@color/Beige"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <!-- Fecha de la Venta -->
+    <TextView
+        android:id="@+id/tvSaleDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvSaleTotal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvItemsCount"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/Brunswick_green"
+        android:fontFamily="sans-serif-medium"
+        tools:text="08/04/2023 14:30"/>
+
+    <!-- Total de la Venta -->
+    <TextView
+        android:id="@+id/tvSaleTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/btnDeleteSale"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvItemsCount"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/Brunswick_green"
+        tools:text="$45.50"/>
+
+    <!-- Cantidad de Productos -->
+    <TextView
+        android:id="@+id/tvItemsCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnDeleteSale"
+        app:layout_constraintTop_toBottomOf="@id/tvSaleDate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="14sp"
+        android:textColor="@color/Brunswick_green"
+        tools:text="3 productos vendidos"/>
+
+    <!-- Botón Eliminar - Consistente con item_product_sale -->
+    <ImageButton
+        android:id="@+id/btnDeleteSale"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_delete"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/Eliminar_venta"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
