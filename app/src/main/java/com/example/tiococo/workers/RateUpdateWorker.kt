@@ -47,7 +47,7 @@ class RateUpdateWorker(
     }
 
     companion object {
-        const val WORK_TAG = "rateUpdate"  // Cambiado de WORK_NAME a WORK_TAG
+        const val WORK_TAG = "rateUpdate"
         private const val TAG = "RateUpdateWorker"
     }
 }
