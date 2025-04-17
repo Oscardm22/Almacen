@@ -24,6 +24,7 @@ class RateUpdateWorker(
             }
 
             val newRate = ExchangeRateManager.getCurrentRate(applicationContext, true)
+            val previousRate = ExchangeRateManager.currentRate
 
             when {
                 newRate != previousRate -> {
