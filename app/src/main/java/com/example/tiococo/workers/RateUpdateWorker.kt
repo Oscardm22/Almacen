@@ -40,6 +40,12 @@ class RateUpdateWorker(
         }
     }
 
+    private fun notifyRateChange(newRate: Double) {
+        // Aquí puedes implementar la notificación a tu ViewModel
+        // o actualizar directamente la base de datos
+        Log.d(TAG, "Notificando cambio de tasa: $newRate")
+    }
+
     companion object {
         const val WORK_TAG = "rateUpdate"  // Cambiado de WORK_NAME a WORK_TAG
         private const val TAG = "RateUpdateWorker"
