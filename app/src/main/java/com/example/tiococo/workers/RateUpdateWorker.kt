@@ -26,16 +26,14 @@ class RateUpdateWorker(
             val newRate = ExchangeRateManager.getCurrentRate(applicationContext, true)
             val previousRate = ExchangeRateManager.currentRate
 
-            when {
-                newRate != previousRate -> {
-                    Log.i(TAG, "Tasa actualizada: $previousRate → $newRate")
-                    Result.success()
-                }
-                else -> {
-                    Log.w(TAG, "La tasa no cambió ($newRate)")
-                    Result.success()
-                }
+            if (newRate != previousRate) {
+                notifyRateChange(newRate)
+                Log.i(TAG, "Tasa actualizada de $previousRate a $newRate")
+            } else {
+                Log.i(TAG, "La tasa no ha cambiado ($newRate)")
             }
+
+            Result.success()
         } catch (e: Exception) {
             Log.e(TAG, "Error en la actualización", e)
             Result.retry()
