@@ -69,7 +69,7 @@
     <string name="clear_all_sales">clear_all_sales</string>
     <string name="sale_total_format">Total: %1$.2f</string>
     <string name="products_count">%1$d productos</string>
-    <string name="historial_de_ventas">historial</string>
+    <string name="historial_de_ventas">Historial</string>
     <string name="cantidad_por_defecto">0</string>
     <string name="update_rate">Actualizar tasa</string>
     <string name="exchange_rate_format">Tasa actual: %s</string>
