@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/usernameInputLayout"
         app:layout_constraintWidth_max="400dp">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="48dp"
