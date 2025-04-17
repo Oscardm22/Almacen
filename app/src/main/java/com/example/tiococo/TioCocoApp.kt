@@ -59,7 +59,7 @@ class TioCocoApp : Application() {
     // Función separada para el debug (opcional)
     private fun setupWorkManagerDebugging() {
         WorkManager.getInstance(this)
-            .getWorkInfosByTagLiveData(RateUpdateWorker.WORK_TAG)  // Usando el tag
+            .getWorkInfosByTagLiveData(RateUpdateWorker.WORK_TAG)
             .observeForever { workInfos ->
                 workInfos?.forEach { info ->
                     Log.d("WorkManagerDebug", "Estado: ${info.state}")
