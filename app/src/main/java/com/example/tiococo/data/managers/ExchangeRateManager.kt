@@ -149,6 +149,8 @@ object ExchangeRateManager {
         sharedPrefs.edit().run {
             putFloat("last_rate", currentRate.toFloat())
             putLong("last_update", lastUpdateTime)
+            // Guardar histórico
+            putFloat("rate_${System.currentTimeMillis()}", currentRate.toFloat())
             apply()
         }
     }
