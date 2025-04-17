@@ -54,8 +54,21 @@ object ExchangeRateManager {
                 })
             }
             install(HttpTimeout) {
-                requestTimeoutMillis = 10000
-                connectTimeoutMillis = 10000
+                requestTimeoutMillis = 15_000L
+                connectTimeoutMillis = 15_000L
+                socketTimeoutMillis = 15_000L
+            }
+
+            // Configuración de seguridad simplificada
+            engine {
+                // Configuración SSL para Android
+                sslManager = { httpsURLConnection ->
+                    httpsURLConnection.sslSocketFactory = SSLContext.getDefault().socketFactory
+                    httpsURLConnection.hostnameVerifier = HostnameVerifier { hostname, _ ->
+                        hostname.equals("ve.dolarapi.com", ignoreCase = true) ||
+                                hostname.endsWith(".ve.dolarapi.com", ignoreCase = true)
+                    }
+                }
             }
         }
     }
