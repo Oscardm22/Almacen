@@ -16,4 +16,5 @@
     <color name="Battleship_grey">#7D8B8C</color>
     <color name="Sinopia">#CE4412</color>
     <color name="Rust">#A9380F</color>
+    <color name="selection_green">#334CAF50</color>
 </resources>
