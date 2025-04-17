@@ -35,11 +35,16 @@ class TioCocoApp : Application() {
             .addTag(RateUpdateWorker.WORK_TAG)
             .build()
 
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            "rateUpdateUniqueWork",  // Nombre único diferente al tag
-            ExistingPeriodicWorkPolicy.UPDATE,
-            request
-        )
+        WorkManager.getInstance(this).apply {
+            // Cancelar trabajos previos para evitar duplicados
+            cancelAllWorkByTag(RateUpdateWorker.WORK_TAG)
+
+            // Programar nuevo trabajo
+            enqueueUniquePeriodicWork(
+                "rateUpdateUniqueWork",
+                ExistingPeriodicWorkPolicy.REPLACE, // Usar REPLACE en lugar de UPDATE
+                request
+            )
 
         setupWorkManagerDebugging()
     }
