@@ -19,6 +19,12 @@ import kotlinx.serialization.json.Json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.example.tiococo.utils.ConnectivityChecker
+import javax.net.ssl.SSLContext
+import javax.net.ssl.HostnameVerifier
+
+// Excepciones personalizadas
+class NoInternetException(message: String = "No hay conexión a internet") : Exception(message)
+class RateFetchException(message: String = "Error al obtener la tasa de cambio") : Exception(message)
 
 @Serializable
 data class DolarResponse(
