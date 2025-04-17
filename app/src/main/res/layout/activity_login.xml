@@ -58,8 +58,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="password"
-        android:background="@drawable/edittext_rounded_bg"
-        android:backgroundTint="@color/Brunswick_green"
         android:hint="@string/password_hint"
         android:importantForAutofill="yes"
         android:inputType="textPassword"
