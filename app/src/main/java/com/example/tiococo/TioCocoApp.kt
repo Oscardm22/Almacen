@@ -21,6 +21,8 @@ class TioCocoApp : Application() {
     }
 
     private fun scheduleRateUpdates() {
+        Log.d("TioCocoApp", "Configurando WorkManager para actualizaciones de tasa")
+
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresBatteryNotLow(true)
