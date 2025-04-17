@@ -18,11 +18,8 @@ class RateUpdateWorker(
         Log.d(TAG, "Worker de actualización de tasa iniciado")
 
         try {
-            // Usar applicationContext en lugar del parámetro context
-            val checker = ConnectivityChecker(applicationContext)
-
-            if (!checker.hasInternet()) {
-                Log.w(TAG, "Sin conexión a internet - Posponiendo actualización")
+            if (!ConnectivityChecker(applicationContext).hasInternet()) {
+                Log.w(TAG, "Sin conexión a internet - Reintentando")
                 return@withContext Result.retry()
             }
 
