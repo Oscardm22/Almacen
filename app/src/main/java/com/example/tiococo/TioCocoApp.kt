@@ -46,7 +46,14 @@ class TioCocoApp : Application() {
                 request
             )
 
-        setupWorkManagerDebugging()
+            // Verificar programación
+            getWorkInfosByTagLiveData(RateUpdateWorker.WORK_TAG)
+                .observeForever { workInfos ->
+                    workInfos?.forEach { info ->
+                        Log.d("WorkManager", "Estado del trabajo: ${info.state}")
+                    }
+                }
+        }
     }
 
     // Función separada para el debug (opcional)
