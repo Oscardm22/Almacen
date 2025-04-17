@@ -95,6 +95,7 @@ object ExchangeRateManager {
                     throw NoInternetException("No hay conexión a internet")
                 }
 
+                Log.d("ExchangeRate", "Obteniendo nueva tasa de la API...")
                 fetchAndUpdateRate(currentTime)
             } catch (e: Exception) {
                 Log.e("ExchangeRate", "Error crítico", e)
