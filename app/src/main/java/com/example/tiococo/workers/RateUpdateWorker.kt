@@ -35,7 +35,7 @@ class RateUpdateWorker(
 
             Result.success()
         } catch (e: Exception) {
-            Log.e(TAG, "Error en la actualización", e)
+            Log.e(TAG, "Error al actualizar tasa: ${e.message}")
             Result.retry()
         }
     }
