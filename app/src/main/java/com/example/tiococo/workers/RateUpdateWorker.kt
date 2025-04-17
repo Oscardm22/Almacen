@@ -23,7 +23,6 @@ class RateUpdateWorker(
                 return@withContext Result.retry()
             }
 
-            val previousRate = ExchangeRateManager.currentRate
             val newRate = ExchangeRateManager.getCurrentRate(applicationContext, true)
 
             when {
