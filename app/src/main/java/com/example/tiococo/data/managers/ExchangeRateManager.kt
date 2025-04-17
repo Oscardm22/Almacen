@@ -86,6 +86,7 @@ object ExchangeRateManager {
                 val currentTime = System.currentTimeMillis()
 
                 if (!shouldUpdate(forceUpdate, currentTime)) {
+                    Log.d("ExchangeRate", "Usando tasa cacheada: $currentRate")
                     return@withContext currentRate
                 }
 
