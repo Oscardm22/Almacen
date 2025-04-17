@@ -6,8 +6,8 @@
 
         <!-- Certificados válidos -->
         <trust-anchors>
-            <certificates src="system"/>
-            <certificates src="user"/>
+            <certificates src="system" />
+            <certificates src="user" />
         </trust-anchors>
     </domain-config>
 </network-security-config>
