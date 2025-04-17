@@ -15,7 +15,7 @@ class RateUpdateWorker(
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        Log.d(TAG, "Iniciando actualización programada...")
+        Log.d(TAG, "Worker de actualización de tasa iniciado")
 
         try {
             // Usar applicationContext en lugar del parámetro context
