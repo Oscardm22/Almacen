@@ -59,15 +59,8 @@
         android:layout_height="wrap_content"
         android:autofillHints="password"
         android:hint="@string/password_hint"
-        android:importantForAutofill="yes"
-        android:inputType="textPassword"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColorHint="@color/Brunswick_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etUsername"
-        app:layout_constraintWidth_max="400dp" />
+        android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnLogin"
