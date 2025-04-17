@@ -54,9 +54,9 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etPassword"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        style="@style/TextInputEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:autofillHints="password"
         android:background="@drawable/edittext_rounded_bg"
         android:backgroundTint="@color/Brunswick_green"
