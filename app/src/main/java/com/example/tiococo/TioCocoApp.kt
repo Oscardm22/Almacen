@@ -1,6 +1,7 @@
 package com.example.tiococo
 
 import android.app.Application
+import android.content.pm.ApplicationInfo
 import androidx.work.*
 import com.example.tiococo.workers.RateUpdateWorker
 import java.util.concurrent.TimeUnit
