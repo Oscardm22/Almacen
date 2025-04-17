@@ -91,8 +91,8 @@ object ExchangeRateManager {
                 }
 
                 if (!ConnectivityChecker(context).hasInternet()) {
-                    Log.w("ExchangeRate", "No hay conexión a internet")
-                    return@withContext currentRate
+                    Log.w("ExchangeRate", "Sin conexión a internet")
+                    throw NoInternetException("No hay conexión a internet")
                 }
 
                 fetchAndUpdateRate(currentTime)
