@@ -101,8 +101,8 @@ object ExchangeRateManager {
                 Log.w("ExchangeRate", e.message ?: "Sin conexión")
                 throw e
             } catch (e: Exception) {
-                Log.e("ExchangeRate", "Error crítico", e)
-                currentRate
+                Log.e("ExchangeRate", "Error al obtener tasa", e)
+                throw RateFetchException("Error al obtener la tasa del dólar: ${e.message}")
             }
         }
     }
