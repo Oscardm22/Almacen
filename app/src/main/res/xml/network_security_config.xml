@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">tu.api.dolar.com</domain>
-        <!-- Permitir todas las conexiones HTTP para desarrollo -->
+    <domain-config cleartextTrafficPermitted="false">
+        <!-- Dominio principal y sus subdominios -->
+        <domain includeSubdomains="true">ve.dolarapi.com</domain>
+
+        <!-- Certificados válidos -->
         <trust-anchors>
             <certificates src="system"/>
             <certificates src="user"/>
