@@ -29,10 +29,10 @@ class TioCocoApp : Application() {
             .build()
 
         val request = PeriodicWorkRequestBuilder<RateUpdateWorker>(
-            1, TimeUnit.HOURS,
-            15, TimeUnit.MINUTES
-        ).addTag(RateUpdateWorker.WORK_TAG)  // Usando el tag
-            .setConstraints(constraints)
+            1, TimeUnit.HOURS, // Intervalo
+            15, TimeUnit.MINUTES // Flexibilidad
+        ).setConstraints(constraints)
+            .addTag(RateUpdateWorker.WORK_TAG)
             .build()
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
