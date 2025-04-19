@@ -45,8 +45,8 @@ class RateUpdateWorker(
             Log.i(TAG, "Tasa actualizada correctamente: ${rateResult.rate}")
             Result.success()
         } catch (e: Exception) {
-            Log.e(TAG, "Error al actualizar tasa: ${e.message}")
-            Result.retry()
+            Log.e(TAG, "Error crítico", e)
+            Result.failure()
         }
     }
 
