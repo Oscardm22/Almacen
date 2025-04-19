@@ -132,6 +132,12 @@ class SalesHistoryActivity : AppCompatActivity() {
                 .setTitle("No hay ventas para exportar")
                 .setPositiveButton("Aceptar", null)
                 .show()
+            return
+        }
+
+        val csvFile = exportSalesToCsv(sales)
+        if (csvFile != null) {
+            shareCsvFile(csvFile)
         } else {
             // Implementa tu lógica de exportación aquí
             // Ejemplo: exportar a CSV, compartir archivo, etc.
