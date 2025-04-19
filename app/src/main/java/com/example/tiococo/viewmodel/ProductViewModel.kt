@@ -86,9 +86,10 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         _rateState.value = RateState.LOADING
         viewModelScope.launch {
             try {
-                val newRate = ExchangeRateManager.getCurrentRate(getApplication())
-                _exchangeRate.value = newRate
-                updateAllPrices(newRate)
+                val rateResult = ExchangeRateManager.getCurrentRateWithStatus(getApplication(), forceUpdate = true)
+                _exchangeRate.value = rateResult.rate
+
+                updateAllPrices(rateResult.rate)
                 _rateState.value = RateState.SUCCESS
                 _rateUpdateMessage.value = "Tasa actualizada: ${formatRate(newRate)} BS/USD"
             } catch (e: Exception) {
