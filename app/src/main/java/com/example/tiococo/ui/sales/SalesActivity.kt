@@ -72,7 +72,16 @@ class SalesActivity : AppCompatActivity() {
 
         viewModel.saleProducts.observe(this) { saleProducts ->
             saleProductsAdapter.submitList(saleProducts)
-            // Lista vacía se manejará visualmente por el adaptador
+        }
+
+        // Observar el total en USD
+        viewModel.totalAmount.observe(this) { totalUsd ->
+            binding.tvTotalUsd.text = getString(R.string.total_usd_format, totalUsd)
+
+            // Actualizar el total en Bs con la tasa actual
+            val rate = viewModel.exchangeRate.value ?: 36.0
+            val totalBs = totalUsd * rate
+            binding.tvTotalBs.text = getString(R.string.total_bs_format, totalBs)
         }
 
         viewModel.totalAmount.observe(this) { total ->
