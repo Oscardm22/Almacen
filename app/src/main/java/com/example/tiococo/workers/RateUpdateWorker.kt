@@ -44,6 +44,9 @@ class RateUpdateWorker(
 
             Log.i(TAG, "Tasa actualizada correctamente: ${rateResult.rate}")
             Result.success()
+        } catch (e: NoInternetException) {
+            Log.w(TAG, "Sin conexión a internet", e)
+            Result.retry()
         } catch (e: Exception) {
             Log.e(TAG, "Error crítico", e)
             Result.failure()
