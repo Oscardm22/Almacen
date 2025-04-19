@@ -91,12 +91,10 @@ class SaleProductsAdapter(
             etQuantity.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     etQuantity.post {
-                        when {
-                            // 6.1. Seleccionar todo solo para productos nuevos (cantidad 0)
-                            product.quantity == 0 && isFirstChange -> etQuantity.selectAll()
-
-                            // 6.2. Para otros casos, cursor al final
-                            else -> etQuantity.setSelection(etQuantity.text.length)
+                        if (product.quantity == 1) {
+                            etQuantity.selectAll()
+                        } else {
+                            etQuantity.setSelection(etQuantity.text.length)
                         }
                     }
                 }
