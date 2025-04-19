@@ -145,7 +145,7 @@
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@id/labelTotalBs"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/labelTotalBs"/>
+            app:layout_constraintStart_toEndOf="@id/labelTotalBs" />
 
         <!-- Total en Dólares -->
         <TextView
