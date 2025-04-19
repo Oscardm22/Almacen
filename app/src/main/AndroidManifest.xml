@@ -58,7 +58,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.auth.ForgotPasswordActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
