@@ -152,6 +152,7 @@
             android:id="@+id/labelTotalUsd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="@string/TotalUsd"
             android:textColor="@color/Brunswick_green"
             android:textSize="16sp"
