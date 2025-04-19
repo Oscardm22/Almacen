@@ -102,6 +102,32 @@ class HomeActivity : AppCompatActivity() {
             binding.tvExchangeRate.text = getString(R.string.exchange_rate_format, "%.2f".format(rate))
         }
 
+        // Observar el estado de la tasa de cambio (loading, success, error)
+        viewModel.rateState.observe(this) { state ->
+            when (state) {
+                ProductViewModel.RateState.LOADING -> {
+                    // Mostrar ProgressBar y ocultar la tasa
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.tvExchangeRate.visibility = View.GONE
+                }
+                ProductViewModel.RateState.SUCCESS -> {
+                    // Ocultar ProgressBar y mostrar la tasa
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvExchangeRate.visibility = View.VISIBLE
+                }
+                ProductViewModel.RateState.ERROR -> {
+                    // Ocultar ProgressBar y mostrar un mensaje de error
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, "Error al actualizar la tasa", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    // Estado por defecto
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvExchangeRate.visibility = View.VISIBLE
+                }
+            }
+        }
+
         viewModel.rateUpdateMessage.observe(this) { message ->
             message?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
