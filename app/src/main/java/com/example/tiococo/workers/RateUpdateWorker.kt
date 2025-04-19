@@ -23,8 +23,6 @@ class RateUpdateWorker(
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        Log.d(TAG, "Worker de actualización de tasa iniciado")
-
         try {
             if (!ConnectivityChecker(applicationContext).hasInternet()) {
                 Log.w(TAG, "Sin conexión a internet - Reintentando")
