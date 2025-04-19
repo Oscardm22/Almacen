@@ -95,7 +95,7 @@ class SalesActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnCompleteSale.setOnClickListener {
+        binding.fabComplete.setOnClickListener {
             if (viewModel.saleProducts.value?.isNotEmpty() == true) {
                 viewModel.registerSale()
                 Toast.makeText(this, R.string.sale_registered, Toast.LENGTH_SHORT).show()
