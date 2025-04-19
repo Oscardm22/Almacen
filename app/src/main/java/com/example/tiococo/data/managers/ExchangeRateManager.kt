@@ -104,9 +104,12 @@ object ExchangeRateManager {
                         )
                     }
 
-    private fun shouldUpdate(forceUpdate: Boolean, currentTime: Long): Boolean {
-        return forceUpdate || currentTime - lastUpdateTime > CACHE_DURATION
-    }
+                    val newRate = fetchFromApi()
+                    currentRate = newRate
+                    lastUpdateTime = currentTime
+                    saveToPreferences()
+                    return@withContext RateResult(newRate, false)
+                }
 
     private suspend fun fetchAndUpdateRate(currentTime: Long): Double {
         try {
