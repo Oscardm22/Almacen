@@ -109,6 +109,7 @@ class SalesActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setupSearchWithEditText() {
         binding.etSearch.addTextChangedListener(object : TextWatcher {
             private var lastSearchTime = 0L
