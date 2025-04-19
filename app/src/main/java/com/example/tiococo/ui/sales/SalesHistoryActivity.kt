@@ -126,8 +126,8 @@ class SalesHistoryActivity : AppCompatActivity() {
     }
 
     private fun exportCurrentSales() {
-        val currentSales = viewModel.salesHistory.value ?: emptyList()
-        if (currentSales.isEmpty()) {
+        val sales = viewModel.salesHistory.value ?: emptyList()
+        if (sales.isEmpty()) {
             AlertDialog.Builder(this)
                 .setTitle("No hay ventas para exportar")
                 .setPositiveButton("Aceptar", null)
