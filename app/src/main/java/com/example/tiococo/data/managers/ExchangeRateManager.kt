@@ -92,7 +92,6 @@ object ExchangeRateManager {
     suspend fun getCurrentRateWithStatus(context: Context, forceUpdate: Boolean = false): RateResult {
         return withContext(Dispatchers.IO) {
             try {
-                Log.d("ExchangeRate", "Iniciando getCurrentRate, forceUpdate=$forceUpdate")
                 val currentTime = System.currentTimeMillis()
 
                 if (!shouldUpdate(forceUpdate, currentTime)) {
