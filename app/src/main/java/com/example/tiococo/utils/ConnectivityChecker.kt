@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.util.Log
 
 class ConnectivityChecker(private val context: Context) {
     fun hasInternet(): Boolean {
