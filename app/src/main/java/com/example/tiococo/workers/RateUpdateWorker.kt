@@ -27,8 +27,16 @@ class RateUpdateWorker(
             Log.d(TAG, "Iniciando actualización de tasa...")
             val rateResult = ExchangeRateManager.getCurrentRateWithStatus(applicationContext, true)
 
-            val newRate = ExchangeRateManager.getCurrentRate(applicationContext, true)
-            val previousRate = ExchangeRateManager.currentRate
+            if (rateResult.isFromCache) {
+                Log.w(TAG, "Se usó tasa en caché - Reintentando en 1 hora")
+                // Crear un nuevo WorkRequest con backoff configurado
+                val retryRequest = OneTimeWorkRequest.Builder(RateUpdateWorker::class.java)
+                    .setBackoffCriteria(
+                        BackoffPolicy.LINEAR,
+                        RETRY_DELAY_HOURS,
+                        TimeUnit.HOURS
+                    )
+                    .build()
 
             if (newRate != previousRate) {
                 notifyRateChange(newRate)
