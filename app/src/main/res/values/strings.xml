@@ -73,7 +73,35 @@
     <string name="cantidad_por_defecto">0</string>
     <string name="update_rate">Actualizar tasa</string>
     <string name="exchange_rate_format">Tasa actual: %s</string>
-
+    <string name="Cerrar_sesión">Cerrar sesión</string>
+    <string name="Gestionar_usuarios">Gestionar usuarios</string>
+    <string name="Gestión_de_Usuarios">Gestión de Usuarios</string>
+    <string name="Agregar_usuario">Agregar usuario</string>
+    <string name="Lista_de_usuarios_registrados">Lista de usuarios registrados</string>
+    <string name="Titulo_Perfil">Mi Perfil</string>
+    <string name="ivProfileIcon">ivProfileIcon</string>
+    <string name="ivPersonIcon">ivPersonIcon</string>
+    <string name="Correo">Correo electrónico</string>
+    <string name="Cambiar_Correo">Cambiar Correo Electrónico</string>
+    <string name="Cambiar_Contraseña">Cambiar Contraseña</string>
+    <string name="ivEmailIcon">ivEmailIcon</string>
+    <string name="tilNewEmail">Nuevo correo electrónico</string>
+    <string name="ivDialogIcon">Icono decorativo</string>
+    <string name="tvHelpText">Recibirás un correo de verificación</string>
+    <string name="btnConfirm">Continuar</string>
+    <string name="ivLockIcon">Icono de candado</string>
+    <string name="tilCurrentPassword">Contraseña actual</string>
+    <string name="tilNewPassword">Nueva contraseña</string>
+    <string name="tilConfirmPassword">Confirmar contraseña</string>
+    <string name="tvSubtotalLabel">Subtotal: </string>
+    <string name="tvTotalBs">0,00</string>
+    <string name="TotalBs">Total Bs: </string>
+    <string name="TotalUsd">Total USD: </string>
+    <string name="tvTotalUsd">0,00</string>
+    <string name="format_bs">Bs %,.2f</string>
+    <string name="format_usd">$ %,.2f</string>
+    <string name="total_usd_format">$ %.2f</string>
+    <string name="total_bs_format">Bs %.2f</string>
 
     <!-- Product Detail -->
     <string name="product_quantity">Cantidad: %d</string>
