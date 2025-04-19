@@ -11,6 +11,9 @@ import com.example.tiococo.data.model.SaleRecord
 import com.example.tiococo.adapter.SalesHistoryAdapter
 import com.example.tiococo.viewmodel.ProductViewModel
 import android.widget.Toast
+import java.io.File
+import androidx.core.content.FileProvider
+import android.content.Intent
 
 class SalesHistoryActivity : AppCompatActivity() {
 
