@@ -109,7 +109,7 @@
         app:layout_constraintEnd_toStartOf="@+id/fabClear"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rvSaleProducts"
-        app:layout_constraintWidth_percent="0.9">
+        app:layout_constraintWidth_percent="0.7">
 
         <TextView
             android:id="@+id/tvSubtotalLabel"
