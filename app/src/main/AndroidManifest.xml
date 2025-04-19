@@ -50,8 +50,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.products.ProductDetailActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.HomeActivity"
             android:screenOrientation="portrait"
