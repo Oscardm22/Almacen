@@ -123,13 +123,28 @@ object ExchangeRateManager {
                 currentRate = newRate
                 lastUpdateTime = currentTime
                 saveToPreferences()
-                return currentRate
-            } else {
-                Log.e("ExchangeRate", "La respuesta no contiene valores de tasa válidos")
-                throw IllegalStateException("Datos de tasa no disponibles")
+
+                RateResult(newRate, false)
+            } catch (e: Exception) {
+                RateResult(currentRate, true, error = e)
             }
+        }
+    }
+
+    private suspend fun fetchFromApi(): Double {
+        try {
+            Log.d(TAG, "Preparando request a $API_URL")
+            val response = httpClient.get(API_URL)
+            Log.d(TAG, "Response status: ${response.status}")
+
+            val body = response.body<DolarResponse>().also {
+                Log.d(TAG, "Respuesta parseada: $it")
+            }
+
+            return body.venta ?: body.promedio ?: body.compra
+            ?: throw RateFetchException("La respuesta no contiene valores de tasa válidos")
         } catch (e: Exception) {
-            Log.e("ExchangeRate", "Error en fetchAndUpdateRate", e)
+            Log.e(TAG, "Error al obtener tasa", e)
             throw e
         }
     }
