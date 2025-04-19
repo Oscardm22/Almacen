@@ -42,6 +42,7 @@ class RateUpdateWorker(
                 return@withContext Result.failure()
             }
 
+            Log.i(TAG, "Tasa actualizada correctamente: ${rateResult.rate}")
             Result.success()
         } catch (e: Exception) {
             Log.e(TAG, "Error al actualizar tasa: ${e.message}")
