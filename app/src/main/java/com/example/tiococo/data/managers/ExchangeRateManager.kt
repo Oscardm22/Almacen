@@ -38,6 +38,17 @@ data class DolarResponse(
 object ExchangeRateManager {
     private const val API_URL = "https://ve.dolarapi.com/v1/dolares/oficial"
     private const val CACHE_DURATION = 30 * 60 * 1000 // 30 minutos
+    // Agrega esto al inicio del objeto ExchangeRateManager
+    private const val TAG = "ExchangeRateManager"
+
+    data class RateResult(
+        val rate: Double,
+        val isFromCache: Boolean,
+        val timestamp: Long = System.currentTimeMillis(),
+        var error: Exception? = null
+    ) {
+        fun wasSuccessful() = error == null
+    }
 
     @Volatile var currentRate: Double = 36.0
         internal set
