@@ -2,6 +2,8 @@ package com.example.tiococo.workers
 
 import android.content.Context
 import android.util.Log
+import androidx.work.BackoffPolicy
+import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.tiococo.data.managers.ExchangeRateManager
