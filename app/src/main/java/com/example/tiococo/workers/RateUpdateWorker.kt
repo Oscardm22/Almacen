@@ -38,11 +38,8 @@ class RateUpdateWorker(
                     )
                     .build()
 
-            if (newRate != previousRate) {
-                notifyRateChange(newRate)
-                Log.i(TAG, "Tasa actualizada de $previousRate a $newRate")
-            } else {
-                Log.i(TAG, "La tasa no ha cambiado ($newRate)")
+                WorkManager.getInstance(applicationContext).enqueue(retryRequest)
+                return@withContext Result.failure()
             }
 
             Result.success()
