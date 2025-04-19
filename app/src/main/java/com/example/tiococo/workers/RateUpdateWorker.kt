@@ -62,5 +62,24 @@ class RateUpdateWorker(
     companion object {
         const val WORK_TAG = "rateUpdate"
         private const val TAG = "RateUpdateWorker"
+        private const val RETRY_DELAY_HOURS = 1L
+
+        // Método mejorado para programar el Worker
+        fun schedule(context: Context) {
+            val workRequest = PeriodicWorkRequestBuilder<RateUpdateWorker>(
+                4, // Cada 4 horas
+                TimeUnit.HOURS
+            ).setConstraints(
+                Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
+            ).addTag(WORK_TAG).build()
+
+            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+                "rateUpdateWork",
+                ExistingPeriodicWorkPolicy.UPDATE,
+                workRequest
+            )
+        }
     }
 }
