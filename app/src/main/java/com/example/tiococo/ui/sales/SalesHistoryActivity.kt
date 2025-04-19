@@ -139,9 +139,30 @@ class SalesHistoryActivity : AppCompatActivity() {
         if (csvFile != null) {
             shareCsvFile(csvFile)
         } else {
-            // Implementa tu lógica de exportación aquí
-            // Ejemplo: exportar a CSV, compartir archivo, etc.
-            Toast.makeText(this, "Exportando ${currentSales.size} ventas", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error al generar archivo", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun exportSalesToCsv(sales: List<SaleRecord>): File? {
+        return try {
+            val fileName = "historial_ventas.csv"
+            val file = File(getExternalFilesDir(null), fileName)
+            val writer = file.bufferedWriter()
+
+            writer.write("ID,Fecha,Producto,Cantidad,Precio ($),Total ($)\n")
+            for (sale in sales) {
+                for (product in sale.products) {
+                    val total = product.quantity * product.priceDollars
+                    writer.write("${sale.id},${sale.date},${product.name},${product.quantity},${product.priceDollars},$total\n")
+                }
+            }
+
+            writer.flush()
+            writer.close()
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }
