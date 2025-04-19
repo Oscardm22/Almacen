@@ -104,7 +104,7 @@ class SalesActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnClearSale.setOnClickListener {
+        binding.fabClear.setOnClickListener {
             viewModel.clearSale()
         }
     }
