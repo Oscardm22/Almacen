@@ -211,7 +211,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun handleEdit(data: Intent) {
-        val editedProduct = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+        val editedProduct = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             data.getParcelableExtra("EDITED_PRODUCT", Product::class.java)
         } else {
             @Suppress("DEPRECATION")
