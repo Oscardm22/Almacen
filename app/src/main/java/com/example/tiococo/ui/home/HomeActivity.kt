@@ -70,6 +70,8 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupUserButton()
+        setupLogoutButton()
         setupRecyclerView()
         setupObservers()
         setupFab()
