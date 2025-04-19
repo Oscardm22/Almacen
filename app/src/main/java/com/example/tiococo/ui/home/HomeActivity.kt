@@ -235,6 +235,50 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun setupUserButton() {
+        binding.fabManageUsers.setOnClickListener {
+            startActivity(Intent(this, UserManagementActivity::class.java))
+        }
+    }
+
+    private fun setupLogoutButton() {
+        binding.btnLogout.setOnClickListener {
+            showLogoutConfirmation()
+        }
+    }
+
+    private fun showLogoutConfirmation() {
+        AlertDialog.Builder(this)
+            .setTitle("Cerrar sesión")
+            .setMessage("¿Estás seguro de que deseas salir?")
+            .setPositiveButton("Sí") { _, _ ->
+                performLogout()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun performLogout() {
+        binding.root.animate().alpha(0.5f).setDuration(300).withEndAction {
+// Versión corregida
+            getSharedPreferences("user_prefs", MODE_PRIVATE).edit { clear() }
+            val intent = Intent(this@HomeActivity, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(intent)
+
+            // Solución compatible con todas las versiones
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out)
+            } else {
+                @Suppress("DEPRECATION")
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            }
+            finish()
+        }.start()
+    }
+
     override fun onDestroy() {
         searchJob?.cancel()
         super.onDestroy()
