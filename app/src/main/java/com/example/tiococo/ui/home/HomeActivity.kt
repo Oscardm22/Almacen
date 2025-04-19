@@ -22,6 +22,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import android.text.TextWatcher
 import android.text.Editable
+import androidx.appcompat.app.AlertDialog
+import com.example.tiococo.ui.auth.LoginActivity
+import com.example.tiococo.ui.user.UserManagementActivity
+import androidx.core.content.edit
+import android.os.Build
 
 class HomeActivity : AppCompatActivity() {
 
