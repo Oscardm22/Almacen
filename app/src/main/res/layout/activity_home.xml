@@ -119,7 +119,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:text="@string/btnOption1"
-        android:textSize="10sp"
+        android:textSize="11sp"
         android:background="@drawable/rounded_button"
         android:textColor="@color/white"
         android:visibility="gone"
