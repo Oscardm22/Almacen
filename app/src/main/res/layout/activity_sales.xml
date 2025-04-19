@@ -89,18 +89,62 @@
         app:layout_constraintWidth_percent="0.9"
         tools:ignore="SpeakableTextPresentCheck"/>
 
-    <!-- Total de la venta -->
-    <TextView
-        android:id="@+id/tvTotal"
+    <!-- Guideline para posicionar la sección de totales -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTotals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/total_default"
-        android:textColor="@color/Brunswick_green"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="543dp" />
+
+    <!-- Sección de totales convertida a ConstraintLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTotals"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/total_background"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvSaleProducts"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvSaleProducts"
+        app:layout_constraintWidth_percent="0.9">
+
+        <TextView
+            android:id="@+id/tvSubtotalLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tvSubtotalLabel"
+            android:textColor="@color/Brunswick_green"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Total en Bolívares -->
+        <TextView
+            android:id="@+id/labelTotalBs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/TotalBs"
+            android:textColor="@color/Brunswick_green"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtotalLabel"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvTotalBs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/tvTotalBs"
+            android:textColor="@color/Brunswick_green"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/labelTotalBs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/labelTotalBs"/>
 
     <!-- Botón Limpiar (izquierda) -->
     <Button
