@@ -15,6 +15,7 @@ import com.example.tiococo.data.managers.ExchangeRateManager
 import com.example.tiococo.data.managers.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 
 class RateUpdateWorker(
     context: Context,
