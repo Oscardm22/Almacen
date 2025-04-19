@@ -49,8 +49,12 @@ class ConnectivityChecker(private val context: Context) {
             val result = hasInternet && isValidated &&
                     (hasWifi || hasCellular || hasEthernet || hasVPN)
 
-        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
-                (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
+            Log.d("Connectivity", "Conectividad total: $result")
+            return result
+
+        } catch (e: Exception) {
+            Log.e("Connectivity", "Error al verificar conectividad", e)
+            return false
+        }
     }
 }
