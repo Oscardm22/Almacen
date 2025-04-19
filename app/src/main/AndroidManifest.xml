@@ -63,6 +63,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".ui.auth.LoginActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:exported="true"
             android:windowSoftInputMode="adjustPan|stateHidden"
