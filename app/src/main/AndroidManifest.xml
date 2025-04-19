@@ -13,6 +13,7 @@
         android:maxSdkVersion="28" />
 
     <application
+        android:name=".TioCocoApp"
         android:allowBackup="true"
         tools:ignore="LockedOrientationActivity"
         android:networkSecurityConfig="@xml/network_security_config"
