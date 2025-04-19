@@ -73,7 +73,14 @@ class LoginActivity : AppCompatActivity() {
         // Aquí iría tu lógica de autenticación real
         // Esto es un ejemplo con credenciales hardcodeadas
         if (username == "admin" && password == "123456") {
-            // Login exitoso
+            // Guardar sesión
+            val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
+            prefs.edit {
+                putBoolean("is_logged_in", true)
+            }
+
+
+            // Redirigir al Home
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         } else {
