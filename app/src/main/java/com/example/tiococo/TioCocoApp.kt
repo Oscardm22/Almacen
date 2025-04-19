@@ -13,6 +13,8 @@ class TioCocoApp : Application() {
         super.onCreate()
         ExchangeRateManager.initialize(applicationContext)
         scheduleRateUpdates()
+        RateUpdateWorker.schedule(this)
+
 
         if (applicationContext.applicationInfo != null &&
             (applicationContext.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
