@@ -111,15 +111,8 @@ object ExchangeRateManager {
                     return@withContext RateResult(newRate, false)
                 }
 
-    private suspend fun fetchAndUpdateRate(currentTime: Long): Double {
-        try {
-            Log.d("ExchangeRate", "Preparando request a $API_URL")
-            val response: HttpResponse = httpClient.get(API_URL)
-            Log.d("ExchangeRate", "Response status: ${response.status}")
-
-            val body = try {
-                response.body<DolarResponse>().also {
-                    Log.d("ExchangeRate", "Respuesta parseada: $it")
+                if (!shouldUpdate(currentTime)) {
+                    return@withContext RateResult(currentRate, true)
                 }
             } catch (e: Exception) {
                 Log.e("ExchangeRate", "Error parseando respuesta", e)
