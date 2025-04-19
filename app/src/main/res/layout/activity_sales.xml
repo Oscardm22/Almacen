@@ -158,16 +158,44 @@
             app:layout_constraintTop_toBottomOf="@id/labelTotalBs"
             android:layout_marginTop="4dp"/>
 
-    <!-- Botón Finalizar (derecha) -->
-    <Button
-        android:id="@+id/btnCompleteSale"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_button"
-        android:minHeight="48dp"
-        android:text="@string/registrar_venta"
-        android:textColor="@color/white"
+        <TextView
+            android:id="@+id/tvTotalUsd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/tvTotalUsd"
+            android:textColor="@color/Brunswick_green"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/labelTotalUsd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/labelTotalUsd"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Botones FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/limpiar_carrito"
+        android:src="@drawable/ic_clear"
+        app:backgroundTint="@color/Brunswick_green"
+        app:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@id/fabComplete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/registrar_venta"
+        android:src="@drawable/ic_check"
+        app:backgroundTint="@color/Brunswick_green"
+        app:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnClearSale"
