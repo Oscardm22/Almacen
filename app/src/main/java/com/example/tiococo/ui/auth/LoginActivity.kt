@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tiococo.databinding.ActivityLoginBinding
 import com.example.tiococo.ui.home.HomeActivity
+import androidx.core.content.edit
 
 class LoginActivity : AppCompatActivity() {
 
