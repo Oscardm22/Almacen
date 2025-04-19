@@ -7,7 +7,7 @@ import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.tiococo.data.managers.ExchangeRateManager
-import com.example.tiococo.utils.ConnectivityChecker
+import com.example.tiococo.data.managers.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
