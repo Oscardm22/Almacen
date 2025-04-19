@@ -46,9 +46,7 @@ object ExchangeRateManager {
         val isFromCache: Boolean,
         val timestamp: Long = System.currentTimeMillis(),
         var error: Exception? = null
-    ) {
-        fun wasSuccessful() = error == null
-    }
+    )
 
     @Volatile var currentRate: Double = 36.0
         internal set
