@@ -89,7 +89,7 @@ object ExchangeRateManager {
         lastUpdateTime = sharedPrefs.getLong("last_update", 0)
     }
 
-    suspend fun getCurrentRate(context: Context, forceUpdate: Boolean = false): Double {
+    suspend fun getCurrentRateWithStatus(context: Context, forceUpdate: Boolean = false): RateResult {
         return withContext(Dispatchers.IO) {
             try {
                 Log.d("ExchangeRate", "Iniciando getCurrentRate, forceUpdate=$forceUpdate")
