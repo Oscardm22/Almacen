@@ -40,7 +40,6 @@ class SaleProductsAdapter(
             // 3. Configurar TextWatcher para cambios de cantidad
             textWatcher = object : TextWatcher {
                 private var previousText = ""
-                private var isFirstChange = true // Bandera para primer cambio
 
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                     previousText = s?.toString() ?: ""
