@@ -136,6 +136,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setupFab() {
         binding.fabAddProduct.setOnClickListener {
             toggleSecondaryButtons()
