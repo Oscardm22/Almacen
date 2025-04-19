@@ -91,7 +91,13 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
                 updateAllPrices(rateResult.rate)
                 _rateState.value = RateState.SUCCESS
-                _rateUpdateMessage.value = "Tasa actualizada: ${formatRate(newRate)} BS/USD"
+
+                // Mensaje contextual
+                _rateUpdateMessage.value = if (rateResult.isFromCache) {
+                    "Tasa almacenada: ${formatRate(rateResult.rate)} (sin conexión)"
+                } else {
+                    "Tasa actualizada: ${formatRate(rateResult.rate)}"
+                }
             } catch (e: Exception) {
                 _rateState.value = RateState.ERROR
                 _rateUpdateMessage.value = "Error: ${e.message ?: "No se pudo actualizar la tasa"}"
