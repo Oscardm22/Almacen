@@ -114,10 +114,10 @@ object ExchangeRateManager {
                 if (!shouldUpdate(currentTime)) {
                     return@withContext RateResult(currentRate, true)
                 }
-            } catch (e: Exception) {
-                Log.e("ExchangeRate", "Error parseando respuesta", e)
-                throw e
-            }
+
+                if (!ConnectivityChecker(context).hasInternet()) {
+                    return@withContext RateResult(currentRate, true)
+                }
 
             // Primero intenta con venta, luego con promedio, luego con compra
             val newRate = body.venta ?: body.promedio ?: body.compra
