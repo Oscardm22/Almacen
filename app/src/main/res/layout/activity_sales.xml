@@ -146,22 +146,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/labelTotalBs"/>
 
-    <!-- Botón Limpiar (izquierda) -->
-    <Button
-        android:id="@+id/btnClearSale"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_button"
-        android:minHeight="48dp"
-        android:text="@string/limpiar_carrito"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCompleteSale"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTotal"
-        app:layout_constraintWidth_percent="0.45"/>
+        <!-- Total en Dólares -->
+        <TextView
+            android:id="@+id/labelTotalUsd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/TotalUsd"
+            android:textColor="@color/Brunswick_green"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelTotalBs"
+            android:layout_marginTop="4dp"/>
 
     <!-- Botón Finalizar (derecha) -->
     <Button
