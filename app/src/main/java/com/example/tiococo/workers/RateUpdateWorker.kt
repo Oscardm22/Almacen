@@ -24,10 +24,8 @@ class RateUpdateWorker(
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
-            if (!ConnectivityChecker(applicationContext).hasInternet()) {
-                Log.w(TAG, "Sin conexión a internet - Reintentando")
-                return@withContext Result.retry()
-            }
+            Log.d(TAG, "Iniciando actualización de tasa...")
+            val rateResult = ExchangeRateManager.getCurrentRateWithStatus(applicationContext, true)
 
             val newRate = ExchangeRateManager.getCurrentRate(applicationContext, true)
             val previousRate = ExchangeRateManager.currentRate
