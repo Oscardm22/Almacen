@@ -27,6 +27,7 @@ import com.example.tiococo.ui.auth.LoginActivity
 import com.example.tiococo.ui.user.UserManagementActivity
 import androidx.core.content.edit
 import android.os.Build
+import android.view.View
 
 class HomeActivity : AppCompatActivity() {
 
