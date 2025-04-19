@@ -81,7 +81,7 @@
         android:clipToPadding="false"
         android:contentDescription="@string/sale_products_description"
         android:paddingVertical="4dp"
-        app:layout_constraintBottom_toTopOf="@id/tvTotal"
+        app:layout_constraintBottom_toTopOf="@id/guidelineTotals"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="parent"
