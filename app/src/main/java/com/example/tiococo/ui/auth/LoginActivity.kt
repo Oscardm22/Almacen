@@ -14,6 +14,19 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Verificar si ya hay una sesión activa
+        val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val isLoggedIn = prefs.getBoolean("is_logged_in", false)
+
+        if (isLoggedIn) {
+            // Redirigir al Home directamente
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+            return
+        }
+
+        // Si no hay sesión activa, continuar con el login
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
