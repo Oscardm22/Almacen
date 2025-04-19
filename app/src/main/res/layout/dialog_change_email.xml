@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    android:background="@color/Beige">
+
+    <!-- Icono decorativo -->
+    <ImageView
+        android:id="@+id/ivDialogIcon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_email_verified"
+        android:contentDescription="@string/ivDialogIcon"
+        app:tint="@color/Brunswick_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Título del diálogo -->
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/Cambiar_Correo"
+        android:textColor="@color/on_surface"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivDialogIcon"/>
+
+    <!-- Campo de entrada -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilNewEmail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:hint="@string/tilNewEmail"
+        app:boxStrokeColor="@color/Brunswick_green"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/Brunswick_green"
+        app:startIconDrawable="@drawable/ic_email"
+        app:startIconTint="@color/Dark_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/on_surface"
+            tools:text="nuevo@ejemplo.com"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Mensaje de ayuda -->
+    <TextView
+        android:id="@+id/tvHelpText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/tvHelpText"
+        android:textColor="@color/secondary_text"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/tilNewEmail"
+        app:layout_constraintStart_toStartOf="@id/tilNewEmail"
+        app:layout_constraintTop_toBottomOf="@id/tilNewEmail"/>
+
+    <!-- Botón de acción -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirm"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/Brunswick_green"
+        android:text="@string/btnConfirm"
+        android:textColor="@color/on_primary"
+        app:cornerRadius="8dp"
+        app:icon="@drawable/ic_arrow_forward"
+        app:iconGravity="end"
+        app:iconTint="@color/on_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHelpText"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
