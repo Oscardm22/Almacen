@@ -170,7 +170,7 @@
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@id/labelTotalUsd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/labelTotalUsd"/>
+            app:layout_constraintStart_toEndOf="@id/labelTotalUsd" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
