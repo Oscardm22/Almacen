@@ -222,9 +222,6 @@ class HomeActivity : AppCompatActivity() {
     private fun setupRateObserver() {
         viewModel.exchangeRate.observe(this) { rate ->
             binding.tvExchangeRate.text = getString(R.string.exchange_rate_format, "%.2f".format(rate))
-
-            // Opcional: Mostrar notificación cuando cambia
-            Toast.makeText(this, "Tasa actualizada", Toast.LENGTH_SHORT).show()
         }
     }
 
