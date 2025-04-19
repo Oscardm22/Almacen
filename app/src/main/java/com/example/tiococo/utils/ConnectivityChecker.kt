@@ -2,6 +2,7 @@ package com.example.tiococo.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities
 
 class ConnectivityChecker(private val context: Context) {
