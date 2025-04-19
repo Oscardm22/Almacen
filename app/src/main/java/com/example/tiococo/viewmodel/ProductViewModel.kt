@@ -100,7 +100,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                 }
             } catch (e: Exception) {
                 _rateState.value = RateState.ERROR
-                _rateUpdateMessage.value = "Error: ${e.message ?: "No se pudo actualizar la tasa"}"
+                _rateUpdateMessage.value = "Error: ${e.message ?: "No se pudo actualizar"}"
             }
         }
     }
