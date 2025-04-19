@@ -149,6 +149,10 @@ object ExchangeRateManager {
         }
     }
 
+    private fun shouldUpdate(currentTime: Long): Boolean {
+        return currentTime - lastUpdateTime >= CACHE_DURATION
+    }
+
     private fun saveToPreferences() {
         sharedPrefs.edit().run {
             putFloat("last_rate", currentRate.toFloat())
