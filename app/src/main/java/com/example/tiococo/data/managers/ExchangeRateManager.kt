@@ -94,27 +94,15 @@ object ExchangeRateManager {
             try {
                 val currentTime = System.currentTimeMillis()
 
-                if (!shouldUpdate(forceUpdate, currentTime)) {
-                    Log.d("ExchangeRate", "Usando tasa cacheada: $currentRate")
-                    return@withContext currentRate
-                }
-
-                if (!ConnectivityChecker(context).hasInternet()) {
-                    Log.w("ExchangeRate", "Sin conexión a internet")
-                    throw NoInternetException("No hay conexión a internet")
-                }
-
-                Log.d("ExchangeRate", "Obteniendo nueva tasa de la API...")
-                fetchAndUpdateRate(currentTime)
-            } catch (e: NoInternetException) {
-                Log.w("ExchangeRate", e.message ?: "Sin conexión")
-                throw e
-            } catch (e: Exception) {
-                Log.e("ExchangeRate", "Error al obtener tasa", e)
-                throw RateFetchException("Error al obtener la tasa del dólar: ${e.message}")
-            }
-        }
-    }
+                if (forceUpdate) {
+                    Log.d(TAG, "Actualización forzada solicitada")
+                    if (!ConnectivityChecker(context).hasInternet()) {
+                        return@withContext RateResult(
+                            rate = currentRate,
+                            isFromCache = true,
+                            error = NoInternetException()
+                        )
+                    }
 
     private fun shouldUpdate(forceUpdate: Boolean, currentTime: Long): Boolean {
         return forceUpdate || currentTime - lastUpdateTime > CACHE_DURATION
