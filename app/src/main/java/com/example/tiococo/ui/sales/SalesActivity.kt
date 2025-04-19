@@ -84,8 +84,13 @@ class SalesActivity : AppCompatActivity() {
             binding.tvTotalBs.text = getString(R.string.total_bs_format, totalBs)
         }
 
-        viewModel.totalAmount.observe(this) { total ->
-            binding.tvTotal.text = getString(R.string.total_format, total)
+        // Observar el cambio de tasa de cambio
+        viewModel.exchangeRate.observe(this) { rate ->
+            viewModel.totalAmount.value?.let { totalUsd ->
+                // Cuando la tasa cambia, actualizar el total en Bs
+                val totalBs = totalUsd * rate
+                binding.tvTotalBs.text = getString(R.string.total_bs_format, totalBs)
+            }
         }
     }
 
