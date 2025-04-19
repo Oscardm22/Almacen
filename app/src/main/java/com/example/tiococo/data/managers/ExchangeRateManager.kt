@@ -119,11 +119,7 @@ object ExchangeRateManager {
                     return@withContext RateResult(currentRate, true)
                 }
 
-            // Primero intenta con venta, luego con promedio, luego con compra
-            val newRate = body.venta ?: body.promedio ?: body.compra
-
-            if (newRate != null) {
-                Log.d("ExchangeRate", "Nueva tasa recibida: $newRate")
+                val newRate = fetchFromApi()
                 currentRate = newRate
                 lastUpdateTime = currentTime
                 saveToPreferences()
