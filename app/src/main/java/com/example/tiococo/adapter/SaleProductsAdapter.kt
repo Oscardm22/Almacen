@@ -25,7 +25,7 @@ class SaleProductsAdapter(
         private val btnRemove: ImageButton = itemView.findViewById(R.id.btnRemove)
         private var currentProduct: Product? = null
         private var textWatcher: TextWatcher? = null
-        private var isFirstChange = true // Mover la variable aquí
+        private var isFirstChange = true
 
         fun bind(product: Product) {
             // 1. Configuración inicial
