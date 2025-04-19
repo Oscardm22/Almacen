@@ -165,4 +165,21 @@ class SalesHistoryActivity : AppCompatActivity() {
             null
         }
     }
+
+    private fun shareCsvFile(file: File) {
+        val uri = FileProvider.getUriForFile(
+            this,
+            "${packageName}.provider",
+            file
+        )
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/csv"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        startActivity(Intent.createChooser(intent, "Compartir historial de ventas"))
+    }
+
 }
