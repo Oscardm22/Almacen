@@ -27,6 +27,11 @@
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="31">
         <activity
+            android:name=".ui.user.UserManagementActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.sales.SalesHistoryActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
