@@ -6,6 +6,30 @@
     android:padding="16dp"
     android:background="@color/Beige">
 
+    <ImageButton
+        android:id="@+id/fabManageUsers"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/Gestionar_usuarios"
+        android:src="@drawable/ic_user_temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/Brunswick_green" />
+
+
+    <ImageButton
+        android:id="@+id/btnLogout"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/Cerrar_sesión"
+        android:src="@drawable/ic_logout"
+        app:tint="@color/Rust"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <!-- Contenedor para botón y tasa (modificado) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rateContainer"
