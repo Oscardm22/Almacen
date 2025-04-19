@@ -70,8 +70,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun performLogin(username: String, password: String) {
-        // Aquí iría tu lógica de autenticación real
-        // Esto es un ejemplo con credenciales hardcodeadas
         if (username == "admin" && password == "123456") {
             // Guardar sesión
             val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
