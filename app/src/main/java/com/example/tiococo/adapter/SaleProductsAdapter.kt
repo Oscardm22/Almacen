@@ -35,6 +35,7 @@ class SaleProductsAdapter(
             // 2. Mostrar datos del producto
             tvProductName.text = product.name
             etQuantity.setText(product.quantity.toString())
+            etQuantity.filters = arrayOf(android.text.InputFilter.LengthFilter(3))
 
             // 3. Configurar TextWatcher para cambios de cantidad
             textWatcher = object : TextWatcher {
