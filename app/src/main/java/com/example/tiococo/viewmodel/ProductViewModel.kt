@@ -13,6 +13,8 @@ import java.util.Locale
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import com.example.tiococo.data.repository.SaleRepository
+import com.example.tiococo.data.repository.ProductRepository
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
 
