@@ -7,7 +7,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tiococo.R
 import com.example.tiococo.databinding.ActivitySalesBinding
 import com.example.tiococo.viewmodel.ProductViewModel
