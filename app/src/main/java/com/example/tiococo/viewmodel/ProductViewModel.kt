@@ -205,11 +205,24 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                         }
                     }
 
-            _salesHistory.value = (_salesHistory.value.orEmpty()) + newSale
-            clearSale()
-            _saveSuccess.value = true
+                    clearSale()
+                    _saveSuccess.value = true
+                } catch (e: Exception) {
+                    _saveSuccess.value = false
+                    Log.e("ProductVM", "Error al registrar venta", e)
+                }
+            }
         }
     }
+
+    fun loadSalesHistory() {
+        viewModelScope.launch {
+            saleRepository.getSalesHistory().collect { sales ->
+                _salesHistory.postValue(sales)
+            }
+        }
+    }
+
 
     fun deleteSaleRecord(saleId: String) {
         _salesHistory.value = _salesHistory.value?.filter { it.id != saleId }
