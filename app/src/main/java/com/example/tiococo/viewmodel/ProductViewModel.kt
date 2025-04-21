@@ -54,6 +54,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     init {
         loadInitialData()
         refreshExchangeRate()
+        loadSalesHistory()
     }
 
     private fun loadInitialData() {
