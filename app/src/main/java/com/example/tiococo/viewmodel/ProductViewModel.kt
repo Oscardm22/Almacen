@@ -30,11 +30,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     private val _rateState = MutableLiveData<RateState>(RateState.IDLE)
     val rateState: LiveData<RateState> = _rateState
 
-    // Datos de productos y ventas
-    private var originalProductList: List<Product> = emptyList()
-    private val _products = MutableLiveData<List<Product>>(emptyList())
-    val products: LiveData<List<Product>> = _products
-
+    // Cambia saleProducts también
     private val _saleProducts = MutableLiveData<List<Product>>(emptyList())
     val saleProducts: LiveData<List<Product>> = _saleProducts
 
