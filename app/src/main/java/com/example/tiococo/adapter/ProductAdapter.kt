@@ -52,6 +52,12 @@ class ProductAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(getItem(position)) // <- ¡Usamos getItem() de ListAdapter!
+        val product = getItem(position)  // Obtenemos directamente el Product
+        holder.bind(product)
+
+        // Pasamos solo el Product al hacer click
+        holder.itemView.setOnClickListener {
+            onItemClick(product)
+        }
     }
 }
