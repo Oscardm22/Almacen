@@ -143,7 +143,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                 if (it.id == id) updatedProduct.copy(id = id) else it
             }
         }
-        _products.value = originalProductList
+    }
+
+
 
         // Actualizar en lista de ventas si existe
         _saleProducts.value = _saleProducts.value?.map {
