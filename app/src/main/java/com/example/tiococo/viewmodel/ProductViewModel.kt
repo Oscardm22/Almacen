@@ -98,10 +98,10 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun updateAllPrices(newRate: Double) {
-        // Actualizar productos principales
-        originalProductList = originalProductList.map {
-            it.copy(priceBolivares = calculateBsPrice(it.priceDollars, newRate))
-        }
+        // Solo actualizamos el exchangeRate, no modificamos los precios en dólares
+        _exchangeRate.value = newRate
+
+        // Forzamos la actualización de la lista para que los precios en Bs se recalculen
         _products.value = originalProductList
 
         // Actualizar productos en venta
