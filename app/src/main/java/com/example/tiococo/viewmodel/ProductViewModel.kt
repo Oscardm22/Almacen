@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
