@@ -17,6 +17,12 @@ import com.example.tiococo.data.repository.SaleRepository
 import com.example.tiococo.data.repository.ProductRepository
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
+    // Cambia de Pair<String, Product> a Product
+    private var originalProductList: List<Product> = emptyList()
+    private val _products = MutableLiveData<List<Product>>(emptyList())
+    val products: LiveData<List<Product>> = _products
+
+
 
     // Estados para la actualización de tasa
     enum class RateState { IDLE, LOADING, SUCCESS, ERROR }
