@@ -69,9 +69,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                 _products.postValue(productos)
             }
         }
-
-        // Establecemos las ventas simuladas en el LiveData
-        _salesHistory.value = mockSales
     }
 
     fun refreshExchangeRate() {
