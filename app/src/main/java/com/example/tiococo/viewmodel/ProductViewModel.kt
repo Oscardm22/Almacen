@@ -257,8 +257,8 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun calculateTotal() {
-        _totalAmount.value = _saleProducts.value?.sumOf {
-            it.priceDollars * it.quantity
+        _totalAmount.value = _saleProducts.value?.sumOf { product ->
+            product.priceDollars * product.quantity
         } ?: 0.0
     }
 }
