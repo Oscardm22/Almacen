@@ -192,14 +192,18 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                 products = products.map { it.copy() }
             )
 
-            // Actualizar inventario
-            products.forEach { soldProduct ->
-                _products.value?.find { it.id == soldProduct.id }?.let { original ->
-                    updateProduct(original.copy(
-                        quantity = original.quantity - soldProduct.quantity
-                    ))
-                }
-            }
+            viewModelScope.launch {
+                try {
+                    saleRepository.saveSale(newSale)
+
+                    // Reducir stock en productos
+                    products.forEach { soldProduct ->
+                        val original = originalProductList.find { it.id == soldProduct.id }
+                        original?.let {
+                            val updated = it.copy(quantity = it.quantity - soldProduct.quantity)
+                            updateProduct(updated.id, updated)
+                        }
+                    }
 
             _salesHistory.value = (_salesHistory.value.orEmpty()) + newSale
             clearSale()
