@@ -12,6 +12,7 @@ import com.example.tiococo.databinding.ActivitySalesBinding
 import com.example.tiococo.viewmodel.ProductViewModel
 import com.example.tiococo.adapter.ProductAdapter
 import com.example.tiococo.adapter.SaleProductsAdapter
+import com.example.tiococo.data.model.Product
 
 class SalesActivity : AppCompatActivity() {
 
