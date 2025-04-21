@@ -225,8 +225,11 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
 
     fun deleteSaleRecord(saleId: String) {
-        _salesHistory.value = _salesHistory.value?.filter { it.id != saleId }
+        viewModelScope.launch {
+            saleRepository.deleteSale(saleId)
+        }
     }
+
 
     // Búsqueda y filtrado
     fun filterSalesByDate(query: String): List<SaleRecord> {
