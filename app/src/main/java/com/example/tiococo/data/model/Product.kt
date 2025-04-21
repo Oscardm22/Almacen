@@ -8,7 +8,8 @@ data class Product(
     val id: String = "",  // Añade este campo
     val name: String,
     val quantity: Int,
-    val priceDollars: Double,  // Precio base en dólares
-    var priceBolivares: Double, // Precio calculado
-    val lastRateUpdate: String = "" // Fecha última actualización
-) : Parcelable
+    val priceDollars: Double,
+) : Parcelable {
+    // Constructor sin argumentos para Firebase
+    constructor() : this("", "", 0, 0.0)
+}
