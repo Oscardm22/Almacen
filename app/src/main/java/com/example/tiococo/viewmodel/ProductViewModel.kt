@@ -189,7 +189,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                 id = System.currentTimeMillis().toString(),
                 date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()),
                 total = _totalAmount.value ?: 0.0,
-                products = products.map { it.copy() } // Copia de los productos
+                products = products.map { it.copy() }
             )
 
             // Actualizar inventario
