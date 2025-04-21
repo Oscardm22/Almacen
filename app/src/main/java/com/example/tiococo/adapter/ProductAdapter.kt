@@ -18,7 +18,6 @@ class ProductAdapter(
 
     private lateinit var context: Context
 
-    // 1. Clase para comparar items eficientemente
     private class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem.id == newItem.id
