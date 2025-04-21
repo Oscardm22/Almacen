@@ -47,6 +47,10 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     private val _newlyAddedProducts = mutableSetOf<String>()
 
+    private val productRepository = ProductRepository()
+
+    private val saleRepository = SaleRepository()
+
     init {
         loadInitialData()
         refreshExchangeRate()
