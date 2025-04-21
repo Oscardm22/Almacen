@@ -135,11 +135,13 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun updateProduct(updatedProduct: Product) {
-        originalProductList = originalProductList.map {
-            if (it.id == updatedProduct.id) updatedProduct.copy(
-                priceBolivares = calculateBsPrice(updatedProduct.priceDollars)
-            ) else it
+    fun updateProduct(id: String, updatedProduct: Product) {
+        viewModelScope.launch {
+            productRepository.updateProduct(id, updatedProduct)
+            // Actualizar lista local
+            _products.value = _products.value?.map {
+                if (it.id == id) updatedProduct.copy(id = id) else it
+            }
         }
         _products.value = originalProductList
 
