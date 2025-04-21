@@ -1,6 +1,8 @@
 package com.example.tiococo.ui.auth
 
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
