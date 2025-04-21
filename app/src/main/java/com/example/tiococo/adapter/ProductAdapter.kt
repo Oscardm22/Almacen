@@ -38,8 +38,9 @@ class ProductAdapter(
             tvProductName.text = product.name
             tvQuantity.text = context.getString(R.string.stock_label, product.quantity)
             tvPriceDollars.text = context.getString(R.string.price_dollars_label, product.priceDollars)
-            tvPriceBolivares.text = context.getString(R.string.price_bolivares_label, product.priceBolivares)
-            itemView.setOnClickListener { onItemClick(product) }
+
+            val priceInBolivares = product.priceDollars * exchangeRate
+            tvPriceBolivares.text = context.getString(R.string.price_bolivares_label, priceInBolivares)
         }
     }
 
