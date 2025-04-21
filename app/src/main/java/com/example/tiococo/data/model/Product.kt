@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Product(
-    val id: String,
+    val id: String = "",  // Añade este campo
     val name: String,
     val quantity: Int,
     val priceDollars: Double,  // Precio base en dólares
