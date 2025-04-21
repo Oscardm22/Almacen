@@ -63,29 +63,11 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun loadInitialData() {
-        originalProductList = listOf(
-            Product("1", "Arroz", 10, 2.5, calculateBsPrice(2.5)),
-            Product("2", "Leche", 5, 3.0, calculateBsPrice(3.0)),
-            Product("3", "Azúcar", 8, 1.8, calculateBsPrice(1.8))
-        )
-        _products.value = originalProductList
-    }
-
-    fun generateMockSales() {
-        val mockSales = mutableListOf<SaleRecord>()
-
-        // Generamos 5 ventas simuladas
-        for (i in 1..5) {
-            val sale = SaleRecord(
-                id = "sale_$i",
-                date = "2025-04-${i + 10}",  // Fechas de ejemplo
-                total = (i * 100).toDouble(),
-                products = listOf(
-                    Product("1", "Arroz", 10, 2.5, 2.5 * i),
-                    Product("2", "Leche", 5, 3.0, 3.0 * i)
-                )
-            )
-            mockSales.add(sale)
+        viewModelScope.launch {
+            productRepository.getProducts().collect { productos ->
+                originalProductList = productos
+                _products.postValue(productos)
+            }
         }
 
         // Establecemos las ventas simuladas en el LiveData
