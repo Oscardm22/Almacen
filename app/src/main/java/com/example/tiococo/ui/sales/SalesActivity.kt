@@ -51,7 +51,6 @@ class SalesActivity : AppCompatActivity() {
                     // Pasa el producto completo y la nueva cantidad
                     viewModel.updateSaleProductQuantity(product, newQuantity)
                 } else {
-                    // Elimina si la cantidad es 0 o negativa
                     viewModel.removeFromSale(product)
                 }
             }
