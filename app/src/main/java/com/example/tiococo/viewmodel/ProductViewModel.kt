@@ -116,6 +116,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
     // Funciones CRUD
+    private val _isSaving = MutableLiveData(false)
+    val isSaving: LiveData<Boolean> = _isSaving
+
     fun addProduct(newProduct: Product) {
         val productWithBs = newProduct.copy(
             priceBolivares = calculateBsPrice(newProduct.priceDollars)
