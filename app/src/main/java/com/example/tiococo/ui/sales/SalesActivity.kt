@@ -33,10 +33,13 @@ class SalesActivity : AppCompatActivity() {
     }
 
     private fun setupAdapters() {
-        availableProductsAdapter = ProductAdapter { product ->
-            // Añade producto con cantidad 0
-            viewModel.addToSale(product.copy(quantity = 0))
-        }
+        availableProductsAdapter = ProductAdapter(
+            onItemClick = { product: Product ->
+                // Pasa solo el producto (sin ID por separado)
+                viewModel.addToSale(product.copy(quantity = 1)) // Cantidad inicial 1
+            },
+            exchangeRate = viewModel.exchangeRate.value ?: 1.0
+        )
 
         saleProductsAdapter = SaleProductsAdapter(
             onRemoveClick = { product ->
