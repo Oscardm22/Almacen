@@ -120,12 +120,22 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     val isSaving: LiveData<Boolean> = _isSaving
 
     fun addProduct(newProduct: Product) {
-        val productWithBs = newProduct.copy(
-            priceBolivares = calculateBsPrice(newProduct.priceDollars)
-        )
-        originalProductList = originalProductList + productWithBs
-        _products.value = originalProductList
-        _saveSuccess.value = true
+        viewModelScope.launch {
+            _isSaving.value = true
+            try {
+                val id = productRepository.saveProduct(newProduct)
+                val updatedProduct = newProduct.copy(id = id)
+                val updatedList = _products.value.orEmpty().toMutableList()
+                updatedList.add(updatedProduct)
+                _products.value = updatedList
+                _saveSuccess.value = true
+            } catch (e: Exception) {
+                _saveSuccess.value = false
+                Log.e("ProductVM", "Error al guardar producto", e)
+            } finally {
+                _isSaving.value = false
+            }
+        }
     }
 
     fun updateProduct(updatedProduct: Product) {
