@@ -147,13 +147,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
 
 
-        // Actualizar en lista de ventas si existe
-        _saleProducts.value = _saleProducts.value?.map {
-            if (it.id == updatedProduct.id) updatedProduct.copy(
-                priceBolivares = calculateBsPrice(updatedProduct.priceDollars),
-                quantity = it.quantity //
-            // Mantener la cantidad actual
-            ) else it
+    fun deleteProduct(id: String) {
+        viewModelScope.launch {
+            productRepository.deleteProduct(id)
         }
     }
 
