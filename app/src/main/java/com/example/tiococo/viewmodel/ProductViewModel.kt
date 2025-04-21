@@ -103,12 +103,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
         // Forzamos la actualización de la lista para que los precios en Bs se recalculen
         _products.value = originalProductList
-
-        // Actualizar productos en venta
-        _saleProducts.value = _saleProducts.value?.map {
-            it.copy(priceBolivares = calculateBsPrice(it.priceDollars, newRate))
-        }
+        _saleProducts.value = _saleProducts.value
     }
+
 
     private fun calculateBsPrice(dollarPrice: Double, rate: Double = _exchangeRate.value ?: 36.0): Double {
         return dollarPrice * rate
