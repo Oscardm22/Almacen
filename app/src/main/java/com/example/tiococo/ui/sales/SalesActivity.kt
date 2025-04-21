@@ -55,18 +55,6 @@ class SalesActivity : AppCompatActivity() {
                 }
             }
         )
-
-        with(binding) {
-            rvAvailableProducts.apply {
-                layoutManager = LinearLayoutManager(this@SalesActivity)
-                adapter = availableProductsAdapter
-            }
-
-            rvSaleProducts.apply {
-                layoutManager = LinearLayoutManager(this@SalesActivity)
-                adapter = saleProductsAdapter
-            }
-        }
     }
 
     private fun setupObservers() {
