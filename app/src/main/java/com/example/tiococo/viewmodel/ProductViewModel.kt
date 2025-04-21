@@ -159,7 +159,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     fun addToSale(product: Product) {
         val currentSale = _saleProducts.value?.toMutableList() ?: mutableListOf()
         if (currentSale.none { it.id == product.id }) {
-            _newlyAddedProducts.add(product.id)
             currentSale.add(product.copy(quantity = 1)) // Cantidad inicial 1
             _saleProducts.value = currentSale
             calculateTotal()
