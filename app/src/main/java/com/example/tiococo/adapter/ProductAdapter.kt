@@ -28,7 +28,6 @@ class ProductAdapter(
         }
     }
 
-    // 2. ViewHolder (igual que antes pero ahora es inner)
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvProductName: TextView = itemView.findViewById(R.id.tvProductName)
         private val tvQuantity: TextView = itemView.findViewById(R.id.tvQuantity)
