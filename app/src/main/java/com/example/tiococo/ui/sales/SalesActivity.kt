@@ -43,6 +43,7 @@ class SalesActivity : AppCompatActivity() {
 
         saleProductsAdapter = SaleProductsAdapter(
             onRemoveClick = { product ->
+                // Pasa el producto completo
                 viewModel.removeFromSale(product)
             },
             onQuantityChange = { product, newQuantity ->
