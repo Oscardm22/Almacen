@@ -153,12 +153,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun deleteProduct(productId: String) {
-        originalProductList = originalProductList.filter { it.id != productId }
-        _products.value = originalProductList
-        _saleProducts.value = _saleProducts.value?.filter { it.id != productId }
-        calculateTotal()
-    }
+
 
     // Funciones de Ventas
     fun addToSale(product: Product) {
