@@ -401,7 +401,7 @@ class HomeActivity : AppCompatActivity() {
             data.getParcelableExtra("EDITED_PRODUCT", Product::class.java)
         } else {
             @Suppress("DEPRECATION")
-            data.getParcelableExtra("EDITED_PRODUCT")
+            data.getParcelableExtra<Product>("EDITED_PRODUCT")
         }
         editedProduct?.let { viewModel.updateProduct(it) }
     }
