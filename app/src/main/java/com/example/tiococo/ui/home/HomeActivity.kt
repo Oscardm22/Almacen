@@ -28,6 +28,14 @@ import com.example.tiococo.ui.user.UserManagementActivity
 import androidx.core.content.edit
 import android.os.Build
 import android.view.View
+import java.io.File
+import android.graphics.pdf.PdfDocument
+import android.graphics.Paint
+import androidx.core.graphics.blue
+import android.graphics.Canvas
+import androidx.core.content.FileProvider
+import android.util.Log
+import android.view.MotionEvent
 
 class HomeActivity : AppCompatActivity() {
 
