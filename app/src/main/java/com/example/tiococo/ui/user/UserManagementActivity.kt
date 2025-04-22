@@ -84,13 +84,10 @@ class UserManagementActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun validatePasswordChange(
-        currentPass: String,
-        newPass: String,
-        confirmPass: String
-    ): Boolean {
-        val savedPass = getSharedPreferences("user_prefs", MODE_PRIVATE)
-            .getString("password", "") ?: ""
+
+    private fun validatePasswordChange(current: String, new: String, confirm: String): Boolean {
+        val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val savedHash = prefs.getString("password_hash", "") // Debe ser el hash BCrypt
 
         return when {
             currentPass != savedPass -> {
