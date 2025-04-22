@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.tiococo.databinding.ActivityAddProductBinding
 import com.example.tiococo.data.model.Product
 import com.example.tiococo.viewmodel.ProductViewModel
