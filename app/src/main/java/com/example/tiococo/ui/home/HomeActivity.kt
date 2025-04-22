@@ -376,7 +376,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun hideSecondaryButtons() {
         with(binding) {
-            listOf(btnOption1, btnOption2, btnOption3).forEach { button ->
+            listOf(btnOption1, btnOption2, btnOption3, btnOption4).forEach { button ->
                 button.animate()
                     .alpha(0f)
                     .setDuration(200)
