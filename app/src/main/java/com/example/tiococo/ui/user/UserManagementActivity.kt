@@ -70,7 +70,6 @@ class UserManagementActivity : AppCompatActivity() {
         val editConfirmPass = dialogView.findViewById<EditText>(R.id.etConfirmPassword)
 
         AlertDialog.Builder(this)
-            .setTitle("Cambiar contraseña")
             .setView(dialogView)
             .setPositiveButton("Guardar") { _, _ ->
                 val currentPass = editCurrentPass.text.toString()
