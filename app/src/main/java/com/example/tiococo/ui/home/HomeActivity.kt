@@ -109,15 +109,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        productAdapter = ProductAdapter { selectedProduct ->
-            Intent(this, ProductDetailActivity::class.java).apply {
-                putExtra("PRODUCT", selectedProduct)
-            }.also { detailLauncher.launch(it) }
-        }
-
-        binding.rvProducts.apply {
-            adapter = productAdapter
-        }
+        productAdapter = ProductAdapter(
+            onItemClick = { product ->
+                Intent(this, ProductDetailActivity::class.java).apply {
+                    putExtra("PRODUCT_ID", product.id)  // Usamos product.id directamente
+                    putExtra("PRODUCT", product)
+                }.also { detailLauncher.launch(it) }
+            },
+            exchangeRate = viewModel.exchangeRate.value ?: 1.0
+        )
+        binding.rvProducts.adapter = productAdapter
     }
 
     private fun setupObservers() {
