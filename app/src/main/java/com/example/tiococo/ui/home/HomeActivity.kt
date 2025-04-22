@@ -170,7 +170,28 @@ class HomeActivity : AppCompatActivity() {
             isClickable = true
             contentDescription = "Área táctil para ocultar botones"
 
-    private fun setupFab() {
+            setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        if (shouldHideButtons()) {
+                            hideSecondaryButtons()
+                        }
+                        v.performClick()
+                        true // Consumir el evento
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun shouldHideButtons(): Boolean {
+        return binding.btnOption1.isVisible ||
+                binding.btnOption2.isVisible ||
+                binding.btnOption3.isVisible ||
+                binding.btnOption4.isVisible
+    }
+        private fun setupFab() {
         binding.fabAddProduct.setOnClickListener {
             toggleSecondaryButtons()
         }
