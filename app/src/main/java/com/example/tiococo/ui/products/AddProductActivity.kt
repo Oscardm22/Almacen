@@ -73,9 +73,21 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun saveProduct() {
-        with(binding) {
-            val product = Product(
-                id = System.currentTimeMillis().toString(),
+        if (viewModel.isSaving.value == true) {
+            Log.w("SaveFlow", "Guardado en progreso - ignorando clic")
+            return
+        }
+
+        binding.btnSave.isEnabled = false
+        binding.progressBar.visibility = View.VISIBLE
+
+        val newProduct = createProductFromInputs()
+        viewModel.addProduct(newProduct)
+    }
+
+    private fun createProductFromInputs(): Product {
+        return with(binding) {
+            Product(
                 name = etName.text.toString(),
                 quantity = etQuantity.text.toString().toInt(),
                 priceDollars = etPriceDollars.text.toString().toDoubleOrNull() ?: 0.0,
