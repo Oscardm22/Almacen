@@ -56,11 +56,6 @@ class UserManagementActivity : AppCompatActivity() {
         binding.btnChangePassword.setOnClickListener {
             showChangePasswordDialog()
         }
-    }
-
-    private fun showChangeEmailDialog() {
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_change_email, null)
-        val editNewEmail = dialogView.findViewById<EditText>(R.id.etNewEmail)
 
         AlertDialog.Builder(this)
             .setTitle("Cambiar correo electrónico")
