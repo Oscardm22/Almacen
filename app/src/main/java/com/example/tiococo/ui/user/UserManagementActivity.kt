@@ -118,8 +118,34 @@ class UserManagementActivity : AppCompatActivity() {
     }
 
     private fun updatePassword(newPassword: String) {
-        getSharedPreferences("user_prefs", MODE_PRIVATE).edit {
-            putString("password", newPassword)
+        val username = binding.tvUsername.text.toString().trim()
+        if (username.isEmpty()) {
+            Toast.makeText(this, "Nombre de usuario no válido", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val newHash = BCrypt.hashpw(newPassword, BCrypt.gensalt(12))
+        Log.d("FIREBASE_DEBUG", "Actualizando password para usuario: $username")
+
+        // Operación directa con verificación de seguridad
+        FirebaseFirestore.getInstance().run {
+            collection("usuarios").document(username)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        document.reference.update("password", newHash)
+                            .addOnSuccessListener {
+                                updateLocalPassword(newHash)
+                                Toast.makeText(this@UserManagementActivity,
+                                    "Contraseña actualizada", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e -> handleUpdateError(e) }
+                    } else {
+                        Toast.makeText(this@UserManagementActivity,
+                            "Usuario no encontrado", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener { e -> handleUpdateError(e) }
         }
         Toast.makeText(this, "Contraseña actualizada", Toast.LENGTH_SHORT).show()
     }
