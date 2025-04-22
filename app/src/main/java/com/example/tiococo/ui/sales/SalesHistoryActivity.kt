@@ -88,7 +88,6 @@ class SalesHistoryActivity : AppCompatActivity() {
     }
 
     private fun setupFABs() {
-        // Botón para limpiar historial
         binding.fabClearAll.setOnClickListener {
             showClearConfirmationDialog()
         }
