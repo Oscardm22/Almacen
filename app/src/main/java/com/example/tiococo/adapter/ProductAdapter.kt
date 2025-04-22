@@ -12,8 +12,8 @@ import com.example.tiococo.R
 import com.example.tiococo.data.model.Product
 
 class ProductAdapter(
-    private val onItemClick: (Product) -> Unit,  // Solo recibe Product (corregido)
-    private val exchangeRate: Double
+    private val onItemClick: (Product) -> Unit,
+    private var exchangeRate: Double
 ) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
     private lateinit var context: Context
