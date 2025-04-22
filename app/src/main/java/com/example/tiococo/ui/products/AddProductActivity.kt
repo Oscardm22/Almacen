@@ -44,7 +44,8 @@ class AddProductActivity : AppCompatActivity() {
                 return false
             }
 
-            if (etQuantity.text.isNullOrEmpty()) {
+            val quantityStr = etQuantity.text.toString()
+            if (quantityStr.isBlank()) {
                 etQuantity.error = "Cantidad requerida"
                 return false
             }
