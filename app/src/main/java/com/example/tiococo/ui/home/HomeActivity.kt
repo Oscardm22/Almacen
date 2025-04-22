@@ -472,6 +472,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        Log.d("ActivityLifecycle", "HomeActivity - onDestroy")
         searchJob?.cancel()
         super.onDestroy()
     }
