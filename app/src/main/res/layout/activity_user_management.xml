@@ -116,7 +116,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/btnAddUser"
             android:textColor="@color/Brunswick_green"
-            app:icon="@drawable/ic_lock"
+            app:icon="@drawable/ic_add"
             app:iconTint="@color/Brunswick_green"
             app:strokeColor="@color/Brunswick_green"
             app:strokeWidth="1dp"
