@@ -76,8 +76,8 @@ class UserManagementActivity : AppCompatActivity() {
                 val new = editNewPass.text.toString()
                 val confirm = editConfirmPass.text.toString()
 
-                if (validatePasswordChange(currentPass, newPass, confirmPass)) {
-                    updatePassword(newPass)
+                if (validatePasswordChange(current, new, confirm)) {
+                    updatePassword(new)
                 }
             }
             .setNegativeButton("Cancelar", null)
