@@ -72,9 +72,9 @@ class UserManagementActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setView(dialogView)
             .setPositiveButton("Guardar") { _, _ ->
-                val currentPass = editCurrentPass.text.toString()
-                val newPass = editNewPass.text.toString()
-                val confirmPass = editConfirmPass.text.toString()
+                val current = editCurrentPass.text.toString()
+                val new = editNewPass.text.toString()
+                val confirm = editConfirmPass.text.toString()
 
                 if (validatePasswordChange(currentPass, newPass, confirmPass)) {
                     updatePassword(newPass)
