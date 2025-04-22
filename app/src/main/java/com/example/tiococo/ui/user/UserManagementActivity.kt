@@ -137,6 +137,19 @@ class UserManagementActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { e -> handleUpdateError(e) }
         }
-        Toast.makeText(this, "Contraseña actualizada", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleUpdateError(e: Exception) {
+        Log.e("FIREBASE_ERROR", "Error detallado:", e)
+        Toast.makeText(this,
+            "Error al actualizar: ${e.message ?: "Desconocido"}",
+            Toast.LENGTH_LONG).show()
+    }
+
+    private fun updateLocalPassword(newHash: String) {
+        val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putString("password_hash", newHash)
+        editor.apply() // apply() es asíncrono, commit() sería síncrono
     }
 }
