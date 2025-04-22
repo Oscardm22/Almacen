@@ -155,6 +155,19 @@
         android:layout_marginBottom="16dp"/>
 
     <Button
+        android:id="@+id/btnOption4"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="@string/btnOption4"
+        android:textSize="11sp"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btnOption3"
+        app:layout_constraintEnd_toEndOf="@id/fabAddProduct"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
         android:id="@+id/btnOption2"
         android:layout_width="60dp"
         android:layout_height="60dp"
