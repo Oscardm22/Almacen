@@ -105,4 +105,9 @@ dependencies {
 
     // WorkManager con soporte para corrutinas (Kotlin)
     implementation(libs.androidx.work.runtime.ktx)
+
+    implementation("com.google.firebase:firebase-firestore-ktx:25.1.3")
+    implementation("com.google.firebase:firebase-auth-ktx:23.2.0")
+    implementation("com.google.firebase:firebase-common-ktx:21.0.0")
+    implementation ("org.mindrot:jbcrypt:0.4")
 }
