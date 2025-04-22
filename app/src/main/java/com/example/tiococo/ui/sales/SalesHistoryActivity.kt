@@ -29,7 +29,6 @@ class SalesHistoryActivity : AppCompatActivity() {
         setupRecyclerView()
         setupSearchFunctionality()
         setupFABs()
-        viewModel.generateMockSales()
     }
 
     private fun setupRecyclerView() {
