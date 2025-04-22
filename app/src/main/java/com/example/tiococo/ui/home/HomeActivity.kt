@@ -123,8 +123,13 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         viewModel.products.observe(this) { products ->
-            productAdapter.submitList(products)  // Pasamos la lista directamente
+
+            // Solo actualiza si la lista realmente cambió
+            if (productAdapter.currentList != products) {
+                productAdapter.submitList(products)
+            }
         }
+
 
         viewModel.exchangeRate.observe(this) { rate ->
             binding.tvExchangeRate.text = getString(R.string.exchange_rate_format, "%.2f".format(rate))
