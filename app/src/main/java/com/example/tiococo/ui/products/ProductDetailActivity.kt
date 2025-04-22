@@ -37,6 +37,9 @@ class ProductDetailActivity : AppCompatActivity() {
             return
         }
 
+        // Obtener la tasa de cambio (deberías tenerla disponible desde el ViewModel o Activity)
+        val exchangeRate = 4000000.0 // Reemplaza con la tasa de cambio real, ya sea del ViewModel o de alguna otra fuente
+
         // Mostrar detalles
         tvDetailName.text = getString(R.string.product_name, product.name)
         tvDetailQuantity.text = getString(R.string.product_stock, product.quantity)
