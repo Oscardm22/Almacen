@@ -106,6 +106,7 @@ class UserManagementActivity : AppCompatActivity() {
         }
     }
 
+
     private fun updatePassword(newPassword: String) {
         val username = binding.tvUsername.text.toString().trim()
         if (username.isEmpty()) {
