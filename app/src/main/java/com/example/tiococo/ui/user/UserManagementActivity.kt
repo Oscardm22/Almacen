@@ -8,6 +8,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tiococo.databinding.ActivityUserManagementBinding
 import com.example.tiococo.R
+import com.example.tiococo.ui.auth.RegisterUserActivity
+import android.content.Intent
+import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
+import org.mindrot.jbcrypt.BCrypt
 
 class UserManagementActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserManagementBinding
