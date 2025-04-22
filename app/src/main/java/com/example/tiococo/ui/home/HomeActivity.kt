@@ -215,6 +215,103 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun showExportInventoryDialog() {
+        val options = arrayOf("Exportar a CSV", "Exportar a PDF")
+        AlertDialog.Builder(this)
+            .setTitle("Exportar inventario")
+            .setItems(options) { _, which ->
+                val products = viewModel.products.value ?: emptyList()
+                when (which) {
+                    0 -> exportInventoryToCsv(products)
+                    1 -> exportInventoryToPdf(products) // Ya no necesitas .map { it.second }
+                }
+            }
+            .show()
+    }
+
+    private fun exportInventoryToCsv(products: List<Product>) {
+        try {
+            val file = File(getExternalFilesDir(null), "inventario.csv")
+            val writer = file.bufferedWriter()
+            writer.write("ID,Nombre,Cantidad,Precio ($),Precio (Bs)\n")
+            for (product in products) {
+                val priceInBolivares = calculatePriceInBolivares(
+                    product.priceDollars,
+                    viewModel.exchangeRate.value ?: 1.0
+                )
+                writer.write("${product.id},${product.name},${product.quantity},${product.priceDollars},$priceInBolivares\n")
+            }
+            writer.flush()
+            writer.close()
+            shareFile(file, "text/csv", "Compartir inventario (CSV)")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Error al exportar CSV", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun calculatePriceInBolivares(priceDollars: Double, exchangeRate: Double): Double {
+        return priceDollars * exchangeRate // Ahora usa el parámetro exchangeRate
+    }
+
+    private fun exportInventoryToPdf(products: List<Product>) {
+        try {
+            val document = PdfDocument()
+            val paint = Paint()
+            val titlePaint = Paint().apply {
+                color = color.blue
+                textSize = 16f
+                style = Paint.Style.FILL
+            }
+
+
+
+            var pageNumber = 1
+            var y = 40
+            var page = document.startPage(PdfDocument.PageInfo.Builder(595, 842, pageNumber).create())
+            val canvas: Canvas = page.canvas
+
+            canvas.drawText("Inventario de Productos", 40f, y.toFloat(), titlePaint)
+            y += 30
+            canvas.drawText("Nombre | Cantidad | $ | Bs", 40f, y.toFloat(), paint)
+            y += 20
+
+            for (product in products) {
+                val priceInBolivares = product.priceDollars * (viewModel.exchangeRate.value ?: 1.0)
+                val line = "${product.name} | ${product.quantity} | $${product.priceDollars} | Bs ${"%.2f".format(priceInBolivares)}"
+                if (y >= 800) {
+                    document.finishPage(page)
+                    pageNumber++
+                    page = document.startPage(PdfDocument.PageInfo.Builder(595, 842, pageNumber).create())
+                    canvas.drawText("Inventario (cont.)", 40f, 40f, titlePaint)
+                    y = 70
+                }
+                page.canvas.drawText(line, 40f, y.toFloat(), paint)
+                y += 20
+            }
+
+            document.finishPage(page)
+
+            val file = File(getExternalFilesDir(null), "inventario.pdf")
+            document.writeTo(file.outputStream())
+            document.close()
+            shareFile(file, "application/pdf", "Compartir inventario (PDF)")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Error al exportar PDF", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun shareFile(file: File, mimeType: String, title: String) {
+        val uri = FileProvider.getUriForFile(this, "${packageName}.provider", file)
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = mimeType
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        startActivity(Intent.createChooser(intent, title))
+    }
+
     private fun setupSearchView() {
         binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
