@@ -102,6 +102,12 @@
     <string name="format_usd">$ %,.2f</string>
     <string name="total_usd_format">$ %.2f</string>
     <string name="total_bs_format">Bs %.2f</string>
+    <string name="tvNameLabel">Nombre del producto</string>
+    <string name="tvPriceLabel">Precio del producto</string>
+    <string name="btnOption4">Exportar</string>
+    <string name="btnRegister">Registrar</string>
+    <string name="btnAddUser">Agregar usuario</string>
+    <string name="tvDialogTitle">Cambiar contraseña</string>
 
     <!-- Product Detail -->
     <string name="product_quantity">Cantidad: %d</string>
