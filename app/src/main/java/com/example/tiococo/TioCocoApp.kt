@@ -12,6 +12,7 @@ import com.google.firebase.FirebaseApp
 class TioCocoApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
         ExchangeRateManager.initialize(applicationContext)
         scheduleRateUpdates()
         RateUpdateWorker.schedule(this)
