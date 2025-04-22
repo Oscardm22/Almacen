@@ -67,10 +67,6 @@ class LoginActivity : AppCompatActivity() {
                 binding.etPassword.error = "Ingrese su contraseña"
                 false
             }
-            password.length < 6 -> {
-                binding.etPassword.error = "La contraseña debe tener al menos 6 caracteres"
-                false
-            }
             else -> true
         }
     }
