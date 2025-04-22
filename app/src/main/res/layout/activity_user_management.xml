@@ -94,7 +94,7 @@
 
         <!-- Botón Cambiar Contraseña -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnChangeEmail"
+            android:id="@+id/btnChangePassword"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
