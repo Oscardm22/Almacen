@@ -94,8 +94,8 @@ class UserManagementActivity : AppCompatActivity() {
                 Toast.makeText(this, "Contraseña actual incorrecta", Toast.LENGTH_SHORT).show()
                 false
             }
-            newPass.length < 6 -> {
-                Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+            new.length < 6 -> {
+                Toast.makeText(this, "La nueva contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
                 false
             }
             newPass != confirmPass -> {
