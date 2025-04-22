@@ -403,7 +403,7 @@ class HomeActivity : AppCompatActivity() {
             @Suppress("DEPRECATION")
             data.getParcelableExtra<Product>("EDITED_PRODUCT")
         }
-        editedProduct?.let { viewModel.updateProduct(it) }
+        editedProduct?.let { viewModel.updateProduct(id, it) }
     }
     private fun setupRateObserver() {
         viewModel.exchangeRate.observe(this) { rate ->
