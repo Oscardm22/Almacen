@@ -105,7 +105,7 @@
     <string name="tvNameLabel">Nombre del producto</string>
     <string name="tvPriceLabel">Precio del producto</string>
     <string name="btnOption4">Exportar</string>
-    <string name="btnRegister">Registrar</string>
+    <string name="btnRegister">Registrar usuario</string>
     <string name="btnAddUser">Agregar usuario</string>
     <string name="tvDialogTitle">Cambiar contraseña</string>
 
