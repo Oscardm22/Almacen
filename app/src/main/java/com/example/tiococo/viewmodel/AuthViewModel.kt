@@ -11,10 +11,7 @@ class AuthViewModel : ViewModel() {
     val uiState: StateFlow<ForgotPasswordState> = _uiState
 
 
-    // Modelo de datos mock
-    data class MockUser(val email: String, val password: String)
-
-    // Sellado de estados para la UI
+    // Estados para el flujo de recuperación de contraseña
     sealed class ForgotPasswordState {
         object Idle : ForgotPasswordState()
         object Loading : ForgotPasswordState()
