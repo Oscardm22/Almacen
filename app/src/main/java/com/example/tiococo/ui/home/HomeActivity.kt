@@ -336,9 +336,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun startSalesActivity() {
-        val intent = Intent(this, SalesActivity::class.java).apply {
-            putParcelableArrayListExtra("products", ArrayList(viewModel.products.value ?: emptyList()))
-        }
+        val intent = Intent(this, SalesActivity::class.java)
+        // Considera pasar solo IDs o datos esenciales
+        intent.putExtra("products_count", viewModel.products.value?.size ?: 0)
         salesLauncher.launch(intent)
     }
 
