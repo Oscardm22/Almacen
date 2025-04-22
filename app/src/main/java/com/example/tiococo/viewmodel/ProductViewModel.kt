@@ -98,9 +98,10 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         // Solo actualizamos el exchangeRate, no modificamos los precios en dólares
         _exchangeRate.value = newRate
 
-        // Forzamos la actualización de la lista para que los precios en Bs se recalculen
-        _products.value = originalProductList
-        _saleProducts.value = _saleProducts.value
+            // Forzar actualización de las listas de forma eficiente
+            _products.value = _products.value?.let { ArrayList(it) } // Crea nueva instancia
+            _saleProducts.value = _saleProducts.value?.let { ArrayList(it) }
+        }
     }
 
 
