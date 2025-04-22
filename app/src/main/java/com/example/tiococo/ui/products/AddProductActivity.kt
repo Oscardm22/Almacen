@@ -96,7 +96,14 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        viewModel.saveSuccess.observe(this) { success ->
+        // Remover observer previo
+        saveObserver?.let { viewModel.saveSuccess.removeObserver(it) }
+
+        // Cambio clave: Especificar tipo explícitamente
+        saveObserver = Observer<Boolean> { success ->
+            binding.progressBar.visibility = View.GONE
+            binding.btnSave.isEnabled = true
+
             if (success) {
                 Toast.makeText(this, "Producto guardado", Toast.LENGTH_SHORT).show()
                 finish()
