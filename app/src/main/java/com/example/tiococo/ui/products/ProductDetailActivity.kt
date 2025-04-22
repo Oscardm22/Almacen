@@ -44,7 +44,10 @@ class ProductDetailActivity : AppCompatActivity() {
         tvDetailName.text = getString(R.string.product_name, product.name)
         tvDetailQuantity.text = getString(R.string.product_stock, product.quantity)
         tvDetailPriceDollars.text = getString(R.string.price_dollars, product.priceDollars)
-        tvDetailPriceBolivares.text = getString(R.string.price_bolivares, product.priceBolivares)
+
+        // Calcular el precio en bolívares y mostrarlo
+        val priceInBolivares = product.priceDollars * exchangeRate
+        tvDetailPriceBolivares.text = String.format(getString(R.string.price_bolivares), priceInBolivares)
 
         // Botón Editar
         btnEdit.setOnClickListener {
