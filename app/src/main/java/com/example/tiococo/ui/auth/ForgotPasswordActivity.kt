@@ -81,8 +81,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         // Si no existe, mostramos un mensaje de error
                         Toast.makeText(
                             this@ForgotPasswordActivity,
-                            state.message,
-                            Toast.LENGTH_LONG
+                            "Usuario no encontrado",
+                            Toast.LENGTH_SHORT
                         ).show()
                         finish()
                     }
