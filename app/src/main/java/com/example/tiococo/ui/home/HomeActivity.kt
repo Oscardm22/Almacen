@@ -164,6 +164,11 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupTouchListener() {
+        binding.root.apply {
+            // Configurar accesibilidad
+            isClickable = true
+            contentDescription = "Área táctil para ocultar botones"
 
     private fun setupFab() {
         binding.fabAddProduct.setOnClickListener {
