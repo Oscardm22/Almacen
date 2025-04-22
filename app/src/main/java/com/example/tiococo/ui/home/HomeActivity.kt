@@ -114,6 +114,7 @@ class HomeActivity : AppCompatActivity() {
                 Intent(this, ProductDetailActivity::class.java).apply {
                     putExtra("PRODUCT_ID", product.id)  // Usamos product.id directamente
                     putExtra("PRODUCT", product)
+                    putExtra("EXCHANGE_RATE", viewModel.exchangeRate.value ?: 1.0) // Añade esta línea
                 }.also { detailLauncher.launch(it) }
             },
             exchangeRate = viewModel.exchangeRate.value ?: 1.0

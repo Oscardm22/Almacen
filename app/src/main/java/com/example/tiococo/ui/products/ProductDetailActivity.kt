@@ -38,7 +38,7 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         // Obtener la tasa de cambio (deberías tenerla disponible desde el ViewModel o Activity)
-        val exchangeRate = 4000000.0 // Reemplaza con la tasa de cambio real, ya sea del ViewModel o de alguna otra fuente
+        val exchangeRate = intent.getDoubleExtra("EXCHANGE_RATE", 1.0) // Obtiene la tasa del intent
 
         // Mostrar detalles
         tvDetailName.text = product.name
