@@ -136,8 +136,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         val updatedData = mapOf("password" to encryptedPassword)
 
-            if (validateEmail(email)) {
-                viewModel.sendPasswordResetEmail(email)
+        userRef.update(updatedData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show()
             }
         }
     }
