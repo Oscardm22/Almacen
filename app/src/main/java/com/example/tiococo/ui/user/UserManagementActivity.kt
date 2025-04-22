@@ -62,17 +62,6 @@ class UserManagementActivity : AppCompatActivity() {
         }
     }
 
-    private fun isValidEmail(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    private fun updateEmail(newEmail: String) {
-        getSharedPreferences("user_prefs", MODE_PRIVATE).edit {
-            putString("email", newEmail)
-        }
-        binding.tvEmail.text = newEmail
-        Toast.makeText(this, "Correo actualizado", Toast.LENGTH_SHORT).show()
-    }
 
     private fun showChangePasswordDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_change_password, null)
