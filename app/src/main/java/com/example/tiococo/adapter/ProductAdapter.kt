@@ -52,8 +52,15 @@ class ProductAdapter(
             tvPriceDollars.text = context.getString(R.string.price_dollars_label, product.priceDollars)
             updatePriceInBolivares(product.priceDollars)
 
-            val priceInBolivares = product.priceDollars * exchangeRate
-            tvPriceBolivares.text = context.getString(R.string.price_bolivares_label, priceInBolivares)
+            itemView.setOnClickListener { onItemClick(product) }
+        }
+
+        // Función específica para actualizar solo el precio en BS
+        fun updatePriceInBolivares(priceDollars: Double) {
+            tvPriceBolivares.text = context.getString(
+                R.string.price_bolivares_label,
+                priceDollars * exchangeRate
+            )
         }
     }
 
