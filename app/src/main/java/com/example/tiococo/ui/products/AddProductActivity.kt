@@ -105,7 +105,7 @@ class AddProductActivity : AppCompatActivity() {
             binding.btnSave.isEnabled = true
 
             if (success) {
-                Toast.makeText(this, "Producto guardado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddProductActivity, "Producto guardado", Toast.LENGTH_SHORT).show()
                 finish()
             }
         }
