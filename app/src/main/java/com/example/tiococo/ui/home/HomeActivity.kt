@@ -452,16 +452,22 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this@HomeActivity, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
-            startActivity(intent)
 
-            // Solución compatible con todas las versiones
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out)
-            } else {
-                @Suppress("DEPRECATION")
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            if (!isFinishing && !isDestroyed) {
+                startActivity(intent)
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                        overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
+                            R.anim.fade_in, R.anim.fade_out)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    }
+                } catch (e: Exception) {
+                    Log.e("Logout", "Error en animación", e)
+                }
+                finish()
             }
-            finish()
         }.start()
     }
 
