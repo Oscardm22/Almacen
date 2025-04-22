@@ -72,12 +72,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun performLogin(username: String, password: String) {
-        if (username == "admin" && password == "123456") {
-            // Guardar sesión
-            val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
-            prefs.edit {
-                putBoolean("is_logged_in", true)
-            }
+        val userRepository = UserRepository()
+
+        lifecycleScope.launch {
+            try {
+                val user = userRepository.verifyUser(username, password)
+                if (user != null) {
+                    // Guardar sesión (asegurando que username es el ID del documento)
+                    getSharedPreferences("user_prefs", MODE_PRIVATE).edit {
+                        putBoolean("is_logged_in", true)
+                        putString("username", username) // <- Usar el parámetro username directamente
+                        putString("password_hash", user.password)
+                        apply()
+                    }
 
 
             // Redirigir al Home
