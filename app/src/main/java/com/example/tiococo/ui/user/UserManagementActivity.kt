@@ -90,7 +90,7 @@ class UserManagementActivity : AppCompatActivity() {
         val savedHash = prefs.getString("password_hash", "") // Debe ser el hash BCrypt
 
         return when {
-            currentPass != savedPass -> {
+            !BCrypt.checkpw(current, savedHash) -> { // Comparación segura
                 Toast.makeText(this, "Contraseña actual incorrecta", Toast.LENGTH_SHORT).show()
                 false
             }
