@@ -17,7 +17,7 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.value = ForgotPasswordState.Loading
 
-            // Simular retraso de red (1.5 segundos)
+            // Simular retraso de red
             delay(1500)
 
             val userExists = mockUsers.any { it.email == email }
