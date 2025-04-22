@@ -31,6 +31,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupUI()
+    }
 
         setupObservers()
         setupListeners()
