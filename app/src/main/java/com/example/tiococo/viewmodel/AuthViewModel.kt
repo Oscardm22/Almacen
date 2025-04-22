@@ -9,13 +9,6 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
-    // Datos de usuarios registrados (simulados)
-    private val registeredUsers = setOf(
-        "admin@ejemplo.com",
-        "usuario@ejemplo.com",
-        "oscarj.rierav@gmail.com"
-    )
-
     // Estados para la UI
     private val _uiState = MutableStateFlow<ForgotPasswordState>(ForgotPasswordState.Idle)
     val uiState: StateFlow<ForgotPasswordState> = _uiState.asStateFlow()
