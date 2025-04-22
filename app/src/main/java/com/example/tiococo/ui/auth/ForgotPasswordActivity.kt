@@ -15,6 +15,12 @@ import com.example.tiococo.viewmodel.AuthViewModel
 import com.example.tiococo.viewmodel.AuthViewModel.ForgotPasswordState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
+import com.example.tiococo.R
+import org.mindrot.jbcrypt.BCrypt
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
