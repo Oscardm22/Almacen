@@ -57,19 +57,9 @@ class UserManagementActivity : AppCompatActivity() {
             showChangePasswordDialog()
         }
 
-        AlertDialog.Builder(this)
-            .setTitle("Cambiar correo electrónico")
-            .setView(dialogView)
-            .setPositiveButton("Guardar") { _, _ ->
-                val newEmail = editNewEmail.text.toString()
-                if (isValidEmail(newEmail)) {
-                    updateEmail(newEmail)
-                } else {
-                    Toast.makeText(this, "Ingrese un correo válido", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
+        binding.btnAddUser.setOnClickListener {
+            startActivity(Intent(this, RegisterUserActivity::class.java))
+        }
     }
 
     private fun isValidEmail(email: String): Boolean {
