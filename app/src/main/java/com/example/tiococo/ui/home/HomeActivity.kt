@@ -133,6 +133,7 @@ class HomeActivity : AppCompatActivity() {
 
         viewModel.exchangeRate.observe(this) { rate ->
             binding.tvExchangeRate.text = getString(R.string.exchange_rate_format, "%.2f".format(rate))
+            productAdapter.updateExchangeRate(rate)
         }
 
         // Observar el estado de la tasa de cambio (loading, success, error)
