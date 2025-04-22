@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer
 import com.example.tiococo.databinding.ActivityAddProductBinding
 import com.example.tiococo.data.model.Product
 import com.example.tiococo.viewmodel.ProductViewModel
+import android.util.Log
+import android.view.View
 
 class AddProductActivity : AppCompatActivity() {
 
