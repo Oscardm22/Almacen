@@ -105,6 +105,7 @@ class HomeActivity : AppCompatActivity() {
         setupSearchView()
         setupRateObserver()
         setupRateButton()
+        setupTouchListener()
     }
 
     private fun setupRecyclerView() {
