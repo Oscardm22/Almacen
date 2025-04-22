@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.tiococo.databinding.ActivityForgotPasswordBinding
 import com.example.tiococo.viewmodel.AuthViewModel
 import com.example.tiococo.viewmodel.AuthViewModel.ForgotPasswordState
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class ForgotPasswordActivity : AppCompatActivity() {
