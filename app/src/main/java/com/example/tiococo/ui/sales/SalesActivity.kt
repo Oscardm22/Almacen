@@ -3,10 +3,12 @@ package com.example.tiococo.ui.sales
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tiococo.R
 import com.example.tiococo.databinding.ActivitySalesBinding
 import com.example.tiococo.viewmodel.ProductViewModel
@@ -35,31 +37,37 @@ class SalesActivity : AppCompatActivity() {
     private fun setupAdapters() {
         availableProductsAdapter = ProductAdapter(
             onItemClick = { product: Product ->
-                // Pasa solo el producto (sin ID por separado)
-                viewModel.addToSale(product.copy(quantity = 1)) // Cantidad inicial 1
+                viewModel.addToSale(product.copy(quantity = 1))
             },
             exchangeRate = viewModel.exchangeRate.value ?: 1.0
-        )
+        ).also {
+            binding.rvAvailableProducts.adapter = it
+            binding.rvAvailableProducts.layoutManager = LinearLayoutManager(this)
+        }
 
         saleProductsAdapter = SaleProductsAdapter(
-            onRemoveClick = { product ->
-                // Pasa el producto completo
-                viewModel.removeFromSale(product)
-            },
+            onRemoveClick = { product -> viewModel.removeFromSale(product) },
             onQuantityChange = { product, newQuantity ->
-                if (newQuantity > 0) {
-                    // Pasa el producto completo y la nueva cantidad
-                    viewModel.updateSaleProductQuantity(product, newQuantity)
-                } else {
-                    viewModel.removeFromSale(product)
-                }
+                if (newQuantity > 0) viewModel.updateSaleProductQuantity(product, newQuantity)
+                else viewModel.removeFromSale(product)
             }
-        )
+        ).also {
+            binding.rvSaleProducts.adapter = it
+            binding.rvSaleProducts.layoutManager = LinearLayoutManager(this)
+        }
     }
 
     private fun setupObservers() {
         viewModel.products.observe(this) { products ->
+            Log.d("SalesActivity", "Productos recibidos: ${products.size}")
             availableProductsAdapter.submitList(products)
+            binding.rvAvailableProducts.scheduleLayoutAnimation() // Animación para refrescar
+
+            binding.rvAvailableProducts.apply {
+                if (adapter == null) {
+                    adapter = availableProductsAdapter
+                }
+            }
         }
 
         viewModel.saleProducts.observe(this) { saleProducts ->
@@ -78,8 +86,11 @@ class SalesActivity : AppCompatActivity() {
 
         // Observar el cambio de tasa de cambio
         viewModel.exchangeRate.observe(this) { rate ->
+            // Actualizar los adapters con la nueva tasa
+            availableProductsAdapter.updateExchangeRate(rate)
+            saleProductsAdapter.updateExchangeRate(rate)
+
             viewModel.totalAmount.value?.let { totalUsd ->
-                // Cuando la tasa cambia, actualizar el total en Bs
                 val totalBs = totalUsd * rate
                 binding.tvTotalBs.text = getString(R.string.total_bs_format, totalBs)
             }

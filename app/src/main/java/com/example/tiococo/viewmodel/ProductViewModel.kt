@@ -62,9 +62,12 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         loadSalesHistory()
     }
 
+    // En ProductViewModel.kt
     private fun loadInitialData() {
         viewModelScope.launch {
+            Log.d("ProductVM", "Cargando productos iniciales")
             productRepository.getProducts().collect { productos ->
+                Log.d("ProductVM", "Productos recibidos: ${productos.size}")
                 originalProductList = productos
                 _products.postValue(productos)
             }

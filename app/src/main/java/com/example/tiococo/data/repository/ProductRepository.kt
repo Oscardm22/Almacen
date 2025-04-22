@@ -13,12 +13,23 @@ class ProductRepository {
     private val productosRef = firestore.collection("productos")
 
     // Retorna Pair<ID, Product> para manejar ambos datos
+    // En ProductRepository.kt, modifica getProducts():
     fun getProducts(): Flow<List<Product>> = callbackFlow {
+        Log.d("ProductRepo", "Iniciando listener de productos")
         val listener = productosRef.addSnapshotListener { snapshot, error ->
-            if (error != null || snapshot == null) {
+            if (error != null) {
+                Log.e("ProductRepo", "Error al obtener productos", error)
                 trySend(emptyList())
                 return@addSnapshotListener
             }
+
+            if (snapshot == null) {
+                Log.d("ProductRepo", "Snapshot es null")
+                trySend(emptyList())
+                return@addSnapshotListener
+            }
+
+            Log.d("ProductRepo", "Productos encontrados: ${snapshot.documents.size}")
             val products = snapshot.documents.map { doc ->
                 doc.toObject(Product::class.java)!!.copy(id = doc.id)
             }

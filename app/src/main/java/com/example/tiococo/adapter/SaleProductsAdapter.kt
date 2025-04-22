@@ -16,95 +16,75 @@ import com.example.tiococo.data.model.Product
 
 class SaleProductsAdapter(
     private val onRemoveClick: (Product) -> Unit,
-    private val onQuantityChange: (Product, Int) -> Unit
+    private val onQuantityChange: (Product, Int) -> Unit,
+    private var exchangeRate: Double = 1.0 // Nuevo parámetro para la tasa de cambio
 ) : ListAdapter<Product, SaleProductsAdapter.SaleProductViewHolder>(SaleProductDiffCallback()) {
+
+    // Objeto para identificar cambios en la tasa
+    private object PayloadExchangeRateChange
 
     inner class SaleProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvProductName: TextView = itemView.findViewById(R.id.tvProductName)
+        private val tvPriceDollars: TextView = itemView.findViewById(R.id.tvPriceDollars)
+        private val tvPriceBolivares: TextView = itemView.findViewById(R.id.tvPriceBolivares)
         private val etQuantity: EditText = itemView.findViewById(R.id.etQuantity)
         private val btnRemove: ImageButton = itemView.findViewById(R.id.btnRemove)
         private var currentProduct: Product? = null
         private var textWatcher: TextWatcher? = null
-        private var isFirstChange = true
 
         fun bind(product: Product) {
-            // 1. Configuración inicial
             currentProduct = product
             textWatcher?.let { etQuantity.removeTextChangedListener(it) }
 
-            // 2. Mostrar datos del producto
+            // Mostrar datos del producto
             tvProductName.text = product.name
+            tvPriceDollars.text = itemView.context.getString(
+                R.string.price_dollars_label,
+                product.priceDollars
+            )
+            updatePriceInBolivares(product.priceDollars)
             etQuantity.setText(product.quantity.toString())
             etQuantity.filters = arrayOf(android.text.InputFilter.LengthFilter(3))
 
-            // 3. Configurar TextWatcher para cambios de cantidad
+            // Configurar TextWatcher
             textWatcher = object : TextWatcher {
-                private var previousText = ""
-
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                    previousText = s?.toString() ?: ""
-                }
-
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable?) {
-                    val newText = s?.toString() ?: ""
-
-                    // 3.1. Manejar campo vacío
-                    if (newText.isEmpty()) {
-                        etQuantity.setText("0")
-                        etQuantity.setSelection(1)
-                        return
-                    }
-
-                    // 3.2. Validar y procesar cambios
-                    if (newText != previousText) {
-                        val newQuantity = newText.toIntOrNull() ?: 0
-                        val validatedQuantity = newQuantity.coerceIn(0, 999)
-
-                        // 3.3. Corregir si excede límites
-                        if (newQuantity != validatedQuantity) {
-                            etQuantity.setText(validatedQuantity.toString())
-                            etQuantity.setSelection(etQuantity.text?.length ?: 0)
-                        }
-
-                        // 3.4. Notificar cambio al ViewModel
-                        currentProduct?.let { product ->
-                            onQuantityChange(product, validatedQuantity)
-                        }
-
-                        // 3.5. Marcar que ya no es la primera modificación
-                        isFirstChange = false
+                    val newQuantity = s?.toString()?.toIntOrNull() ?: 0
+                    currentProduct?.let { product ->
+                        onQuantityChange(product, newQuantity)
                     }
                 }
             }
-
-            // 4. Añadir listener de cambios
             etQuantity.addTextChangedListener(textWatcher)
 
-            // 5. Configurar botón de eliminar
+            // Configurar botón de eliminar
             btnRemove.setOnClickListener {
                 currentProduct?.let { onRemoveClick(it) }
             }
+        }
 
-            // 6. Manejo inteligente del foco
-            etQuantity.setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    etQuantity.post {
-                        if (product.quantity == 1) {
-                            etQuantity.selectAll()
-                        } else {
-                            etQuantity.setSelection(etQuantity.text.length)
-                        }
-                    }
-                }
-            }
-
-
+        // Función para actualizar el precio en bolívares
+        fun updatePriceInBolivares(priceDollars: Double) {
+            val priceBs = priceDollars * exchangeRate
+            tvPriceBolivares.text = itemView.context.getString(
+                R.string.price_bolivares_label,
+                priceBs
+            )
         }
 
         fun clear() {
             textWatcher?.let { etQuantity.removeTextChangedListener(it) }
+        }
+    }
+
+    // Método para actualizar la tasa de cambio
+    fun updateExchangeRate(newRate: Double) {
+        if (exchangeRate != newRate) {
+            exchangeRate = newRate
+            notifyItemRangeChanged(0, itemCount, PayloadExchangeRateChange)
         }
     }
 
@@ -116,6 +96,19 @@ class SaleProductsAdapter(
 
     override fun onBindViewHolder(holder: SaleProductViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    override fun onBindViewHolder(
+        holder: SaleProductViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isNotEmpty() && payloads[0] == PayloadExchangeRateChange) {
+            // Solo actualizar el precio en bolívares
+            holder.updatePriceInBolivares(getItem(position).priceDollars)
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
+        }
     }
 
     override fun onViewRecycled(holder: SaleProductViewHolder) {

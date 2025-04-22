@@ -110,6 +110,7 @@
     <string name="tvDialogTitle">Cambiar contraseña</string>
     <string name="nombre_producto">Nombre: %s</string>
     <string name="precio_dolares">Precio ($): %.2f</string>
+    <string name="no_products_available">No hay productos disponibles</string>
 
 
     <!-- Product Detail -->
