@@ -366,6 +366,7 @@ class HomeActivity : AppCompatActivity() {
             btnOption1.alpha = 0f
             btnOption2.alpha = 0f
             btnOption3.alpha = 0f
+            btnOption4.alpha = 0f
             btnOption1.animate().alpha(1f).setDuration(200).start()
             btnOption2.animate().alpha(1f).setDuration(200).start()
             btnOption3.animate().alpha(1f).setDuration(200).start()
