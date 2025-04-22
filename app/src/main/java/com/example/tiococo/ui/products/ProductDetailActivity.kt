@@ -11,6 +11,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tiococo.R
 import com.example.tiococo.data.model.Product
+import com.example.tiococo.viewmodel.ProductViewModel
+import androidx.activity.viewModels
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -68,15 +70,24 @@ class ProductDetailActivity : AppCompatActivity() {
             }.also { editProductLauncher.launch(it) }
         }
 
-        // Botón Eliminar (sin cambios)
+        // Botón Eliminar
         btnDelete.setOnClickListener {
             AlertDialog.Builder(this).apply {
                 setTitle(getString(R.string.delete_confirmation_title))
                 setMessage(getString(R.string.delete_confirmation_message))
                 setPositiveButton(getString(R.string.yes)) { _, _ ->
-                    setResult(RESULT_OK, Intent().apply {
-                        putExtra("DELETED_PRODUCT_NAME", product.name)
-                    })
+                    // Obtener el ViewModel
+                    val viewModel: ProductViewModel by viewModels()
+
+                    // Eliminar el producto
+                    viewModel.deleteProduct(product.id)
+
+                    // Mostrar mensaje y cerrar actividad
+                    Toast.makeText(this@ProductDetailActivity,
+                        "Producto eliminado correctamente",
+                        Toast.LENGTH_SHORT).show()
+
+                    setResult(RESULT_OK)
                     finish()
                 }
                 setNegativeButton(getString(R.string.no), null)
