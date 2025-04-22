@@ -447,7 +447,6 @@ class HomeActivity : AppCompatActivity() {
         binding.root.animate().cancel()
 
         binding.root.animate().alpha(0.5f).setDuration(300).withEndAction {
-// Versión corregida
             getSharedPreferences("user_prefs", MODE_PRIVATE).edit { clear() }
             val intent = Intent(this@HomeActivity, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
