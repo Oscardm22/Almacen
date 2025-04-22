@@ -196,7 +196,7 @@ class HomeActivity : AppCompatActivity() {
             toggleSecondaryButtons()
         }
 
-        val secondaryButtons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3)
+        val secondaryButtons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3, binding.btnOption4)
 
         secondaryButtons.forEach { button ->
             button.setOnClickListener {
