@@ -413,7 +413,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupRateButton() {
         binding.btnUpdateRate.setOnClickListener {
-            // Animación de rotación
             binding.btnUpdateRate.animate().rotationBy(360f).setDuration(300).start()
 
             lifecycleScope.launch {
