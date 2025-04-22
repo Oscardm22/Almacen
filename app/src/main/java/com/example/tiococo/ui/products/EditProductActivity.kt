@@ -38,7 +38,6 @@ class EditProductActivity : AppCompatActivity() {
         // Configurar botón de guardar
         findViewById<Button>(R.id.btnSave).setOnClickListener {
             val updatedProduct = Product(
-                id = product?.id ?: "",
                 name = etName.text.toString(),
                 quantity = etQuantity.text.toString().toIntOrNull() ?: 0,
                 priceDollars = etPriceDollars.text.toString().toDoubleOrNull() ?: 0.0,
