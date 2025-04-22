@@ -28,8 +28,27 @@ class UserManagementActivity : AppCompatActivity() {
 
     private fun setupUserData() {
         val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        binding.tvUsername.text = sharedPref.getString("username", "Usuario no disponible")
-        binding.tvEmail.text = sharedPref.getString("email", "Correo no disponible")
+        val prefs = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val username = prefs.getString("username", "") ?: ""
+        val storedPassword = prefs.getString("password", "")
+        Log.d("USER_PREFS", "Contraseña almacenada: $storedPassword")
+        Log.d("UserPrefs", "username: ${sharedPref.getString("username", null)}")
+
+        // Muestra directamente el ID del documento como nombre de usuario
+        binding.tvUsername.text = username
+
+        // Opcional: Si necesitas verificar que existe en Firestore
+        if (username.isNotEmpty()) {
+            FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(username)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (!document.exists()) {
+                        Log.w("FIREBASE", "Documento no encontrado para: $username")
+                    }
+                }
+        }
     }
 
     private fun setupButtons() {
