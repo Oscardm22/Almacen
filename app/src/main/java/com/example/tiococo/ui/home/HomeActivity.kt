@@ -330,6 +330,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun startAddProductActivity() {
         val intent = Intent(this, AddProductActivity::class.java)
+        // En lugar de pasar toda la lista, pasa solo lo necesario
+        intent.putExtra("products_count", viewModel.products.value?.size ?: 0)
         addProductLauncher.launch(intent)
     }
 
