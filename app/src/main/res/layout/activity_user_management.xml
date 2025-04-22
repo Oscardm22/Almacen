@@ -92,7 +92,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Botón Cambiar Correo -->
+        <!-- Botón Cambiar Contraseña -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChangeEmail"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
