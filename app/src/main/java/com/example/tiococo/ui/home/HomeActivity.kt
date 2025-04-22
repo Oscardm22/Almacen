@@ -206,6 +206,7 @@ class HomeActivity : AppCompatActivity() {
                     R.id.btnOption1 -> startAddProductActivity()
                     R.id.btnOption2 -> startSalesActivity()
                     R.id.btnOption3 -> startSalesHistoryActivity()
+                    R.id.btnOption4 -> showExportInventoryDialog()
                 }
 
                 hideSecondaryButtons()
