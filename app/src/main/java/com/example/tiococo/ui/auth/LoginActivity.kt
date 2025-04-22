@@ -86,12 +86,17 @@ class LoginActivity : AppCompatActivity() {
                         apply()
                     }
 
-
-            // Redirigir al Home
-            startActivity(Intent(this, HomeActivity::class.java))
-            finish()
-        } else {
-            Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                    Log.d("LOGIN", "Usuario autenticado: $username")
+                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this@LoginActivity, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("LOGIN_ERROR", "Error en autenticación", e)
+                Toast.makeText(this@LoginActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
 }
