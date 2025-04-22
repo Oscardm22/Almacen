@@ -145,17 +145,38 @@ class ForgotPasswordActivity : AppCompatActivity() {
             }
     }
 
-    private fun validateEmail(email: String): Boolean {
-        return when {
-            email.isEmpty() -> {
-                binding.etUsername.error = "Ingrese su correo electrónico"
-                false
-            }
-            !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                binding.etUsername.error = "Ingrese un correo válido"
-                false
-            }
-            else -> true
+    private fun showLoadingState() {
+        binding.apply {
+            progressBar.isVisible = true
+            btnRecover.isEnabled = false
+            etUsername.isEnabled = false
         }
+    }
+
+    private fun handleSuccessState(state: ForgotPasswordState.Success) {
+        resetUIState()
+        showToast(state.message)
+        finishAfterDelay()
+    }
+
+    private fun handleErrorState(state: ForgotPasswordState.Error) {
+        resetUIState()
+        binding.usernameInputLayout.error = state.errorMessage
+    }
+
+    private fun resetUIState() {
+        binding.apply {
+            progressBar.isVisible = false
+            btnRecover.isEnabled = true
+            etUsername.isEnabled = true
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun finishAfterDelay() {
+        binding.root.postDelayed({ finish() }, 2000)
     }
 }
