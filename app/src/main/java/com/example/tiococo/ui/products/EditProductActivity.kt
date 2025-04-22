@@ -27,7 +27,6 @@ class EditProductActivity : AppCompatActivity() {
         val etName = findViewById<EditText>(R.id.etProductName)
         val etQuantity = findViewById<EditText>(R.id.etQuantity)
         val etPriceDollars = findViewById<EditText>(R.id.etPriceDollars)
-        val etPriceBolivares = findViewById<EditText>(R.id.etPriceBolivares)
 
         // Mostrar datos actuales
         product?.let {
