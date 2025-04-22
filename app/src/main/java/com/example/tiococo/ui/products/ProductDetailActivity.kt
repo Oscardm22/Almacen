@@ -64,7 +64,7 @@ class ProductDetailActivity : AppCompatActivity() {
                 setMessage(getString(R.string.delete_confirmation_message))
                 setPositiveButton(getString(R.string.yes)) { _, _ ->
                     setResult(RESULT_OK, Intent().apply {
-                        putExtra("DELETED_PRODUCT_ID", product.id)
+                        putExtra("DELETED_PRODUCT_NAME", product.name)
                     })
                     finish()
                 }
