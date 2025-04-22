@@ -61,8 +61,26 @@ class HomeActivity : AppCompatActivity() {
     private val addProductLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            Toast.makeText(this, "Producto agregado exitosamente", Toast.LENGTH_SHORT).show()
+        when (result.resultCode) {
+            RESULT_OK -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    result.data?.getParcelableExtra("NEW_PRODUCT", Product::class.java)?.let { newProduct ->
+                        viewModel.addProduct(newProduct)
+                        Toast.makeText(this, "Producto agregado", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    @Suppress("DEPRECATION")
+                    result.data?.getParcelableExtra<Product>("NEW_PRODUCT")?.let { newProduct ->
+                        viewModel.addProduct(newProduct)
+                        Toast.makeText(this, "Producto agregado", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            RESULT_CANCELED -> {
+                result.data?.getStringExtra("ERROR")?.let { error ->
+                    Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
