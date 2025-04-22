@@ -414,7 +414,6 @@ class HomeActivity : AppCompatActivity() {
     private fun setupRateButton() {
         binding.btnUpdateRate.setOnClickListener {
             binding.btnUpdateRate.animate().rotationBy(360f).setDuration(300).start()
-
             lifecycleScope.launch {
                 viewModel.refreshExchangeRate()
             }
