@@ -92,7 +92,6 @@ class AddProductActivity : AppCompatActivity() {
                 quantity = etQuantity.text.toString().toInt(),
                 priceDollars = etPriceDollars.text.toString().toDouble()
             )
-            viewModel.addProduct(product) // Asegúrate que esta función exista en tu ViewModel
         }
     }
 
