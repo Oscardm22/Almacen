@@ -9,10 +9,11 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
-    // Datos mock de usuarios registrados
-    private val mockUsers = listOf(
-        MockUser("admin@ejemplo.com", "Admin123"),
-        MockUser("usuario@ejemplo.com", "Usuario123")
+    // Datos de usuarios registrados (simulados)
+    private val registeredUsers = setOf(
+        "admin@ejemplo.com",
+        "usuario@ejemplo.com",
+        "oscarj.rierav@gmail.com"
     )
 
     // Estados para la UI
