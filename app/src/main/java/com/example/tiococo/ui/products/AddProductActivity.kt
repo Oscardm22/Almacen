@@ -36,6 +36,7 @@ class AddProductActivity : AppCompatActivity() {
         }
     }
 
+    // 5. Función validateInputs() que faltaba (corrige errores de referencia)
     private fun validateInputs(): Boolean {
         with(binding) {
             if (etName.text.isNullOrEmpty()) {
