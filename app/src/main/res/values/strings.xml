@@ -108,6 +108,9 @@
     <string name="btnRegister">Registrar usuario</string>
     <string name="btnAddUser">Agregar usuario</string>
     <string name="tvDialogTitle">Cambiar contraseña</string>
+    <string name="nombre_producto">Nombre: %s</string>
+    <string name="precio_dolares">Precio $: %.2f</string>
+
 
     <!-- Product Detail -->
     <string name="product_quantity">Cantidad: %d</string>
