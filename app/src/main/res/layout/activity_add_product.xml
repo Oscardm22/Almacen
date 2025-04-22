@@ -75,7 +75,7 @@
             android:id="@+id/tvPriceLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/price_dollars"
+            android:text="@string/tvPriceLabel"
             android:textColor="@color/Brunswick_green"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="4dp"
