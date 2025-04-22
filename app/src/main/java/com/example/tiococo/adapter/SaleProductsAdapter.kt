@@ -25,8 +25,7 @@ class SaleProductsAdapter(
 
     inner class SaleProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvProductName: TextView = itemView.findViewById(R.id.tvProductName)
-        private val tvPriceDollars: TextView = itemView.findViewById(R.id.tvPriceDollars)
-        private val tvPriceBolivares: TextView = itemView.findViewById(R.id.tvPriceBolivares)
+        private val tvSubtotal: TextView = itemView.findViewById(R.id.tvSubtotal)
         private val etQuantity: EditText = itemView.findViewById(R.id.etQuantity)
         private val btnRemove: ImageButton = itemView.findViewById(R.id.btnRemove)
         private var currentProduct: Product? = null
@@ -38,40 +37,34 @@ class SaleProductsAdapter(
 
             // Mostrar datos del producto
             tvProductName.text = product.name
-            tvPriceDollars.text = itemView.context.getString(
-                R.string.price_dollars_label,
-                product.priceDollars
-            )
-            updatePriceInBolivares(product.priceDollars)
+            updatePriceDisplay(product.priceDollars, product.quantity)
             etQuantity.setText(product.quantity.toString())
-            etQuantity.filters = arrayOf(android.text.InputFilter.LengthFilter(3))
 
             // Configurar TextWatcher
             textWatcher = object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
                 override fun afterTextChanged(s: Editable?) {
                     val newQuantity = s?.toString()?.toIntOrNull() ?: 0
-                    currentProduct?.let { product ->
-                        onQuantityChange(product, newQuantity)
+                    currentProduct?.let {
+                        onQuantityChange(it, newQuantity)
+                        updatePriceDisplay(it.priceDollars, newQuantity)
                     }
                 }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             }
             etQuantity.addTextChangedListener(textWatcher)
 
-            // Configurar botón de eliminar
             btnRemove.setOnClickListener {
                 currentProduct?.let { onRemoveClick(it) }
             }
         }
 
-        // Función para actualizar el precio en bolívares
-        fun updatePriceInBolivares(priceDollars: Double) {
-            val priceBs = priceDollars * exchangeRate
-            tvPriceBolivares.text = itemView.context.getString(
-                R.string.price_bolivares_label,
-                priceBs
+
+        internal fun updatePriceDisplay(priceDollars: Double, quantity: Int) {
+            val totalDollars = priceDollars * quantity
+            tvSubtotal.text = itemView.context.getString(
+                R.string.Productos_venta, // Usando el nuevo nombre
+                totalDollars
             )
         }
 
@@ -104,8 +97,8 @@ class SaleProductsAdapter(
         payloads: MutableList<Any>
     ) {
         if (payloads.isNotEmpty() && payloads[0] == PayloadExchangeRateChange) {
-            // Solo actualizar el precio en bolívares
-            holder.updatePriceInBolivares(getItem(position).priceDollars)
+            val product = getItem(position)
+            holder.updatePriceDisplay(product.priceDollars, product.quantity)
         } else {
             super.onBindViewHolder(holder, position, payloads)
         }

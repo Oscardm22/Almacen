@@ -111,7 +111,8 @@
     <string name="nombre_producto">Nombre: %s</string>
     <string name="precio_dolares">Precio ($): %.2f</string>
     <string name="no_products_available">No hay productos disponibles</string>
-
+    <string name="price_format">%.2f</string>
+    <string name="Productos_venta">$%.2f</string>
 
     <!-- Product Detail -->
     <string name="product_quantity">Cantidad: %d</string>
