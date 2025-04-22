@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "974856625838",
+    "project_id": "almacen-39aa8",
+    "storage_bucket": "almacen-39aa8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974856625838:android:c47fe7fe7ae1af9eb8973f",
+        "android_client_info": {
+          "package_name": "com.example.tiococo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjba5J4-FZp00oPn1ZH5GYoww1LwjSEz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
