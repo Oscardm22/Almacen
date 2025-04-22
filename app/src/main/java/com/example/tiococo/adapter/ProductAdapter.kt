@@ -29,6 +29,15 @@ class ProductAdapter(
         override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem == newItem
         }
+
+        // Identificar cambios específicos
+        override fun getChangePayload(oldItem: Product, newItem: Product): Any? {
+            return if (oldItem.priceDollars != newItem.priceDollars) {
+                PayloadExchangeRateChange
+            } else {
+                null
+            }
+        }
     }
 
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
