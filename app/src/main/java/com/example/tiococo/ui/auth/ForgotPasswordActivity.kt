@@ -41,20 +41,44 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         lifecycleScope.launch {
-            viewModel.uiState.collect { state ->
-                when (state) {
-                    ForgotPasswordState.Idle -> {
-                        // Estado inicial, no hacer nada
+            // Reemplazo de launchWhenStarted con repeatOnLifecycle
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { state ->
+                    when (state) {
+                        ForgotPasswordState.Idle -> resetUIState()
+                        ForgotPasswordState.Loading -> showLoadingState()
+                        is ForgotPasswordState.Success -> handleSuccessState(state)
+                        is ForgotPasswordState.Error -> handleErrorState(state)
                     }
-                    ForgotPasswordState.Loading -> {
-                        binding.progressBar.isVisible = true
-                        binding.btnRecover.isEnabled = false
-                        binding.etUsername.isEnabled = false
-                    }
-                    is ForgotPasswordState.Success -> {
-                        binding.progressBar.isVisible = false
-                        binding.btnRecover.isEnabled = true
-                        binding.etUsername.isEnabled = true
+                }
+            }
+        }
+    }
+
+    private fun setupListeners() {
+        binding.btnRecover.setOnClickListener {
+            val username = binding.etUsername.text.toString().trim()
+
+            if (username.isEmpty()) {
+                binding.etUsername.error = "Ingrese el nombre de usuario"
+                return@setOnClickListener
+            }
+
+
+            lifecycleScope.launch {
+                try {
+                    // Consultar Firestore para ver si el usuario existe
+                    val userDoc = FirebaseFirestore.getInstance()
+                        .collection("usuarios")
+                        .document(username)
+                        .get()
+                        .await()
+
+                    if (userDoc.exists()) {
+                        // Si el usuario existe, mostramos el diálogo para ingresar nueva contraseña
+                        showNewPasswordDialog(username)
+                    } else {
+                        // Si no existe, mostramos un mensaje de error
                         Toast.makeText(
                             this@ForgotPasswordActivity,
                             state.message,
