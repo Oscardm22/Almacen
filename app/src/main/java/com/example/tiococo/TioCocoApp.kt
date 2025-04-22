@@ -7,6 +7,7 @@ import com.example.tiococo.workers.RateUpdateWorker
 import java.util.concurrent.TimeUnit
 import android.util.Log
 import com.example.tiococo.data.managers.ExchangeRateManager
+import com.google.firebase.FirebaseApp
 
 class TioCocoApp : Application() {
     override fun onCreate() {
