@@ -72,8 +72,8 @@ class ProductAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = getItem(position)  // Obtenemos directamente el Product
-        holder.bind(product)
+        holder.bind(getItem(position))
+    }
 
     // Método para manejar actualizaciones parciales
     override fun onBindViewHolder(
