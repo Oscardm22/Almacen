@@ -123,7 +123,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         viewModel.products.observe(this) { products ->
-            productAdapter.submitList(products)
+            productAdapter.submitList(products)  // Pasamos la lista directamente
         }
 
         viewModel.exchangeRate.observe(this) { rate ->
