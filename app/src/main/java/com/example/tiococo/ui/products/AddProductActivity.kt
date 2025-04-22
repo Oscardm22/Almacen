@@ -16,6 +16,9 @@ class AddProductActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductBinding
     private val viewModel: ProductViewModel by viewModels()
 
+    // Cambio clave: Especificar el tipo genérico explícitamente
+    private var saveObserver: Observer<Boolean>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddProductBinding.inflate(layoutInflater)
