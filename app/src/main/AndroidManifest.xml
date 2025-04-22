@@ -38,6 +38,10 @@
         </provider>
 
         <activity
+            android:name=".ui.auth.RegisterUserActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.user.UserManagementActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
