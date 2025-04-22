@@ -11,7 +11,7 @@ class AuthViewModel : ViewModel() {
 
     // Estados para la UI
     private val _uiState = MutableStateFlow<ForgotPasswordState>(ForgotPasswordState.Idle)
-    val uiState: StateFlow<ForgotPasswordState> = _uiState.asStateFlow()
+    val uiState: StateFlow<ForgotPasswordState> = _uiState
 
     fun sendPasswordResetEmail(email: String) {
         viewModelScope.launch {
