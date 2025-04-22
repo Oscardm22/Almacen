@@ -362,6 +362,7 @@ class HomeActivity : AppCompatActivity() {
             btnOption1.isVisible = true
             btnOption2.isVisible = true
             btnOption3.isVisible = true
+            btnOption4.isVisible = true
             btnOption1.alpha = 0f
             btnOption2.alpha = 0f
             btnOption3.alpha = 0f
