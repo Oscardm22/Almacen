@@ -33,7 +33,6 @@ class EditProductActivity : AppCompatActivity() {
             etName.setText(it.name)
             etQuantity.setText(it.quantity.toString())
             etPriceDollars.setText(String.format(Locale.getDefault(), "%.2f", it.priceDollars))
-            etPriceBolivares.setText(String.format(Locale.getDefault(), "%.2f", it.priceBolivares))
         }
 
         // Configurar botón de guardar
