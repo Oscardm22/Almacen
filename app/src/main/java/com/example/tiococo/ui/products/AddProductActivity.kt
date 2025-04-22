@@ -50,6 +50,24 @@ class AddProductActivity : AppCompatActivity() {
                 return false
             }
 
+            val quantity = quantityStr.toIntOrNull()
+            if (quantity == null || quantity <= 0) {
+                etQuantity.error = "Cantidad debe ser un número positivo"
+                return false
+            }
+
+            val priceStr = etPriceDollars.text.toString()
+            if (priceStr.isBlank()) {
+                etPriceDollars.error = "Precio requerido"
+                return false
+            }
+
+            val price = priceStr.toDoubleOrNull()
+            if (price == null || price <= 0) {
+                etPriceDollars.error = "Precio debe ser un número positivo"
+                return false
+            }
+
             return true
         }
     }
