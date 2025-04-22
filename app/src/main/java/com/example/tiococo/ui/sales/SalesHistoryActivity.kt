@@ -92,7 +92,6 @@ class SalesHistoryActivity : AppCompatActivity() {
             showClearConfirmationDialog()
         }
 
-        // Botón para exportar
         binding.fabExport.setOnClickListener {
             exportCurrentSales()
         }
