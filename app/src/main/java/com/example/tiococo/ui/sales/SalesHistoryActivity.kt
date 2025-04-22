@@ -142,7 +142,7 @@ class SalesHistoryActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun exportCurrentSales() {
+    private fun exportToCsv() {
         val sales = viewModel.salesHistory.value ?: emptyList()
         if (sales.isEmpty()) {
             AlertDialog.Builder(this)
