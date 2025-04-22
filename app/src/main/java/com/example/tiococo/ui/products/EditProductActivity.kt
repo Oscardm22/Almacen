@@ -43,6 +43,7 @@ class EditProductActivity : AppCompatActivity() {
                 priceDollars = etPriceDollars.text.toString().toDoubleOrNull() ?: 0.0
             )
 
+
             val resultIntent = Intent().apply {
                 putExtra("UPDATED_PRODUCT", updatedProduct)
             }
