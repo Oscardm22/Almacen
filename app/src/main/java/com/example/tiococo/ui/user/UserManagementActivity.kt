@@ -1,7 +1,6 @@
 package com.example.tiococo.ui.user
 
 import android.os.Bundle
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.Toast
