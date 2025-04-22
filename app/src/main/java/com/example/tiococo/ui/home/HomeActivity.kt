@@ -396,6 +396,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun handleEdit(data: Intent) {
+        val id = data.getStringExtra("PRODUCT_ID") ?: return
         val editedProduct = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             data.getParcelableExtra("EDITED_PRODUCT", Product::class.java)
         } else {
