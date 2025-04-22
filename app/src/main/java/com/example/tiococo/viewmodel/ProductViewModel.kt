@@ -95,8 +95,8 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun updateAllPrices(newRate: Double) {
-        // Solo actualizamos el exchangeRate, no modificamos los precios en dólares
-        _exchangeRate.value = newRate
+        if (_exchangeRate.value != newRate) { // Solo actualizar si cambió
+            _exchangeRate.value = newRate
 
             // Forzar actualización de las listas de forma eficiente
             _products.value = _products.value?.let { ArrayList(it) } // Crea nueva instancia
