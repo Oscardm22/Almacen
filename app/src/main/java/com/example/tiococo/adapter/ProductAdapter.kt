@@ -55,9 +55,26 @@ class ProductAdapter(
         val product = getItem(position)  // Obtenemos directamente el Product
         holder.bind(product)
 
-        // Pasamos solo el Product al hacer click
-        holder.itemView.setOnClickListener {
-            onItemClick(product)
+    // Método para manejar actualizaciones parciales
+    override fun onBindViewHolder(
+        holder: ProductViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isNotEmpty()) {
+            // Solo actualizar el precio en bolívares
+            holder.updatePriceInBolivares(getItem(position).priceDollars)
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
+        }
+    }
+
+    // Función optimizada para actualizar la tasa
+    fun updateExchangeRate(newRate: Double) {
+        if (exchangeRate != newRate) {
+            exchangeRate = newRate
+            // Notificar cambio solo en los items visibles
+            notifyItemRangeChanged(0, itemCount, PayloadExchangeRateChange)
         }
     }
 }
