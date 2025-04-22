@@ -40,8 +40,7 @@ class EditProductActivity : AppCompatActivity() {
             val updatedProduct = Product(
                 name = etName.text.toString(),
                 quantity = etQuantity.text.toString().toIntOrNull() ?: 0,
-                priceDollars = etPriceDollars.text.toString().toDoubleOrNull() ?: 0.0,
-                priceBolivares = etPriceBolivares.text.toString().toDoubleOrNull() ?: 0.0
+                priceDollars = etPriceDollars.text.toString().toDoubleOrNull() ?: 0.0
             )
 
             val resultIntent = Intent().apply {
