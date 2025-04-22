@@ -114,4 +114,9 @@ class AddProductActivity : AppCompatActivity() {
             viewModel.saveSuccess.observe(this, it)
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        saveObserver?.let { viewModel.saveSuccess.removeObserver(it) }
+    }
 }
