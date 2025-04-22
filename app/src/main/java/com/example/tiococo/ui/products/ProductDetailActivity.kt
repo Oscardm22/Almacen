@@ -5,12 +5,24 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tiococo.R
 import com.example.tiococo.data.model.Product
 
 class ProductDetailActivity : AppCompatActivity() {
+
+    // Registrar un launcher para el resultado de edición
+    private val editProductLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            Toast.makeText(this, "Producto actualizado correctamente", Toast.LENGTH_SHORT).show()
+            finish() // Regresa al Home
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +49,8 @@ class ProductDetailActivity : AppCompatActivity() {
             return
         }
 
-        // Obtener la tasa de cambio (deberías tenerla disponible desde el ViewModel o Activity)
-        val exchangeRate = intent.getDoubleExtra("EXCHANGE_RATE", 1.0) // Obtiene la tasa del intent
+        // Obtener la tasa de cambio
+        val exchangeRate = intent.getDoubleExtra("EXCHANGE_RATE", 1.0)
 
         // Mostrar detalles
         tvDetailName.text = product.name
@@ -49,15 +61,14 @@ class ProductDetailActivity : AppCompatActivity() {
         val priceInBolivares = product.priceDollars * exchangeRate
         tvDetailPriceBolivares.text = String.format(getString(R.string.price_bolivares), priceInBolivares)
 
-        // Botón Editar
+        // Botón Editar - usa el launcher registrado
         btnEdit.setOnClickListener {
             Intent(this, EditProductActivity::class.java).apply {
                 putExtra("PRODUCT", product)
-                startActivity(this)
-            }
+            }.also { editProductLauncher.launch(it) }
         }
 
-        // Botón Eliminar
+        // Botón Eliminar (sin cambios)
         btnDelete.setOnClickListener {
             AlertDialog.Builder(this).apply {
                 setTitle(getString(R.string.delete_confirmation_title))
