@@ -18,6 +18,9 @@ class ProductAdapter(
 
     private lateinit var context: Context
 
+    // Objeto de payload para identificar cambios en la tasa
+    private object PayloadExchangeRateChange
+
     private class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem.id == newItem.id  // Compara por ID
