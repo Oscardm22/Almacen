@@ -129,9 +129,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun setupListeners() {
-        binding.btnRecover.setOnClickListener {
-            val email = binding.etUsername.text.toString().trim()
+    private fun updatePasswordInFirestore(username: String, encryptedPassword: String) {
+        val userRef = FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(username)
+
+        val updatedData = mapOf("password" to encryptedPassword)
 
             if (validateEmail(email)) {
                 viewModel.sendPasswordResetEmail(email)
