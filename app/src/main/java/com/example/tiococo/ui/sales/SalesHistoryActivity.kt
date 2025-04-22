@@ -93,8 +93,21 @@ class SalesHistoryActivity : AppCompatActivity() {
         }
 
         binding.fabExport.setOnClickListener {
-            exportCurrentSales()
+            showExportOptionsDialog()
         }
+    }
+
+    private fun showExportOptionsDialog() {
+        val options = arrayOf("Exportar a CSV", "Exportar a PDF")
+        AlertDialog.Builder(this)
+            .setTitle("Selecciona formato de exportación")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> exportToCsv()
+                    1 -> exportToPdf()
+                }
+            }
+            .show()
     }
 
     private fun showSaleDetails(sale: SaleRecord) {
