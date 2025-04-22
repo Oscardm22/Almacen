@@ -18,7 +18,7 @@
             android:id="@+id/tvNameLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/product_name"
+            android:text="@string/tvNameLabel"
             android:textColor="@color/Brunswick_green"
             android:layout_marginBottom="4dp"
             android:labelFor="@id/etName"
