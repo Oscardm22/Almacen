@@ -129,45 +129,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_max="400dp"/>
 
-        <!-- Precio en Bolívares -->
-        <TextView
-            android:id="@+id/tvPriceBolivaresLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/label_price_bolivares"
-            android:textColor="@color/Brunswick_green"
-            android:textSize="16sp"
-            android:importantForAccessibility="yes"
-            android:labelFor="@id/etPriceBolivares"
-            android:maxLines="2"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/etPriceDollars"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="400dp"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:id="@+id/etPriceBolivares"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="56dp"
-            android:textColor="@color/Brunswick_green"
-            android:textSize="16sp"
-            android:background="@drawable/edit_text_background"
-            android:inputType="numberDecimal"
-            android:imeOptions="actionDone"
-            android:importantForAutofill="yes"
-            android:autofillHints="price"
-            android:importantForAccessibility="yes"
-            android:accessibilityLiveRegion="polite"
-            tools:text="100.50"
-            app:layout_constraintTop_toBottomOf="@id/tvPriceBolivaresLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="400dp"/>
-
-        <!-- Botón Guardar -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
