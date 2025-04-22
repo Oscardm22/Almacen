@@ -34,6 +34,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setupUI()
     }
 
+    private fun setupUI() {
         setupObservers()
         setupListeners()
     }
