@@ -52,9 +52,6 @@ class UserManagementActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        binding.btnChangeEmail.setOnClickListener {
-            showChangeEmailDialog()
-        }
 
         binding.btnChangePassword.setOnClickListener {
             showChangePasswordDialog()
