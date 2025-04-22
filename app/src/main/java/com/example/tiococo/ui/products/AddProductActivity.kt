@@ -110,6 +110,8 @@ class AddProductActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this@AddProductActivity, "Error al guardar producto", Toast.LENGTH_SHORT).show()
             }
+        }.also {
+            viewModel.saveSuccess.observe(this, it)
         }
     }
 }
