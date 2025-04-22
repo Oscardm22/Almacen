@@ -107,6 +107,8 @@ class AddProductActivity : AppCompatActivity() {
             if (success) {
                 Toast.makeText(this@AddProductActivity, "Producto guardado", Toast.LENGTH_SHORT).show()
                 finish()
+            } else {
+                Toast.makeText(this@AddProductActivity, "Error al guardar producto", Toast.LENGTH_SHORT).show()
             }
         }
     }
