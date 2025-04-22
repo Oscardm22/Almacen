@@ -140,7 +140,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(this, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show()
             }
-        }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al actualizar contraseña: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
 
     private fun validateEmail(email: String): Boolean {
