@@ -4,6 +4,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.text.InputFilter
+import android.text.InputType
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
@@ -35,30 +37,78 @@ class SaleProductsAdapter(
             currentProduct = product
             textWatcher?.let { etQuantity.removeTextChangedListener(it) }
 
-            // Mostrar datos del producto
+            // Configuración inicial
             tvProductName.text = product.name
             updatePriceDisplay(product.priceDollars, product.quantity)
-            etQuantity.setText(product.quantity.toString())
+
+            // Configuración del EditText
+            etQuantity.apply {
+                filters = arrayOf(InputFilter.LengthFilter(3))
+                inputType = InputType.TYPE_CLASS_NUMBER
+                setText(product.quantity.toString())
+
+                // Seleccionar automáticamente si el valor es 1
+                if (text.toString() == "1") {
+                    setSelectAllOnFocus(true) // Selección automática solo para "1"
+                } else {
+                    setSelectAllOnFocus(false)
+                    setSelection(text.length) // Cursor al final para otros valores
+                }
+
+                // Manejar cambios de foco
+                setOnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus && text.toString() != "1") {
+                        post { setSelection(text.length) }
+                    }
+                }
+            }
 
             // Configurar TextWatcher
             textWatcher = object : TextWatcher {
+                private var isUserEditing = false
+
                 override fun afterTextChanged(s: Editable?) {
-                    val newQuantity = s?.toString()?.toIntOrNull() ?: 0
-                    currentProduct?.let {
-                        onQuantityChange(it, newQuantity)
-                        updatePriceDisplay(it.priceDollars, newQuantity)
+                    if (isUserEditing) {
+                        s?.let {
+                            val newQuantity = it.toString().toIntOrNull()?.coerceIn(1, 999) ?: 1
+                            if (it.toString() != newQuantity.toString()) {
+                                etQuantity.apply {
+                                    removeTextChangedListener(this@SaleProductViewHolder.textWatcher)
+                                    setText(newQuantity.toString())
+                                    // Actualizar configuración de selección
+                                    if (newQuantity == 1) {
+                                        setSelectAllOnFocus(true)
+                                        selectAll()
+                                    } else {
+                                        setSelectAllOnFocus(false)
+                                        setSelection(text.length)
+                                    }
+                                    addTextChangedListener(this@SaleProductViewHolder.textWatcher)
+                                }
+                            }
+
+                            currentProduct?.let { product ->
+                                onQuantityChange(product, newQuantity)
+                                updatePriceDisplay(product.priceDollars, newQuantity)
+                            }
+                        }
+                        isUserEditing = false
                     }
                 }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    isUserEditing = true
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             }
+
             etQuantity.addTextChangedListener(textWatcher)
 
             btnRemove.setOnClickListener {
                 currentProduct?.let { onRemoveClick(it) }
             }
         }
-
 
         internal fun updatePriceDisplay(priceDollars: Double, quantity: Int) {
             val totalDollars = priceDollars * quantity
