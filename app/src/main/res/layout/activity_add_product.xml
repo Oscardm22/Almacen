@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/tvNameLabel"
                 android:inputType="textCapWords|textPersonName"
+                android:maxLength="30"
                 android:autofillHints="name"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/quantity"
                 android:inputType="number"
+                android:maxLength="5"
                 android:autofillHints="quantity"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/tvPriceLabel"
                 android:inputType="numberDecimal"
+                android:maxLength="10"
                 android:autofillHints="price"/>
         </com.google.android.material.textfield.TextInputLayout>
 

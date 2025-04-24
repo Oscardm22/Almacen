@@ -7,9 +7,6 @@ import com.example.tiococo.data.managers.ExchangeRateManager
 import com.example.tiococo.data.model.Product
 import com.example.tiococo.data.model.SaleRecord
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -49,8 +46,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     private val _saveSuccess = MutableLiveData<Boolean>()
     val saveSuccess: LiveData<Boolean> = _saveSuccess
-
-    private val _newlyAddedProducts = mutableSetOf<String>()
 
     private val productRepository = ProductRepository()
 
@@ -105,11 +100,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             _products.value = _products.value?.let { ArrayList(it) } // Crea nueva instancia
             _saleProducts.value = _saleProducts.value?.let { ArrayList(it) }
         }
-    }
-
-
-    private fun calculateBsPrice(dollarPrice: Double, rate: Double = _exchangeRate.value ?: 36.0): Double {
-        return dollarPrice * rate
     }
 
     private fun formatRate(rate: Double): String {
@@ -187,39 +177,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
     // Historial de Ventas
-    fun registerSale() {
-        _saleProducts.value?.takeIf { it.isNotEmpty() }?.let { products ->
-            val newSale = SaleRecord(
-                id = System.currentTimeMillis().toString(),
-                date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()),
-                totalDollars = _totalAmount.value ?: 0.0, // Cambiado de 'total' a 'totalDollars'
-                exchangeRate = _exchangeRate.value ?: 1.0, // Asegúrate de incluir la tasa
-                products = products.map { it.copy() }
-            )
-
-            viewModelScope.launch {
-                try {
-                    saleRepository.saveSale(newSale)
-
-                    // Reducir stock en productos
-                    products.forEach { soldProduct ->
-                        val original = originalProductList.find { it.id == soldProduct.id }
-                        original?.let {
-                            val updated = it.copy(quantity = it.quantity - soldProduct.quantity)
-                            updateProduct(updated.id, updated)
-                        }
-                    }
-
-                    clearSale()
-                    _saveSuccess.value = true
-                } catch (e: Exception) {
-                    _saveSuccess.value = false
-                    Log.e("ProductVM", "Error al registrar venta", e)
-                }
-            }
-        }
-    }
-
     fun loadSalesHistory() {
         viewModelScope.launch {
             saleRepository.getSalesHistory().collect { sales ->
@@ -231,6 +188,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     fun deleteSaleRecord(saleId: String) {
         viewModelScope.launch {
             saleRepository.deleteSale(saleId)
+            loadSalesHistory() // Actualiza la lista tras eliminación
         }
     }
 

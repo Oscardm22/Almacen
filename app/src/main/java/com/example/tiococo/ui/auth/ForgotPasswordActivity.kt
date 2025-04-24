@@ -21,6 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import com.example.tiococo.R
 import org.mindrot.jbcrypt.BCrypt
+import android.text.Editable
+import android.text.TextWatcher
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -56,18 +58,35 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
+        // Validación en tiempo real para el campo de usuario
+        binding.etUsername.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.length > 30) {
+                    binding.etUsername.error = "Máximo 30 caracteres"
+                } else {
+                    binding.etUsername.error = null
+                }
+            }
+        })
+
         binding.btnRecover.setOnClickListener {
             val username = binding.etUsername.text.toString().trim()
 
-            if (username.isEmpty()) {
-                binding.etUsername.error = "Ingrese el nombre de usuario"
-                return@setOnClickListener
+            when {
+                username.isEmpty() -> {
+                    binding.etUsername.error = "Ingrese el nombre de usuario"
+                    return@setOnClickListener
+                }
+                username.length > 30 -> {
+                    binding.etUsername.error = "Máximo 30 caracteres"
+                    return@setOnClickListener
+                }
             }
-
 
             lifecycleScope.launch {
                 try {
-                    // Consultar Firestore para ver si el usuario existe
                     val userDoc = FirebaseFirestore.getInstance()
                         .collection("usuarios")
                         .document(username)
@@ -75,24 +94,14 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         .await()
 
                     if (userDoc.exists()) {
-                        // Si el usuario existe, mostramos el diálogo para ingresar nueva contraseña
                         showNewPasswordDialog(username)
                     } else {
-                        // Si no existe, mostramos un mensaje de error
-                        Toast.makeText(
-                            this@ForgotPasswordActivity,
-                            "Usuario no encontrado",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this@ForgotPasswordActivity, "Usuario no encontrado", Toast.LENGTH_SHORT).show()
                     }
 
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Toast.makeText(
-                        this@ForgotPasswordActivity,
-                        "Error al recuperar contraseña",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@ForgotPasswordActivity, "Error al recuperar contraseña", Toast.LENGTH_SHORT).show()
                 }
             }
         }

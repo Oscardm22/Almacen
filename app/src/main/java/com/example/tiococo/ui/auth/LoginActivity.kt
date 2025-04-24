@@ -11,6 +11,9 @@ import androidx.core.content.edit
 import com.example.tiococo.data.repository.UserRepository
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import android.text.Editable
+import android.text.TextWatcher
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -41,6 +44,32 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun setupListeners() {
+        // Validación campo de usuario
+        binding.etUsername.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.length > 30) {
+                    binding.etUsername.error = "Máximo 30 caracteres"
+                } else {
+                    binding.etUsername.error = null
+                }
+            }
+        })
+
+        // Validación campo de contraseña
+        binding.etPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.length > 30) {
+                    binding.etPassword.error = "Máximo 30 caracteres"
+                } else {
+                    binding.etPassword.error = null
+                }
+            }
+        })
+
         // Botón de Login
         binding.btnLogin.setOnClickListener {
             val username = binding.etUsername.text.toString()
@@ -63,8 +92,16 @@ class LoginActivity : AppCompatActivity() {
                 binding.etUsername.error = "Ingrese su nombre de usuario"
                 false
             }
+            username.length > 30 -> {
+                binding.etUsername.error = "Máximo 30 caracteres"
+                false
+            }
             password.isEmpty() -> {
                 binding.etPassword.error = "Ingrese su contraseña"
+                false
+            }
+            password.length > 30 -> {
+                binding.etPassword.error = "Máximo 30 caracteres"
                 false
             }
             else -> true

@@ -11,6 +11,9 @@ import com.example.tiococo.R
 import com.example.tiococo.data.model.Product
 import com.example.tiococo.viewmodel.ProductViewModel
 import java.util.Locale
+import android.text.Editable
+import android.text.TextWatcher
+
 
 class EditProductActivity : AppCompatActivity() {
 
@@ -39,6 +42,31 @@ class EditProductActivity : AppCompatActivity() {
             etQuantity.setText(product.quantity.toString())
             etPriceDollars.setText(String.format(Locale.getDefault(), "%.2f", product.priceDollars))
         }
+
+        // 🔽 Validaciones en tiempo real
+        etName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                etName.error = if (s != null && s.length > 30) "Máximo 30 caracteres" else null
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        etQuantity.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                etQuantity.error = if (s != null && s.length > 5) "Máximo 5 dígitos" else null
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        etPriceDollars.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                etPriceDollars.error = if (s != null && s.length > 10) "Máximo 10 caracteres" else null
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
         btnSave.setOnClickListener {
             val updatedProduct = originalProduct?.copy(

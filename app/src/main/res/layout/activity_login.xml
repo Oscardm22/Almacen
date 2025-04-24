@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/username_hint"
             android:inputType="text"
+            android:maxLength="30"
             android:autofillHints="username"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,6 +60,7 @@
         android:layout_height="wrap_content"
         android:autofillHints="password"
         android:hint="@string/password_hint"
+        android:maxLength="30"
         android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 

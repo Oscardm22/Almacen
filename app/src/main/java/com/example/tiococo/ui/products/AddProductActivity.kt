@@ -10,8 +10,11 @@ import com.example.tiococo.data.model.Product
 import com.example.tiococo.viewmodel.ProductViewModel
 import android.util.Log
 import android.view.View
+import android.text.Editable
+import android.text.TextWatcher
 
-class AddProductActivity : AppCompatActivity() {
+class
+AddProductActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddProductBinding
     private val viewModel: ProductViewModel by viewModels()
@@ -29,12 +32,52 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
+        // Validación en tiempo real - Nombre
+        binding.etName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.length > 30) {
+                    binding.etName.error = "Máximo 30 caracteres"
+                } else {
+                    binding.etName.error = null
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Validación en tiempo real - Cantidad
+        binding.etQuantity.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.length > 5) {
+                    binding.etQuantity.error = "Máximo 5 dígitos"
+                } else {
+                    binding.etQuantity.error = null
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Validación en tiempo real - Precio
+        binding.etPriceDollars.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.length > 10) {
+                    binding.etPriceDollars.error = "Máximo 10 caracteres"
+                } else {
+                    binding.etPriceDollars.error = null
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
         binding.btnSave.setOnClickListener {
             if (validateInputs()) {
                 saveProduct()
             }
         }
     }
+
 
     // 5. Función validateInputs() que faltaba (corrige errores de referencia)
     private fun validateInputs(): Boolean {
