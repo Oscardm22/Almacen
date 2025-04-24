@@ -192,7 +192,8 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             val newSale = SaleRecord(
                 id = System.currentTimeMillis().toString(),
                 date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()),
-                total = _totalAmount.value ?: 0.0,
+                totalDollars = _totalAmount.value ?: 0.0, // Cambiado de 'total' a 'totalDollars'
+                exchangeRate = _exchangeRate.value ?: 1.0, // Asegúrate de incluir la tasa
                 products = products.map { it.copy() }
             )
 
@@ -226,7 +227,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             }
         }
     }
-
 
     fun deleteSaleRecord(saleId: String) {
         viewModelScope.launch {

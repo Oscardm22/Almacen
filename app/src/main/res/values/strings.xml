@@ -113,6 +113,26 @@
     <string name="no_products_available">No hay productos disponibles</string>
     <string name="price_format">%.2f</string>
     <string name="Productos_venta">$%.2f</string>
+    <string name="toolbar">Detalle de Venta</string>
+    <string name="action_print">Imprimir</string>
+    <string name="TextView_Productos_Vendidos">Productos Vendidos</string>
+    <string name="fabShare">Botón compartir</string>
+    <string name="RecyclerView_Productos_Vendidos">Recycler Productos Vendidos</string>
+    <string name="product_quantity_price">%1$d x %2$s</string>
+    <string name="product_subtotal">= %1$s</string>
+    <string name="currency_format">$%.2f</string>
+    <string name="sale_date">Fecha: %s</string>
+    <string name="total_usd">Total: $%.2f</string>
+    <string name="total_bs">Total: Bs. %.2f</string>
+
+    <!-- Formato completo del detalle del producto -->
+    <string name="product_detail_format">%1$d x %2$s = %3$s</string>
+
+    <!-- Formato de moneda (USD) -->
+    <string name="currency_usd">$%1$.2f</string>
+
+    <!-- Formato de moneda (Bolívares) -->
+    <string name="currency_bs">Bs %1$.2f</string>
 
     <!-- Product Detail -->
     <string name="product_quantity">Cantidad: %d</string>

@@ -111,24 +111,9 @@ class SalesHistoryActivity : AppCompatActivity() {
     }
 
     private fun showSaleDetails(sale: SaleRecord) {
-        AlertDialog.Builder(this)
-            .setTitle("Venta del ${sale.date}")
-            .setMessage(buildSaleDetailsMessage(sale))
-            .setPositiveButton("Aceptar", null)
-            .show()
+        SaleDetailActivity.start(this, sale)
     }
 
-    private fun buildSaleDetailsMessage(sale: SaleRecord): String {
-        return """
-            Total: $${"%.2f".format(sale.total)}
-            Productos: ${sale.products.size}
-            
-            Detalles:
-            ${sale.products.joinToString("\n") {
-            "- ${it.name} (${it.quantity} x $${"%.2f".format(it.priceDollars)})"
-        }}
-        """.trimIndent()
-    }
 
     private fun showClearConfirmationDialog() {
         AlertDialog.Builder(this)

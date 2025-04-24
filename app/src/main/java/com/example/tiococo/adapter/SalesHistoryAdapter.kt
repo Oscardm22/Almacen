@@ -18,7 +18,8 @@ class SalesHistoryAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvDate: TextView = itemView.findViewById(R.id.tvSaleDate)
-        private val tvTotal: TextView = itemView.findViewById(R.id.tvSaleTotal)
+        private val tvTotalUsd: TextView = itemView.findViewById(R.id.tvTotalUsd)
+        private val tvTotalBs: TextView = itemView.findViewById(R.id.tvTotalBs)
         private val tvItemsCount: TextView = itemView.findViewById(R.id.tvItemsCount)
         private val btnDelete: ImageButton = itemView.findViewById(R.id.btnDeleteSale)
         private var currentSale: SaleRecord? = null
@@ -31,11 +32,23 @@ class SalesHistoryAdapter(
 
         fun bind(sale: SaleRecord) {
             currentSale = sale
+
+            // Fecha y cantidad de productos (se mantienen igual)
             tvDate.text = sale.date
-            tvTotal.text = itemView.context.getString(R.string.sale_total_format, sale.total)
             tvItemsCount.text = itemView.context.getString(R.string.products_count, sale.products.size)
 
-            // Resetear estado del botón
+            // Mostrar ambos montos (USD y Bs)
+            tvTotalUsd.text = itemView.context.getString(
+                R.string.total_usd_format,
+                sale.totalDollars // Cambiado de 'total' a 'totalDollars'
+            )
+
+            tvTotalBs.text = itemView.context.getString(
+                R.string.total_bs_format,
+                sale.totalBs // Usamos la propiedad calculada
+            )
+
+            // Resto del código para el botón de eliminar (se mantiene igual)
             btnDelete.isEnabled = true
             itemView.isSelected = false
             itemView.alpha = 1f
@@ -45,7 +58,6 @@ class SalesHistoryAdapter(
                 onDeleteClick(sale.id) { isConfirmed ->
                     btnDelete.isEnabled = true
                     if (!isConfirmed) {
-                        // Restaurar estado visual si se canceló
                         itemView.alpha = 1f
                         itemView.isSelected = false
                     }

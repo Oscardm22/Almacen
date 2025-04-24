@@ -42,6 +42,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.sales.SaleDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.user.UserManagementActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

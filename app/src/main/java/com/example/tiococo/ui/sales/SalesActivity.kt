@@ -15,6 +15,14 @@ import com.example.tiococo.viewmodel.ProductViewModel
 import com.example.tiococo.adapter.ProductAdapter
 import com.example.tiococo.adapter.SaleProductsAdapter
 import com.example.tiococo.data.model.Product
+import com.example.tiococo.data.model.SaleRecord
+import androidx.lifecycle.lifecycleScope
+import java.util.UUID
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.Date
+import kotlinx.coroutines.launch
+import com.example.tiococo.data.repository.SaleRepository
 
 class SalesActivity : AppCompatActivity() {
 
@@ -22,7 +30,7 @@ class SalesActivity : AppCompatActivity() {
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var availableProductsAdapter: ProductAdapter
     private lateinit var saleProductsAdapter: SaleProductsAdapter
-
+    private val saleRepository: SaleRepository by lazy { SaleRepository() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySalesBinding.inflate(layoutInflater)
@@ -99,11 +107,20 @@ class SalesActivity : AppCompatActivity() {
 
     private fun setupUI() {
         binding.fabComplete.setOnClickListener {
-            if (viewModel.saleProducts.value?.isNotEmpty() == true) {
-                viewModel.registerSale()
-                Toast.makeText(this, R.string.sale_registered, Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, R.string.add_products_first, Toast.LENGTH_SHORT).show()
+            val products = viewModel.saleProducts.value ?: emptyList()
+            if (products.isNotEmpty()) {
+                val sale = SaleRecord(
+                    id = UUID.randomUUID().toString(),
+                    date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()),
+                    totalDollars = viewModel.totalAmount.value ?: 0.0,
+                    exchangeRate = viewModel.exchangeRate.value ?: 1.0, // Guarda la tasa
+                    products = products.toList()
+                )
+                lifecycleScope.launch {
+                    saleRepository.saveSale(sale)
+                    Toast.makeText(this@SalesActivity, "Venta registrada", Toast.LENGTH_SHORT).show()
+                    viewModel.clearSale()
+                }
             }
         }
 
