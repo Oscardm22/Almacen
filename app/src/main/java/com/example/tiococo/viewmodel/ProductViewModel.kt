@@ -201,8 +201,17 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun clearSalesHistory() {
-        _salesHistory.value = emptyList()
+        viewModelScope.launch {
+            saleRepository.deleteAllSales { success ->
+                if (success) {
+                    _salesHistory.value = emptyList()
+                } else {
+                    Log.e("ProductVM", "Error al eliminar historial de ventas")
+                }
+            }
+        }
     }
+
 
     fun searchProducts(query: String) {
         _products.value = if (query.isEmpty()) {

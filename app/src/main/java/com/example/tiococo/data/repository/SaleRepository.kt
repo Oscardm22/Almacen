@@ -27,4 +27,20 @@ class SaleRepository {
     suspend fun deleteSale(saleId: String) {
         ventasRef.document(saleId).delete().await()
     }
+
+    fun deleteAllSales(onComplete: (Boolean) -> Unit) {
+        ventasRef.get()
+            .addOnSuccessListener { snapshot ->
+                val batch = firestore.batch()
+                for (document in snapshot.documents) {
+                    batch.delete(document.reference)
+                }
+                batch.commit()
+                    .addOnSuccessListener { onComplete(true) }
+                    .addOnFailureListener { onComplete(false) }
+            }
+            .addOnFailureListener { onComplete(false) }
+    }
+
+
 }
