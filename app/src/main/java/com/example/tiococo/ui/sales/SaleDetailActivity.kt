@@ -42,22 +42,50 @@ class SaleDetailActivity : AppCompatActivity() {
         }
 
         setupViews(sale)
+        setupShareButton(sale) // Mover la configuración del botón aquí
     }
 
     private fun setupViews(sale: SaleRecord) {
-        // Información general - Versión corregida
+        // Información general
         binding.tvSaleDate.text = getString(R.string.sale_date, sale.date)
         binding.tvTotalUsd.text = getString(R.string.total_usd, sale.totalDollars)
         binding.tvTotalBs.text = getString(R.string.total_bs, sale.totalBs)
         binding.tvItemsCount.text = getString(R.string.products_count, sale.products.size)
 
-        // Lista de productos (sin cambios)
+        // Lista de productos
         val adapter = SaleProductDetailAdapter()
         binding.rvProducts.layoutManager = LinearLayoutManager(this)
         binding.rvProducts.adapter = adapter
         adapter.submitList(sale.products)
 
-        // Botón de cierre (sin cambios)
+        // Botón de cierre
         binding.toolbar.setNavigationOnClickListener { finish() }
+    }
+
+    private fun setupShareButton(sale: SaleRecord) {
+        binding.fabShare.setOnClickListener {
+            shareSaleDetails(sale)
+        }
+    }
+
+    private fun shareSaleDetails(sale: SaleRecord) {
+        val shareText = buildString {
+            appendLine("Resumen de Venta")
+            appendLine("Fecha: ${sale.date}")
+            appendLine("Total USD: $${"%.2f".format(sale.totalDollars)}")
+            appendLine("Total Bs: Bs ${"%.2f".format(sale.totalBs)}")
+            appendLine("Productos:")
+            sale.products.forEach { product ->
+                appendLine("- ${product.name}: $${"%.2f".format(product.priceDollars)} (${product.quantity} unidades)")
+            }
+        }
+
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, shareText)
+            type = "text/plain"
+        }
+
+        startActivity(Intent.createChooser(shareIntent, "Compartir detalles de venta"))
     }
 }

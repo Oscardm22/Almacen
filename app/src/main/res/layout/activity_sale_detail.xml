@@ -18,8 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_close_white"
             app:title="@string/toolbar"
-            app:titleTextColor="@color/white"
-            app:menu="@menu/menu_sale_detail"/>
+            app:titleTextColor="@color/white"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

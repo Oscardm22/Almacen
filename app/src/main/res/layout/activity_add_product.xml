@@ -14,106 +14,82 @@
         android:padding="16dp">
 
         <!-- Campo Nombre -->
-        <TextView
-            android:id="@+id/tvNameLabel"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameInputLayout"
+            style="@style/RoundedTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/tvNameLabel"
-            android:textColor="@color/Brunswick_green"
-            android:layout_marginBottom="4dp"
-            android:labelFor="@id/etName"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="400dp"/>
+            app:layout_constraintWidth_max="400dp">
 
-        <EditText
-            android:id="@+id/etName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:inputType="textCapWords|textPersonName"
-            android:importantForAutofill="yes"
-            android:autofillHints="name"
-            android:background="@drawable/edit_text_border"
-            app:layout_constraintTop_toBottomOf="@id/tvNameLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="400dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                style="@style/TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tvNameLabel"
+                android:inputType="textCapWords|textPersonName"
+                android:autofillHints="name"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo Cantidad -->
-        <TextView
-            android:id="@+id/tvQuantityLabel"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/quantityInputLayout"
+            style="@style/RoundedTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/quantity"
-            android:textColor="@color/Brunswick_green"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="4dp"
-            android:labelFor="@id/etQuantity"
-            app:layout_constraintTop_toBottomOf="@id/etName"
+            app:layout_constraintTop_toBottomOf="@id/nameInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="400dp"/>
+            app:layout_constraintWidth_max="400dp">
 
-        <EditText
-            android:id="@+id/etQuantity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:minHeight="48dp"
-            android:importantForAutofill="yes"
-            android:autofillHints="quantity"
-            android:background="@drawable/edit_text_border"
-            app:layout_constraintTop_toBottomOf="@id/tvQuantityLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="400dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etQuantity"
+                style="@style/TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/quantity"
+                android:inputType="number"
+                android:autofillHints="quantity"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo Precio -->
-        <TextView
-            android:id="@+id/tvPriceLabel"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/priceInputLayout"
+            style="@style/RoundedTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/tvPriceLabel"
-            android:textColor="@color/Brunswick_green"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="4dp"
-            android:labelFor="@id/etPriceDollars"
-            app:layout_constraintTop_toBottomOf="@id/etQuantity"
+            app:layout_constraintTop_toBottomOf="@id/quantityInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="400dp"/>
+            app:layout_constraintWidth_max="400dp">
 
-        <EditText
-            android:id="@+id/etPriceDollars"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:minHeight="48dp"
-            android:importantForAutofill="yes"
-            android:autofillHints="price"
-            android:background="@drawable/edit_text_border"
-            app:layout_constraintTop_toBottomOf="@id/tvPriceLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_max="400dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPriceDollars"
+                style="@style/TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tvPriceLabel"
+                android:inputType="numberDecimal"
+                android:autofillHints="price"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Botón Guardar -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
+            style="@style/ButtonStyle.TioCoco"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
             android:layout_marginTop="24dp"
-            android:background="@drawable/rounded_button"
-            android:textColor="@color/white"
-            android:minHeight="48dp"
-            android:minWidth="160dp"
-            app:layout_constraintTop_toBottomOf="@id/etPriceDollars"
+            android:text="@string/save"
+            app:layout_constraintTop_toBottomOf="@id/priceInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="16dp"/>
+            app:layout_constraintWidth_max="320dp"/>
 
         <!-- ProgressBar circular centrado -->
         <ProgressBar
