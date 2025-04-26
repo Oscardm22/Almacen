@@ -17,6 +17,7 @@ import com.example.tiococo.adapter.SaleProductsAdapter
 import com.example.tiococo.data.model.Product
 import com.example.tiococo.data.model.SaleRecord
 import androidx.lifecycle.lifecycleScope
+import com.example.tiococo.data.repository.ProductRepository
 import java.util.UUID
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -25,12 +26,16 @@ import kotlinx.coroutines.launch
 import com.example.tiococo.data.repository.SaleRepository
 
 class SalesActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivitySalesBinding
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var availableProductsAdapter: ProductAdapter
     private lateinit var saleProductsAdapter: SaleProductsAdapter
-    private val saleRepository: SaleRepository by lazy { SaleRepository() }
+
+    // Declara primero el ProductRepository
+    private val productRepository: ProductRepository by lazy { ProductRepository() }
+    // Luego instancia SaleRepository con la dependencia
+    private val saleRepository: SaleRepository by lazy { SaleRepository(productRepository) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySalesBinding.inflate(layoutInflater)
@@ -113,13 +118,21 @@ class SalesActivity : AppCompatActivity() {
                     id = UUID.randomUUID().toString(),
                     date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()),
                     totalDollars = viewModel.totalAmount.value ?: 0.0,
-                    exchangeRate = viewModel.exchangeRate.value ?: 1.0, // Guarda la tasa
+                    exchangeRate = viewModel.exchangeRate.value ?: 1.0,
                     products = products.toList()
                 )
                 lifecycleScope.launch {
-                    saleRepository.saveSale(sale)
-                    Toast.makeText(this@SalesActivity, "Venta registrada", Toast.LENGTH_SHORT).show()
-                    viewModel.clearSale()
+                    try {
+                        val success = saleRepository.saveSaleWithStockUpdate(sale)
+                        if (success) {
+                            Toast.makeText(this@SalesActivity, "Venta registrada", Toast.LENGTH_SHORT).show()
+                            viewModel.clearSale()
+                        } else {
+                            Toast.makeText(this@SalesActivity, "Error al registrar venta", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(this@SalesActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }

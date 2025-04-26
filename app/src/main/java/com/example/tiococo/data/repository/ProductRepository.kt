@@ -55,4 +55,9 @@ class ProductRepository {
     suspend fun deleteProduct(id: String) {
         productosRef.document(id).delete().await()
     }
+
+    suspend fun getProductById(productId: String): Product {
+        return productosRef.document(productId).get().await().toObject(Product::class.java)!!
+            .copy(id = productId)
+    }
 }

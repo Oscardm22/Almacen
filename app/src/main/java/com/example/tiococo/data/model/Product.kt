@@ -5,11 +5,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Product(
-    val id: String = "",  // Añade este campo
+    val id: String = "",
     val name: String,
     val quantity: Int,
     val priceDollars: Double,
 ) : Parcelable {
-    // Constructor sin argumentos para Firebase
     constructor() : this("", "", 0, 0.0)
+
+    // Método para verificar si hay stock suficiente
+    fun hasEnoughStock(required: Int): Boolean = quantity >= required
 }

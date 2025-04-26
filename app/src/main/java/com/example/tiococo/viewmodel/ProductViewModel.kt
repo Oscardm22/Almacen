@@ -47,9 +47,10 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     private val _saveSuccess = MutableLiveData<Boolean>()
     val saveSuccess: LiveData<Boolean> = _saveSuccess
 
-    private val productRepository = ProductRepository()
-
-    private val saleRepository = SaleRepository()
+    // Declara primero ProductRepository
+    private val productRepository: ProductRepository = ProductRepository()
+    // Luego instancia SaleRepository con la dependencia
+    private val saleRepository: SaleRepository = SaleRepository(productRepository)
 
     init {
         loadInitialData()
