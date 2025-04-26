@@ -31,27 +31,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@id/btnDeleteSale"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="8dp">
+        app:layout_constraintEnd_toStartOf="@+id/btnReturn"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Total en Dólares -->
         <TextView
             android:id="@+id/tvTotalUsd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:textColor="@color/Brunswick_green"
-            tools:text="$45.50"/>
+            android:textSize="16sp"
+            tools:text="$45.50" />
 
         <!-- Total en Bolívares -->
         <TextView
             android:id="@+id/tvTotalBs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:textColor="@color/Brunswick_green"
-            tools:text="Bs 1.638,00"/>
+            android:textSize="14sp"
+            tools:text="Bs 1.638,00" />
     </LinearLayout>
 
     <!-- Cantidad de Productos -->
@@ -66,6 +65,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSaleDate"
         tools:text="3 productos vendidos" />
+
+    <!-- Agrega este botón junto al de eliminar -->
+    <ImageButton
+        android:id="@+id/btnReturn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/Devolver_venta"
+        android:src="@drawable/ic_return"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteSale"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Botón Eliminar -->
     <ImageButton

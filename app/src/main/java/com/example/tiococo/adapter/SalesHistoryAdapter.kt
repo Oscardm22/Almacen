@@ -13,7 +13,8 @@ import com.example.tiococo.data.model.SaleRecord
 
 class SalesHistoryAdapter(
     private val onItemClick: (SaleRecord) -> Unit,
-    private val onDeleteClick: (String, (Boolean) -> Unit) -> Unit
+    private val onDeleteClick: (String, (Boolean) -> Unit) -> Unit,
+    private val onReturnClick: (SaleRecord, (Boolean) -> Unit) -> Unit // Nuevo parámetro
 ) : ListAdapter<SaleRecord, SalesHistoryAdapter.ViewHolder>(SaleHistoryDiffCallback()) {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,6 +23,7 @@ class SalesHistoryAdapter(
         private val tvTotalBs: TextView = itemView.findViewById(R.id.tvTotalBs)
         private val tvItemsCount: TextView = itemView.findViewById(R.id.tvItemsCount)
         private val btnDelete: ImageButton = itemView.findViewById(R.id.btnDeleteSale)
+        private val btnReturn: ImageButton = itemView.findViewById(R.id.btnReturn)
         private var currentSale: SaleRecord? = null
 
         init {
@@ -57,6 +59,17 @@ class SalesHistoryAdapter(
                 btnDelete.isEnabled = false
                 onDeleteClick(sale.id) { isConfirmed ->
                     btnDelete.isEnabled = true
+                    if (!isConfirmed) {
+                        itemView.alpha = 1f
+                        itemView.isSelected = false
+                    }
+                }
+            }
+
+            btnReturn.setOnClickListener {
+                btnReturn.isEnabled = false
+                onReturnClick(sale) { isConfirmed ->
+                    btnReturn.isEnabled = true
                     if (!isConfirmed) {
                         itemView.alpha = 1f
                         itemView.isSelected = false

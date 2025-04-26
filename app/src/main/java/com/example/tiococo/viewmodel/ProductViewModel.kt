@@ -192,7 +192,20 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             loadSalesHistory() // Actualiza la lista tras eliminación
         }
     }
-
+    fun returnSale(sale: SaleRecord, onComplete: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val success = saleRepository.returnSaleAndRestoreStock(sale)
+                if (success) {
+                    loadSalesHistory() // Refrescar el historial
+                }
+                onComplete(success)
+            } catch (e: Exception) {
+                Log.e("ProductVM", "Error al procesar devolución", e)
+                onComplete(false)
+            }
+        }
+    }
 
     // Búsqueda y filtrado
     fun filterSalesByDate(query: String): List<SaleRecord> {

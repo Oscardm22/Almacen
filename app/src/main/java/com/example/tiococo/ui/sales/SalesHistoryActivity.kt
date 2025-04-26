@@ -39,6 +39,9 @@ class SalesHistoryActivity : AppCompatActivity() {
             onItemClick = { sale -> showSaleDetails(sale) },
             onDeleteClick = { saleId, callback ->
                 showDeleteConfirmationDialog(saleId, callback)
+            },
+            onReturnClick = { sale, callback ->
+                showReturnConfirmationDialog(sale, callback)
             }
         )
 
@@ -50,6 +53,35 @@ class SalesHistoryActivity : AppCompatActivity() {
         viewModel.salesHistory.observe(this) { sales ->
             adapter.submitList(sales ?: emptyList())
         }
+    }
+
+    private fun showReturnConfirmationDialog(sale: SaleRecord, callback: (Boolean) -> Unit) {
+        AlertDialog.Builder(this)
+            .setTitle("Confirmar devolución")
+            .setMessage("¿Estás seguro de revertir esta venta y restaurar el stock de los productos?")
+            .setPositiveButton("Confirmar") { _, _ ->
+                viewModel.returnSale(sale) { success ->
+                    runOnUiThread {
+                        if (success) {
+                            Toast.makeText(
+                                this,
+                                "Devolución procesada - Stock restaurado",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Error al procesar devolución",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        callback(success)
+                    }
+                }
+            }
+            .setNegativeButton("Cancelar") { _, _ -> callback(false) }
+            .setOnDismissListener { callback(false) }
+            .show()
     }
 
     private fun showDeleteConfirmationDialog(saleId: String, callback: (Boolean) -> Unit) {

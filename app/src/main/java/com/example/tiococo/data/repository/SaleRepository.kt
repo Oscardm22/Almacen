@@ -87,4 +87,32 @@ class SaleRepository(
             }
             .addOnFailureListener { onComplete(false) }
     }
+
+    suspend fun returnSaleAndRestoreStock(sale: SaleRecord): Boolean {
+        return try {
+            // 1. Eliminar la venta del historial
+            ventasRef.document(sale.id).delete().await()
+
+            // 2. Revertir el stock en transacción
+            firestore.runTransaction { transaction ->
+                // PRIMERO: Todas las lecturas
+                val productSnapshots = sale.products.map { product ->
+                    val productRef = firestore.collection("productos").document(product.id)
+                    product to transaction.get(productRef)
+                }
+
+                // LUEGO: Todas las escrituras
+                productSnapshots.forEach { (product, snapshot) ->
+                    val currentStock = snapshot.getLong("quantity")?.toInt() ?: 0
+                    val newStock = currentStock + product.quantity // Sumamos para revertir
+
+                    transaction.update(snapshot.reference, "quantity", newStock)
+                }
+            }.await()
+            true
+        } catch (e: Exception) {
+            Log.e("SaleRepo", "Error en devolución", e)
+            false
+        }
+    }
 }

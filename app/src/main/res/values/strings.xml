@@ -124,6 +124,7 @@
     <string name="sale_date">Fecha: %s</string>
     <string name="total_usd">Total: $%.2f</string>
     <string name="total_bs">Total: Bs. %.2f</string>
+    <string name="Devolver_venta">btnReturn</string>
 
     <!-- Formato completo del detalle del producto -->
     <string name="product_detail_format">%1$d x %2$s = %3$s</string>
