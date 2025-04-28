@@ -13,13 +13,10 @@ import android.view.View
 import android.text.Editable
 import android.text.TextWatcher
 
-class
-AddProductActivity : AppCompatActivity() {
+class AddProductActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddProductBinding
     private val viewModel: ProductViewModel by viewModels()
-
-    // Cambio clave: Especificar el tipo genérico explícitamente
     private var saveObserver: Observer<Boolean>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +24,20 @@ AddProductActivity : AppCompatActivity() {
         binding = ActivityAddProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupToolbar()
         setupUI()
         setupObservers()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = "Agregar Producto"
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun setupUI() {
@@ -115,15 +124,32 @@ AddProductActivity : AppCompatActivity() {
         }
     }
 
+    private fun showProgress(show: Boolean) {
+        if (show) {
+            binding.toolbarProgress.visibility = View.VISIBLE
+            binding.toolbarProgress.animate()
+                .alpha(1f)
+                .setDuration(200)
+                .start()
+        } else {
+            binding.toolbarProgress.animate()
+                .alpha(0f)
+                .setDuration(200)
+                .withEndAction {
+                    binding.toolbarProgress.visibility = View.INVISIBLE
+                }
+                .start()
+        }
+        binding.btnSave.isEnabled = !show
+    }
+
     private fun saveProduct() {
         if (viewModel.isSaving.value == true) {
             Log.w("SaveFlow", "Guardado en progreso - ignorando clic")
             return
         }
 
-        binding.btnSave.isEnabled = false
-        binding.progressBar.visibility = View.VISIBLE
-
+        showProgress(true)
         val newProduct = createProductFromInputs()
         viewModel.addProduct(newProduct)
     }
@@ -139,19 +165,16 @@ AddProductActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        // Remover observer previo
         saveObserver?.let { viewModel.saveSuccess.removeObserver(it) }
 
-        // Cambio clave: Especificar tipo explícitamente
         saveObserver = Observer<Boolean> { success ->
-            binding.progressBar.visibility = View.GONE
-            binding.btnSave.isEnabled = true
+            showProgress(false)
 
             if (success) {
-                Toast.makeText(this@AddProductActivity, "Producto guardado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Producto guardado", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                Toast.makeText(this@AddProductActivity, "Error al guardar producto", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al guardar producto", Toast.LENGTH_SHORT).show()
             }
         }.also {
             viewModel.saveSuccess.observe(this, it)
