@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="false">
-        <!-- Dominio principal y sus subdominios -->
-        <domain includeSubdomains="true">ve.dolarapi.com</domain>
-
-        <!-- Certificados válidos -->
+        <domain includeSubdomains="true">bcv.org.ve</domain>
         <trust-anchors>
-            <certificates src="system" />
-            <certificates src="user" />
+            <certificates src="@raw/bcv_cert"/>
+            <certificates src="system"/>
         </trust-anchors>
     </domain-config>
-
-    <!-- Configuración para desarrollo (opcional) -->
-    <debug-overrides>
-        <trust-anchors>
-            <certificates src="user" />
-        </trust-anchors>
-    </debug-overrides>
 </network-security-config>

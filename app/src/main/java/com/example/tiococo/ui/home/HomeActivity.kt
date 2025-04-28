@@ -36,6 +36,7 @@ import android.graphics.Canvas
 import androidx.core.content.FileProvider
 import android.util.Log
 import android.view.MotionEvent
+import com.example.tiococo.data.managers.BcvScraper
 
 class HomeActivity : AppCompatActivity() {
 
@@ -421,6 +422,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setupRateButton() {
         binding.btnUpdateRate.setOnClickListener {
             binding.btnUpdateRate.animate().rotationBy(360f).setDuration(300).start()
+            testScraping()
             lifecycleScope.launch {
                 viewModel.refreshExchangeRate()
             }
@@ -482,5 +484,47 @@ class HomeActivity : AppCompatActivity() {
         Log.d("ActivityLifecycle", "HomeActivity - onDestroy")
         searchJob?.cancel()
         super.onDestroy()
+    }
+
+    private fun testScraping() {
+        lifecycleScope.launch {
+            try {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.tvExchangeRate.visibility = View.GONE
+
+                // Pasa el contexto actual (this@HomeActivity)
+                val rate = BcvScraper.getDollarRate(this@HomeActivity)
+
+                runOnUiThread {
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvExchangeRate.visibility = View.VISIBLE
+
+                    if (rate != null) {
+                        binding.tvExchangeRate.text = getString(R.string.testScraping, rate)
+                        Toast.makeText(
+                            this@HomeActivity,
+                            "Tasa actualizada: ${"%.2f".format(rate)}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            this@HomeActivity,
+                            "No se pudo obtener la tasa. Ver logs.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(
+                        this@HomeActivity,
+                        "Error: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                Log.e("BCV_DEBUG", "Error completo", e)
+            }
+        }
     }
 }

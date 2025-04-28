@@ -27,30 +27,38 @@ class RateUpdateWorker(
             Log.d(TAG, "Iniciando actualización de tasa...")
             val rateResult = ExchangeRateManager.getCurrentRateWithStatus(applicationContext, true)
 
-            if (rateResult.isFromCache) {
-                Log.w(TAG, "Se usó tasa en caché - Reintentando en 1 hora")
-                // Crear un nuevo WorkRequest con backoff configurado
-                val retryRequest = OneTimeWorkRequest.Builder(RateUpdateWorker::class.java)
-                    .setBackoffCriteria(
-                        BackoffPolicy.LINEAR,
-                        RETRY_DELAY_HOURS,
-                        TimeUnit.HOURS
-                    )
-                    .build()
-
-                WorkManager.getInstance(applicationContext).enqueue(retryRequest)
-                return@withContext Result.failure()
+            when {
+                rateResult.error is NoInternetException -> {
+                    Log.w(TAG, "Sin conexión a internet")
+                    Result.retry()
+                }
+                rateResult.isFromCache -> {
+                    Log.w(TAG, "Se usó tasa en caché - Reintentando en 1 hora")
+                    scheduleRetry(applicationContext)
+                    Result.failure()
+                }
+                else -> {
+                    Log.i(TAG, "Tasa actualizada correctamente: ${rateResult.rate}")
+                    Result.success()
+                }
             }
-
-            Log.i(TAG, "Tasa actualizada correctamente: ${rateResult.rate}")
-            Result.success()
-        } catch (e: NoInternetException) {
-            Log.w(TAG, "Sin conexión a internet", e)
-            Result.retry()
         } catch (e: Exception) {
             Log.e(TAG, "Error crítico", e)
+            scheduleRetry(applicationContext)
             Result.failure()
         }
+    }
+
+    private fun scheduleRetry(context: Context) {
+        val retryRequest = OneTimeWorkRequest.Builder(RateUpdateWorker::class.java)
+            .setBackoffCriteria(
+                BackoffPolicy.EXPONENTIAL,
+                RETRY_DELAY_HOURS,
+                TimeUnit.HOURS
+            )
+            .build()
+
+        WorkManager.getInstance(context).enqueue(retryRequest)
     }
 
     companion object {
