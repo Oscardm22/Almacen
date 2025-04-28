@@ -2,7 +2,6 @@ package com.example.tiococo.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tiococo.databinding.ActivityLoginBinding
@@ -13,7 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import android.text.Editable
 import android.text.TextWatcher
-
+import android.view.View
+import kotlinx.coroutines.delay
+import android.view.animation.AnimationUtils
+import com.example.tiococo.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -111,28 +113,55 @@ class LoginActivity : AppCompatActivity() {
     private fun performLogin(username: String, password: String) {
         val userRepository = UserRepository()
 
+        // Mostrar animación y deshabilitar botón
+        binding.progressBar.visibility = View.VISIBLE
+        binding.btnLogin.isEnabled = false
+        binding.btnLogin.alpha = 0.7f
+
         lifecycleScope.launch {
             try {
                 val user = userRepository.verifyUser(username, password)
+
+                // Pequeño delay para que se vea la animación (opcional)
+                delay(500) // Importar kotlinx.coroutines.delay
+
                 if (user != null) {
-                    // Guardar sesión (asegurando que username es el ID del documento)
+                    // Guardar sesión
                     getSharedPreferences("user_prefs", MODE_PRIVATE).edit {
                         putBoolean("is_logged_in", true)
-                        putString("username", username) // <- Usar el parámetro username directamente
+                        putString("username", username)
                         putString("password_hash", user.password)
                         apply()
                     }
 
-                    Log.d("LOGIN", "Usuario autenticado: $username")
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                     finish()
                 } else {
-                    Toast.makeText(this@LoginActivity, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                    showLoginError()
                 }
             } catch (e: Exception) {
-                Log.e("LOGIN_ERROR", "Error en autenticación", e)
-                Toast.makeText(this@LoginActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
+                showLoginError(e.message ?: "Error desconocido")
+            } finally {
+                // Ocultar animación y habilitar botón
+                binding.progressBar.visibility = View.GONE
+                binding.btnLogin.isEnabled = true
+                binding.btnLogin.alpha = 1f
             }
+        }
+    }
+
+    private fun showLoginError(errorMessage: String? = null) {
+        runOnUiThread {
+            val message = errorMessage ?: "Credenciales incorrectas"
+            Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility = View.GONE
+            binding.btnLogin.isEnabled = true
+            binding.btnLogin.alpha = 1f
+
+            // Animación de shake para el formulario
+            val shake = AnimationUtils.loadAnimation(this, R.anim.shake)
+            binding.usernameInputLayout.startAnimation(shake)
+            binding.passwordInputLayout.startAnimation(shake)
         }
     }
 }
