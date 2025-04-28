@@ -31,12 +31,13 @@ import android.view.View
 import java.io.File
 import android.graphics.pdf.PdfDocument
 import android.graphics.Paint
-import androidx.core.graphics.blue
 import android.graphics.Canvas
 import androidx.core.content.FileProvider
 import android.util.Log
 import android.view.MotionEvent
 import com.example.tiococo.data.managers.BcvScraper
+import android.graphics.Color
+import android.graphics.Typeface
 
 class HomeActivity : AppCompatActivity() {
 
@@ -265,48 +266,67 @@ class HomeActivity : AppCompatActivity() {
     private fun exportInventoryToPdf(products: List<Product>) {
         try {
             val document = PdfDocument()
-            val paint = Paint()
-            val titlePaint = Paint().apply {
-                color = color.blue
-                textSize = 16f
-                style = Paint.Style.FILL
+
+            // Configurar Paint para el texto principal
+            val paint = Paint().apply {
+                isAntiAlias = true
+                textSize = 12f // Tamaño de texto adecuado
+                color = Color.BLACK
+                typeface = Typeface.DEFAULT // Asegurar Typeface no nulo
             }
 
-
+            // Configurar Paint para el título
+            val titlePaint = Paint().apply {
+                isAntiAlias = true
+                textSize = 16f
+                color = Color.BLUE
+                typeface = Typeface.DEFAULT_BOLD
+            }
 
             var pageNumber = 1
             var y = 40
             var page = document.startPage(PdfDocument.PageInfo.Builder(595, 842, pageNumber).create())
-            val canvas: Canvas = page.canvas
+            var canvas: Canvas = page.canvas
 
+            // Dibujar título
             canvas.drawText("Inventario de Productos", 40f, y.toFloat(), titlePaint)
             y += 30
+
+            // Dibujar encabezados
             canvas.drawText("Nombre | Cantidad | $ | Bs", 40f, y.toFloat(), paint)
             y += 20
 
             for (product in products) {
                 val priceInBolivares = product.priceDollars * (viewModel.exchangeRate.value ?: 1.0)
                 val line = "${product.name} | ${product.quantity} | $${product.priceDollars} | Bs ${"%.2f".format(priceInBolivares)}"
+
+                // Verificar si necesitamos nueva página
                 if (y >= 800) {
                     document.finishPage(page)
                     pageNumber++
                     page = document.startPage(PdfDocument.PageInfo.Builder(595, 842, pageNumber).create())
+                    canvas = page.canvas // Actualizar referencia al canvas
                     canvas.drawText("Inventario (cont.)", 40f, 40f, titlePaint)
                     y = 70
                 }
-                page.canvas.drawText(line, 40f, y.toFloat(), paint)
+
+                // Dibujar línea de producto
+                canvas.drawText(line, 40f, y.toFloat(), paint)
                 y += 20
             }
 
             document.finishPage(page)
 
+            // Guardar el documento
             val file = File(getExternalFilesDir(null), "inventario.pdf")
             document.writeTo(file.outputStream())
             document.close()
+
+            // Compartir el archivo
             shareFile(file, "application/pdf", "Compartir inventario (PDF)")
         } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(this, "Error al exportar PDF", Toast.LENGTH_SHORT).show()
+            Log.e("PDF Export", "Error al generar PDF", e)
+            Toast.makeText(this, "Error al exportar PDF: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
