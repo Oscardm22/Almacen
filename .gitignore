@@ -1,15 +1,26 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# IDE
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
+*.ipr
+*.iws
+
+# Kotlin
+.kotlin/
+
+# Android
+local.properties
+captures/
 .externalNativeBuild
 .cxx
-local.properties
+
+# OS
+.DS_Store
+
+# Logs y cachés
+logs/
+*.log
