@@ -24,3 +24,10 @@ captures/
 # Logs y cachés
 logs/
 *.log
+
+# Google Services config
+google-services.json
+
+# Archivos de configuración de servicios
+google-services.json.enc
+google-services.enc
