@@ -46,7 +46,7 @@ class TioCocoApp : Application() {
             // Programar nuevo trabajo
             enqueueUniquePeriodicWork(
                 "rateUpdateUniqueWork",
-                ExistingPeriodicWorkPolicy.REPLACE, // Usar REPLACE en lugar de UPDATE
+                ExistingPeriodicWorkPolicy.REPLACE,
                 request
             )
 
@@ -60,7 +60,7 @@ class TioCocoApp : Application() {
         }
     }
 
-    // Función separada para el debug (opcional)
+    // Función separada para el debug
     private fun setupWorkManagerDebugging() {
         WorkManager.getInstance(this)
             .getWorkInfosByTagLiveData(RateUpdateWorker.WORK_TAG)
